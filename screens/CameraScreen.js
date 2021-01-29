@@ -1,5 +1,5 @@
 import { Camera } from "expo-camera";
-import {API_KEY} from '../secrets.js'
+import { API_KEY } from "../secrets.js";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
@@ -19,23 +19,28 @@ const CameraScreen = () => {
   }, []);
 
   const takePicture = async () => {
-    const option = { base64: true };
-    if (camera) {
-      const data = await camera.takePictureAsync(option);
-      // console.log(data.base64);
-      setPicture(data.base64);
-      console.log("PICTURE", picture[1]);
-      toTest();
+    try {
+      const option = { base64: true };
+      if (camera) {
+        const data = await camera.takePictureAsync(option);
+        // console.log(data.base64);
+        setPicture(data.base64);
+        // console.log("PICTURE", picture[1]);
+      }
+      // console.log(picture)
+    } catch (err) {
+      console.log(err);
     }
-    // console.log(picture)
   };
+  useEffect(() => {
+   toTest();
+  }, [picture]);
 
   const toTest = async () => {
     console.log("hey");
     try {
       let response = await fetch(
-        "https://vision.googleapis.com/v1/images:annotate?key=" +
-        API_KEY,
+        "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
         {
           method: "POST",
           headers: {
@@ -58,7 +63,7 @@ const CameraScreen = () => {
           }),
         }
       );
-      console.log(picture[1]);
+      // console.log(picture[1]);
       const responseJSON = await response.json();
       // console.log(await response.json())
       // console.log(responseJSON)
