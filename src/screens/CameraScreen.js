@@ -1,7 +1,7 @@
-import {Camera} from 'expo-camera'
+import { Camera } from "expo-camera";
 
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = () => {
@@ -14,18 +14,18 @@ const CameraScreen = () => {
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasPermission(status === "granted");
     })();
   }, []);
 
   const takePicture = async () => {
-      const option = {base64: true}
-      if (camera) {
-          const data = await camera.takePictureAsync(option);
-          console.log(data);
-          setImage(data.uri);
-      }
-  }
+    const option = { base64: true };
+    if (camera) {
+      const data = await camera.takePictureAsync(option);
+      console.log(data);
+      setImage(data.uri);
+    }
+  };
 
   if (hasPermission === null) {
     return <View />;
@@ -35,15 +35,13 @@ const CameraScreen = () => {
   }
   return (
     <View style={styles.container}>
-      <Camera 
-        ref={ref => setCamera(ref)} 
-        style={styles.camera} 
-        type={type}>
+      <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
-            <TouchableOpacity
+          <TouchableOpacity
             style={styles.shutterButton}
-            onPress = { () => takePicture()} >
-            <Text style={styles.text}>Take Picture</Text>
+            onPress={() => takePicture()}
+          >
+            <Text style={styles.shutterButtonText}>Take Picture</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.flipButton}
@@ -53,7 +51,8 @@ const CameraScreen = () => {
                   ? Camera.Constants.Type.front
                   : Camera.Constants.Type.back
               );
-            }}>
+            }}
+          >
             <Text style={styles.text}> Flip </Text>
           </TouchableOpacity>
           {/* this can be deleted once you confirm you have access to the image in api */}
@@ -62,7 +61,7 @@ const CameraScreen = () => {
       </Camera>
     </View>
   );
-}
+};
 
 export default CameraScreen;
 
@@ -73,23 +72,31 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1,
   },
+
   buttonContainer: {
     flex: 1,
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
+    backgroundColor: "transparent",
+    flexDirection: "row",
     margin: 20,
   },
   flipButton: {
     flex: 0.1,
-    alignSelf: 'flex-end',
+    alignSelf: "flex-start",
+    alignItems: "center",
   },
   shutterButton: {
-      flex: 0.1,
-      alignSelf: 'center',
-      backgroundColor: '#00FF00'
+    flex: 0.3,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    alignSelf: "center",
+    backgroundColor: "#009688",
+    borderRadius: 50,
   },
-  text: {
-    fontSize: 18,
-    color: 'white',
+  shutterButtonText: {
+    fontSize: 16,
+    color: "#fff",
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    alignSelf: "center",
   },
 });
