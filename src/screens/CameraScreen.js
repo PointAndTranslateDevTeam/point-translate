@@ -41,12 +41,12 @@ const CameraScreen = () => {
         type={type}>
         <View style={styles.buttonContainer}>
             <TouchableOpacity
-            style={styles.button}
+            style={styles.shutterButton}
             onPress = { () => takePicture()} >
             <Text style={styles.text}>Take Picture</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.button}
+            style={styles.flipButton}
             onPress={() => {
               setType(
                 type === Camera.Constants.Type.back
@@ -57,7 +57,7 @@ const CameraScreen = () => {
             <Text style={styles.text}> Flip </Text>
           </TouchableOpacity>
           {/* this can be deleted once you confirm you have access to the image in api */}
-          {image && <Image source = {{uri: image}} style={{ flex: 1 }} /> }
+          {/* {image && <Image source = {{uri: image}} style={{ flex: 1 }} /> } */}
         </View>
       </Camera>
     </View>
@@ -79,10 +79,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 20,
   },
-  button: {
+  flipButton: {
     flex: 0.1,
     alignSelf: 'flex-end',
-    alignItems: 'center',
+  },
+  shutterButton: {
+      flex: 0.1,
+      alignSelf: 'center',
+      backgroundColor: '#00FF00'
   },
   text: {
     fontSize: 18,
