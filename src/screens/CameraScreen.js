@@ -37,13 +37,7 @@ const CameraScreen = () => {
     <View style={styles.container}>
       <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.shutterButton}
-            onPress={() => takePicture()}
-          >
-            <Text style={styles.shutterButtonText}>Take Picture</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+        <TouchableOpacity
             style={styles.flipButton}
             onPress={() => {
               setType(
@@ -53,8 +47,15 @@ const CameraScreen = () => {
               );
             }}
           >
-            <Text style={styles.text}> Flip </Text>
+            <Text style={styles.flipButtonText}> Flip </Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.shutterButton}
+            onPress={() => takePicture()}
+          >
+            <Text style={styles.shutterButtonText}>Take Picture</Text>
+          </TouchableOpacity>
+          
           {/* this can be deleted once you confirm you have access to the image in api */}
           {/* {image && <Image source = {{uri: image}} style={{ flex: 1 }} /> } */}
         </View>
@@ -76,27 +77,32 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     backgroundColor: "transparent",
-    flexDirection: "row",
-    margin: 20,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    margin: 10,
   },
+  
   flipButton: {
     flex: 0.1,
     alignSelf: "flex-start",
-    alignItems: "center",
   },
   shutterButton: {
-    flex: 0.3,
+    flex: 0.1,
     paddingVertical: 10,
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     alignSelf: "center",
     backgroundColor: "#009688",
     borderRadius: 50,
+    justifyContent: "center"
   },
   shutterButtonText: {
-    fontSize: 16,
+    fontSize: 12,
     color: "#fff",
     fontWeight: "bold",
     textTransform: "uppercase",
-    alignSelf: "center",
-  },
+ },
+  flipButtonText: {
+    fontSize: 18,
+    color: 'white',
+  }
 });
