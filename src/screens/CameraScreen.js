@@ -8,6 +8,7 @@ const CameraScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
+  //the image should be accessible on state to any component which imports it
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -55,6 +56,7 @@ const CameraScreen = () => {
             }}>
             <Text style={styles.text}> Flip </Text>
           </TouchableOpacity>
+          {/* this can be deleted once you confirm you have access to the image in api */}
           {image && <Image source = {{uri: image}} style={{ flex: 1 }} /> }
         </View>
       </Camera>
