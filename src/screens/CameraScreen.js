@@ -1,13 +1,14 @@
 import {Camera} from 'expo-camera'
 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -17,9 +18,11 @@ const CameraScreen = () => {
   }, []);
 
   const takePicture = async () => {
+      const option = {base64: true}
       if (camera) {
-          const data = await camera.takePictureAsync(null);
-          console.log(data.uri)
+          const data = await camera.takePictureAsync(option);
+          console.log(data);
+          setImage(data.uri);
       }
   }
 
@@ -52,6 +55,7 @@ const CameraScreen = () => {
             }}>
             <Text style={styles.text}> Flip </Text>
           </TouchableOpacity>
+          {image && <Image source = {{uri: image}} style={{ flex: 1 }} /> }
         </View>
       </Camera>
     </View>
