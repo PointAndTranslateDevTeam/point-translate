@@ -1,5 +1,5 @@
 import { Camera } from "expo-camera";
-
+import {API_KEY} from '../secrets.js'
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
@@ -35,7 +35,7 @@ const CameraScreen = () => {
     try {
       let response = await fetch(
         "https://vision.googleapis.com/v1/images:annotate?key=" +
-        process.env.API_KEY,
+        API_KEY,
         {
           method: "POST",
           headers: {
