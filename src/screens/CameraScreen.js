@@ -1,6 +1,6 @@
 import {Camera} from 'expo-camera'
 
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 //Choosing a functional component gives us access to useState hook
