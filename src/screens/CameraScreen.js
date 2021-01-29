@@ -53,7 +53,7 @@ const CameraScreen = () => {
             style={styles.shutterButton}
             onPress={() => takePicture()}
           >
-            <Text style={styles.shutterButtonText}>Take Picture</Text>
+            {/* <Text style={styles.shutterButtonText}>point</Text> */}
           </TouchableOpacity>
           
           {/* this can be deleted once you confirm you have access to the image in api */}
@@ -81,19 +81,25 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     margin: 10,
   },
-  
+
   flipButton: {
     flex: 0.1,
     alignSelf: "flex-start",
   },
   shutterButton: {
-    flex: 0.1,
     paddingVertical: 10,
     paddingHorizontal: 10,
+    padding: 40,
     alignSelf: "center",
-    backgroundColor: "#009688",
+    backgroundColor: "#D90E18",
+    borderColor: "#B00000",
+    borderBottomColor: '#AE2321',
     borderRadius: 50,
-    justifyContent: "center"
+    borderWidth: 8,
+    width: 80,
+    height: 80,
+    justifyContent: "center",
+    margin: 20,
   },
   shutterButtonText: {
     fontSize: 12,
