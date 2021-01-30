@@ -1,7 +1,14 @@
 import { Camera } from "expo-camera";
 import { API_KEY } from "../secrets.js";
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = () => {
@@ -32,12 +39,18 @@ const CameraScreen = () => {
       console.log(err);
     }
   };
+
+  const loaded = useRef(false);
   useEffect(() => {
-   toTest();
+    if (loaded.current) {
+      toText();
+    } else {
+      loaded.current = true;
+    }
   }, [picture]);
 
-  const toTest = async () => {
-    // console.log("hey");
+  const toText = async () => {
+    console.log("hey");
     try {
       let response = await fetch(
         "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
@@ -55,7 +68,7 @@ const CameraScreen = () => {
                 },
                 features: [
                   {
-                    type: "TEXT_DETECTION",
+                    type: "DOCUMENT_TEXT_DETECTION",
                   },
                 ],
               },
@@ -66,10 +79,45 @@ const CameraScreen = () => {
       // console.log(picture[1]);
       const responseJSON = await response.json();
       // console.log(await response.json())
-      // console.log(responseJSON)
-      // console.log(responseJSON.fullTextAnnotation.text)
+      // console.log(responseJSON);
+      // console.log(responseJSON.responses[0]);
+      // console.log(responseJSON.responses[0].fullTextAnnotation.text);
 
-      console.log(responseJSON.responses[0].fullTextAnnotation.text);
+      // need to specify that if responseJS.responses[0] is an empty object AND if fullTextAnnotation is undefined, then no text
+      if (responseJSON.responses[0] === {} || !responseJSON.responses[0].fullTextAnnotation) {
+        Alert.alert(
+          "No Text",
+          "Sorry, we did not detect any text in your image.",
+          // do we need OK/cancel? If not, I can remove!
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+            { text: "OK", onPress: () => console.log("OK Pressed") },
+          ],
+          { cancelable: false }
+        );
+
+      } else {
+        Alert.alert(
+          "Please confirm detected text:",
+          responseJSON.responses[0].fullTextAnnotation.text,
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+            // left console.log to show it is working but we can call a function to translate the text after press OK
+            // also suggesting that we set the state of "responseJSON.responses[0].fullTextAnnotation.text" to be original text or anything after confirmation.. depends how we are using state/store/etc
+            { text: "OK", onPress: () => console.log("OK Pressed") },
+          ],
+          { cancelable: false }
+        );
+      }
+      console.log("bye");
     } catch (err) {
       console.error(err);
     }
@@ -100,7 +148,6 @@ const CameraScreen = () => {
           >
             <Text style={styles.text}> Flip </Text>
           </TouchableOpacity>
-
         </View>
       </Camera>
     </View>
