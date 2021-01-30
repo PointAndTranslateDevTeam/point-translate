@@ -2,6 +2,7 @@ import { Camera } from "expo-camera";
 import { API_KEY } from "../secrets.js";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { connect } from "react-redux";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = () => {
@@ -33,7 +34,7 @@ const CameraScreen = () => {
     }
   };
   useEffect(() => {
-   toTest();
+    toTest();
   }, [picture]);
 
   const toTest = async () => {
@@ -100,14 +101,17 @@ const CameraScreen = () => {
           >
             <Text style={styles.text}> Flip </Text>
           </TouchableOpacity>
-
         </View>
       </Camera>
     </View>
   );
 };
 
-export default CameraScreen;
+const mapStateToProps = (state) => {
+  return { source: state.source, target: state.target };
+};
+
+export default connect(mapStateToProps)(CameraScreen);
 
 const styles = StyleSheet.create({
   container: {
