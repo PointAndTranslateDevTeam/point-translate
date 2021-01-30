@@ -15,6 +15,7 @@ const sourceReducer = (state = initialState, action) => {
   switch (action.type) {
     case DETECTED_TEXT:
       return {
+        ...state,
         //check what recognizedText is
         detectedText: action.source.recognizedText,
       };

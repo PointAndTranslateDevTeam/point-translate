@@ -34,10 +34,10 @@ const CameraScreen = () => {
     }
   };
   useEffect(() => {
-    toTest();
+    toText();
   }, [picture]);
 
-  const toTest = async () => {
+  const toText = async () => {
     // console.log("hey");
     try {
       let response = await fetch(
