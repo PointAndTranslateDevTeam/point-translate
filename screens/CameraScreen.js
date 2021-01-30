@@ -37,7 +37,7 @@ const CameraScreen = () => {
   }, [picture]);
 
   const toTest = async () => {
-    console.log("hey");
+    // console.log("hey");
     try {
       let response = await fetch(
         "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
@@ -100,8 +100,7 @@ const CameraScreen = () => {
           >
             <Text style={styles.text}> Flip </Text>
           </TouchableOpacity>
-          {/* this can be deleted once you confirm you have access to the image in api */}
-          {/* {image && <Image source = {{uri: image}} style={{ flex: 1 }} /> } */}
+
         </View>
       </Camera>
     </View>
