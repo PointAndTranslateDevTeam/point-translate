@@ -10,10 +10,10 @@ import {
   Alert,
 } from "react-native";
 import { connect } from "react-redux";
-import getText from "../store/source";
+import { getText } from "../store/source";
 
 //Choosing a functional component gives us access to useState hook
-const CameraScreen = (props) => {
+const CameraScreen = ({ getText }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
@@ -45,13 +45,20 @@ const CameraScreen = (props) => {
 
   const textLoaded = useRef(false);
   useEffect(() => {
-    if (textLoaded.current) {
-      console.log("PICTURE[0]", picture[0]);
-      // let result = props.getText(picture);
-      // console.log("RESULT>>>>>>>>", result);
-    } else {
-      textLoaded.current = true;
-    }
+    // console.log('HELLOO')
+    (async () => {
+      if (textLoaded.current) {
+        console.log("PICTURE[0]", picture[0]);
+        try {
+          let result = await getText(picture);
+          console.log("RESULT>>>>>>>>", result.source);
+        } catch (err) {
+          console.error(err);
+        }
+      } else {
+        textLoaded.current = true;
+      }
+    })();
   }, [picture]);
 
   const translateLoaded = useRef(false);
@@ -77,7 +84,7 @@ const CameraScreen = (props) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            q: text,
+            q: `${props.source.detectedText}`,
             //"source": "en",
             target: "es",
             //"format": "text"

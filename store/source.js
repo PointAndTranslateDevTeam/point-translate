@@ -1,3 +1,4 @@
+import { API_KEY } from "../secrets.js";
 const initialState = {
   detectedText: "",
 };
@@ -39,16 +40,18 @@ export const getText = (picture) => {
         }
       );
       const responseJSON = await response.json();
-      if (
-        responseJSON.responses[0] === {} ||
-        !responseJSON.responses[0].fullTextAnnotation
-      ) {
-        return "Sorry, we did not detect any text in your image.";
-      } else {
-        dispatch(
-          detectedText(responseJSON.responses[0].fullTextAnnotation.text)
-        );
-      }
+      const res = dispatch(detectedText(responseJSON.responses[0].fullTextAnnotation.text))
+      return res;
+      // if (
+      //   responseJSON.responses[0] === {} ||
+      //   !responseJSON.responses[0].fullTextAnnotation
+      // ) {
+      //   return "Sorry, we did not detect any text in your image.";
+      // } else {
+      //   dispatch(
+      //     detectedText(responseJSON.responses[0].fullTextAnnotation.text)
+      //   );
+      // }
     } catch (err) {
       console.error(err);
     }
@@ -59,8 +62,6 @@ const sourceReducer = (state = initialState, action) => {
   switch (action.type) {
     case DETECTED_TEXT:
       return {
-        ...state,
-        //check what recognizedText is
         detectedText: action.source,
       };
     default:
