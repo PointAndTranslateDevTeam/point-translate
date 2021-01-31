@@ -41,20 +41,27 @@ const CameraScreen = () => {
     }
   };
 
-  const loaded = useRef(false);
+  const textLoaded = useRef(false);
   useEffect(() => {
-    if (loaded.current) {
+    if (textLoaded.current) {
       toText();
     } else {
-      loaded.current = true;
+      textLoaded.current = true;
     }
   }, [picture]);
 
-
+  const translateLoaded = useRef(false);
+  useEffect(() => {
+    if (translateLoaded.current) {
+      translate()
+    } else {
+      translateLoaded.current = true;
+    }
+  }, [text]);
 
   const translate = async () => {
     console.log("heytranslate");
-    console.log("text", text)
+    console.log("text", text);
     try {
       let response = await fetch(
         "https://translation.googleapis.com/language/translate/v2?key=" +
@@ -113,7 +120,6 @@ const CameraScreen = () => {
       // console.log(responseJSON);
       // console.log(responseJSON.responses[0]);
       // console.log(responseJSON.responses[0].fullTextAnnotation.text);
-      setText(responseJSON.responses[0].fullTextAnnotation.text);
       // need to specify that if responseJS.responses[0] is an empty object AND if fullTextAnnotation is undefined, then no text
       if (
         responseJSON.responses[0] === {} ||
@@ -145,8 +151,8 @@ const CameraScreen = () => {
             },
             // left console.log to show it is working but we can call a function to translate the text after press OK
             // also suggesting that we set the state of "responseJSON.responses[0].fullTextAnnotation.text" to be original text or anything after confirmation.. depends how we are using state/store/etc
-            { text: "OK", onPress: () => translate() },
-            
+            // { text: "OK", onPress: console.log("HELLO") },
+            { text: "OK", onPress: () => setText(responseJSON.responses[0].fullTextAnnotation.text) },
           ],
           { cancelable: false }
         );
