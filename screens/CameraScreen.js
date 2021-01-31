@@ -17,6 +17,7 @@ const CameraScreen = () => {
   const [camera, setCamera] = useState(null);
   //the image should be accessible on state to any component which imports it
   const [picture, setPicture] = useState(null);
+  const [text, setText] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -43,7 +44,7 @@ const CameraScreen = () => {
   const loaded = useRef(false);
   useEffect(() => {
     if (loaded.current) {
-      //toText();
+      toText();
     } else {
       loaded.current = true;
     }
@@ -52,20 +53,22 @@ const CameraScreen = () => {
   const getLangs = async () => {
     try {
       let response = await fetch(
-        "https://translation.googleapis.com/language/translate/v2/languages/?key=" + API_KEY,
+        "https://translation.googleapis.com/language/translate/v2/languages/?key=" +
+          API_KEY,
         {
-          method: "GET"
+          method: "GET",
         }
       );
       const jsonResponse = await response.json();
       console.log("response", jsonResponse);
-    } catch(err) {
-      console.error(err.message)
+    } catch (err) {
+      console.error(err.message);
     }
-  }
+  };
 
   const translate = async () => {
     console.log("heytranslate");
+    console.log("text", text)
     try {
       let response = await fetch(
         "https://translation.googleapis.com/language/translate/v2?key=" +
@@ -77,11 +80,11 @@ const CameraScreen = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            "q": "hello world i don't understand json",
+            q: text,
             //"source": "en",
-            "target": "es",
+            target: "es",
             //"format": "text"
-          })
+          }),
         }
       );
       const jsonResponse = await response.json();
@@ -89,7 +92,7 @@ const CameraScreen = () => {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const toText = async () => {
     console.log("hey");
@@ -124,9 +127,12 @@ const CameraScreen = () => {
       // console.log(responseJSON);
       // console.log(responseJSON.responses[0]);
       // console.log(responseJSON.responses[0].fullTextAnnotation.text);
-
+      setText(responseJSON.responses[0].fullTextAnnotation.text);
       // need to specify that if responseJS.responses[0] is an empty object AND if fullTextAnnotation is undefined, then no text
-      if (responseJSON.responses[0] === {} || !responseJSON.responses[0].fullTextAnnotation) {
+      if (
+        responseJSON.responses[0] === {} ||
+        !responseJSON.responses[0].fullTextAnnotation
+      ) {
         Alert.alert(
           "No Text",
           "Sorry, we did not detect any text in your image.",
@@ -141,7 +147,6 @@ const CameraScreen = () => {
           ],
           { cancelable: false }
         );
-
       } else {
         Alert.alert(
           "Please confirm detected text:",
@@ -154,7 +159,7 @@ const CameraScreen = () => {
             },
             // left console.log to show it is working but we can call a function to translate the text after press OK
             // also suggesting that we set the state of "responseJSON.responses[0].fullTextAnnotation.text" to be original text or anything after confirmation.. depends how we are using state/store/etc
-            { text: "OK", onPress: () => console.log("OK Pressed") },
+            { text: "OK", onPress: () => translate() },
           ],
           { cancelable: false }
         );
@@ -175,22 +180,23 @@ const CameraScreen = () => {
     <View style={styles.container}>
       <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
-          
           <TouchableOpacity
             style={styles.flipButton}
-            onPress={() => translate()}
-            // onPress={() => {
-            //   setType(
-            //     type === Camera.Constants.Type.back
-            //       ? Camera.Constants.Type.front
-            //       : Camera.Constants.Type.back
-            //   );
-            // }}
+            // onPress={() => translate()}
+            onPress={() => {
+              setType(
+                type === Camera.Constants.Type.back
+                  ? Camera.Constants.Type.front
+                  : Camera.Constants.Type.back
+              );
+            }}
           >
             <Text style={styles.flipButtonText}> Flip </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.shutterButton} onPress={() => takePicture()}>
-          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.shutterButton}
+            onPress={() => takePicture()}
+          ></TouchableOpacity>
         </View>
       </Camera>
     </View>
@@ -229,7 +235,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     backgroundColor: "#D90E18",
     borderColor: "#B00000",
-    borderBottomColor: '#AE2321',
+    borderBottomColor: "#AE2321",
     borderRadius: 50,
     borderWidth: 8,
     width: 80,
