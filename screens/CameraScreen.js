@@ -43,13 +43,29 @@ const CameraScreen = () => {
   const loaded = useRef(false);
   useEffect(() => {
     if (loaded.current) {
-      toText();
+      //toText();
     } else {
       loaded.current = true;
     }
   }, [picture]);
 
+  const getLangs = async () => {
+    try {
+      let response = await fetch(
+        "https://translation.googleapis.com/language/translate/v2/languages/?key=" + API_KEY,
+        {
+          method: "GET"
+        }
+      );
+      const jsonResponse = await response.json();
+      console.log("response", jsonResponse);
+    } catch(err) {
+      console.error(err.message)
+    }
+  }
+
   const translate = async () => {
+    console.log("heytranslate");
     try {
       let response = await fetch(
         "https://translation.googleapis.com/language/translate/v2?key=" +
@@ -60,95 +76,94 @@ const CameraScreen = () => {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: {
-            q:
-              "The Great Pyramid of Giza (also known as the Pyramid of Khufu or the Pyramid of Cheops) is the oldest and largest of the three pyramids in the Giza pyramid complex.",
-            source: "en",
-            target: "es",
-            format: "text",
-          },
+          body: JSON.stringify({
+            "q": "hello world i don't understand json",
+            //"source": "en",
+            "target": "es",
+            //"format": "text"
+          })
         }
       );
-      const jsonResponse = await response.json;
-      console.log(jsonResponse);
+      const jsonResponse = await response.json();
+      console.log("response", jsonResponse);
     } catch (err) {
       console.log(err);
     }
   }
 
-  // const toText = async () => {
-  //   console.log("hey");
-  //   try {
-  //     let response = await fetch(
-  //       "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           Accept: "application/json",
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           requests: [
-  //             {
-  //               image: {
-  //                 content: picture,
-  //               },
-  //               features: [
-  //                 {
-  //                   type: "DOCUMENT_TEXT_DETECTION",
-  //                 },
-  //               ],
-  //             },
-  //           ],
-  //         }),
-  //       }
-  //     );
-  //     // console.log(picture[1]);
-  //     const responseJSON = await response.json();
-  //     // console.log(await response.json())
-  //     // console.log(responseJSON);
-  //     // console.log(responseJSON.responses[0]);
-  //     // console.log(responseJSON.responses[0].fullTextAnnotation.text);
+  const toText = async () => {
+    console.log("hey");
+    try {
+      let response = await fetch(
+        "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            requests: [
+              {
+                image: {
+                  content: picture,
+                },
+                features: [
+                  {
+                    type: "DOCUMENT_TEXT_DETECTION",
+                  },
+                ],
+              },
+            ],
+          }),
+        }
+      );
+      // console.log(picture[1]);
+      const responseJSON = await response.json();
+      // console.log(await response.json())
+      // console.log(responseJSON);
+      // console.log(responseJSON.responses[0]);
+      // console.log(responseJSON.responses[0].fullTextAnnotation.text);
 
-  //     // need to specify that if responseJS.responses[0] is an empty object AND if fullTextAnnotation is undefined, then no text
-  //     if (responseJSON.responses[0] === {} || !responseJSON.responses[0].fullTextAnnotation) {
-  //       Alert.alert(
-  //         "No Text",
-  //         "Sorry, we did not detect any text in your image.",
-  //         // do we need OK/cancel? If not, I can remove!
-  //         [
-  //           {
-  //             text: "Cancel",
-  //             onPress: () => console.log("Cancel Pressed"),
-  //             style: "cancel",
-  //           },
-  //           { text: "OK", onPress: () => console.log("OK Pressed") },
-  //         ],
-  //         { cancelable: false }
-  //       );
+      // need to specify that if responseJS.responses[0] is an empty object AND if fullTextAnnotation is undefined, then no text
+      if (responseJSON.responses[0] === {} || !responseJSON.responses[0].fullTextAnnotation) {
+        Alert.alert(
+          "No Text",
+          "Sorry, we did not detect any text in your image.",
+          // do we need OK/cancel? If not, I can remove!
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+            { text: "OK", onPress: () => console.log("OK Pressed") },
+          ],
+          { cancelable: false }
+        );
 
-  //     } else {
-  //       Alert.alert(
-  //         "Please confirm detected text:",
-  //         responseJSON.responses[0].fullTextAnnotation.text,
-  //         [
-  //           {
-  //             text: "Cancel",
-  //             onPress: () => console.log("Cancel Pressed"),
-  //             style: "cancel",
-  //           },
-  //           // left console.log to show it is working but we can call a function to translate the text after press OK
-  //           // also suggesting that we set the state of "responseJSON.responses[0].fullTextAnnotation.text" to be original text or anything after confirmation.. depends how we are using state/store/etc
-  //           { text: "OK", onPress: () => console.log("OK Pressed") },
-  //         ],
-  //         { cancelable: false }
-  //       );
-  //     }
-  //     console.log("bye");
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+      } else {
+        Alert.alert(
+          "Please confirm detected text:",
+          responseJSON.responses[0].fullTextAnnotation.text,
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+            // left console.log to show it is working but we can call a function to translate the text after press OK
+            // also suggesting that we set the state of "responseJSON.responses[0].fullTextAnnotation.text" to be original text or anything after confirmation.. depends how we are using state/store/etc
+            { text: "OK", onPress: () => console.log("OK Pressed") },
+          ],
+          { cancelable: false }
+        );
+      }
+      console.log("bye");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (hasPermission === null) {
     return <View />;
@@ -160,12 +175,10 @@ const CameraScreen = () => {
     <View style={styles.container}>
       <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={() => takePicture()}>
-            <Text style={styles.text}>Take Picture</Text>
-          </TouchableOpacity>
+          
           <TouchableOpacity
-            style={styles.button}
-              onPress={() => translate()}
+            style={styles.flipButton}
+            onPress={() => translate()}
             // onPress={() => {
             //   setType(
             //     type === Camera.Constants.Type.back
@@ -174,7 +187,9 @@ const CameraScreen = () => {
             //   );
             // }}
           >
-            <Text style={styles.text}> Flip </Text>
+            <Text style={styles.flipButtonText}> Flip </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.shutterButton} onPress={() => takePicture()}>
           </TouchableOpacity>
         </View>
       </Camera>
@@ -194,15 +209,35 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     backgroundColor: "transparent",
-    flexDirection: "row",
-    margin: 20,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    margin: 10,
   },
   button: {
     flex: 0.1,
     alignSelf: "flex-end",
     alignItems: "center",
   },
-  text: {
+  flipButton: {
+    flex: 0.1,
+    alignSelf: "flex-start",
+  },
+  shutterButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    padding: 40,
+    alignSelf: "center",
+    backgroundColor: "#D90E18",
+    borderColor: "#B00000",
+    borderBottomColor: '#AE2321',
+    borderRadius: 50,
+    borderWidth: 8,
+    width: 80,
+    height: 80,
+    justifyContent: "center",
+    margin: 20,
+  },
+  flipButtonText: {
     fontSize: 18,
     color: "white",
   },
