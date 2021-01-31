@@ -49,79 +49,106 @@ const CameraScreen = () => {
     }
   }, [picture]);
 
-  const toText = async () => {
-    console.log("hey");
+  const translate = async () => {
     try {
       let response = await fetch(
-        "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
+        "https://translation.googleapis.com/language/translate/v2?key=" +
+          API_KEY,
         {
           method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            requests: [
-              {
-                image: {
-                  content: picture,
-                },
-                features: [
-                  {
-                    type: "DOCUMENT_TEXT_DETECTION",
-                  },
-                ],
-              },
-            ],
-          }),
+          body: {
+            q:
+              "The Great Pyramid of Giza (also known as the Pyramid of Khufu or the Pyramid of Cheops) is the oldest and largest of the three pyramids in the Giza pyramid complex.",
+            source: "en",
+            target: "es",
+            format: "text",
+          },
         }
       );
-      // console.log(picture[1]);
-      const responseJSON = await response.json();
-      // console.log(await response.json())
-      // console.log(responseJSON);
-      // console.log(responseJSON.responses[0]);
-      // console.log(responseJSON.responses[0].fullTextAnnotation.text);
-
-      // need to specify that if responseJS.responses[0] is an empty object AND if fullTextAnnotation is undefined, then no text
-      if (responseJSON.responses[0] === {} || !responseJSON.responses[0].fullTextAnnotation) {
-        Alert.alert(
-          "No Text",
-          "Sorry, we did not detect any text in your image.",
-          // do we need OK/cancel? If not, I can remove!
-          [
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel",
-            },
-            { text: "OK", onPress: () => console.log("OK Pressed") },
-          ],
-          { cancelable: false }
-        );
-
-      } else {
-        Alert.alert(
-          "Please confirm detected text:",
-          responseJSON.responses[0].fullTextAnnotation.text,
-          [
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel",
-            },
-            // left console.log to show it is working but we can call a function to translate the text after press OK
-            // also suggesting that we set the state of "responseJSON.responses[0].fullTextAnnotation.text" to be original text or anything after confirmation.. depends how we are using state/store/etc
-            { text: "OK", onPress: () => console.log("OK Pressed") },
-          ],
-          { cancelable: false }
-        );
-      }
-      console.log("bye");
+      const jsonResponse = await response.json;
+      console.log(jsonResponse);
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
-  };
+  }
+
+  // const toText = async () => {
+  //   console.log("hey");
+  //   try {
+  //     let response = await fetch(
+  //       "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           Accept: "application/json",
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           requests: [
+  //             {
+  //               image: {
+  //                 content: picture,
+  //               },
+  //               features: [
+  //                 {
+  //                   type: "DOCUMENT_TEXT_DETECTION",
+  //                 },
+  //               ],
+  //             },
+  //           ],
+  //         }),
+  //       }
+  //     );
+  //     // console.log(picture[1]);
+  //     const responseJSON = await response.json();
+  //     // console.log(await response.json())
+  //     // console.log(responseJSON);
+  //     // console.log(responseJSON.responses[0]);
+  //     // console.log(responseJSON.responses[0].fullTextAnnotation.text);
+
+  //     // need to specify that if responseJS.responses[0] is an empty object AND if fullTextAnnotation is undefined, then no text
+  //     if (responseJSON.responses[0] === {} || !responseJSON.responses[0].fullTextAnnotation) {
+  //       Alert.alert(
+  //         "No Text",
+  //         "Sorry, we did not detect any text in your image.",
+  //         // do we need OK/cancel? If not, I can remove!
+  //         [
+  //           {
+  //             text: "Cancel",
+  //             onPress: () => console.log("Cancel Pressed"),
+  //             style: "cancel",
+  //           },
+  //           { text: "OK", onPress: () => console.log("OK Pressed") },
+  //         ],
+  //         { cancelable: false }
+  //       );
+
+  //     } else {
+  //       Alert.alert(
+  //         "Please confirm detected text:",
+  //         responseJSON.responses[0].fullTextAnnotation.text,
+  //         [
+  //           {
+  //             text: "Cancel",
+  //             onPress: () => console.log("Cancel Pressed"),
+  //             style: "cancel",
+  //           },
+  //           // left console.log to show it is working but we can call a function to translate the text after press OK
+  //           // also suggesting that we set the state of "responseJSON.responses[0].fullTextAnnotation.text" to be original text or anything after confirmation.. depends how we are using state/store/etc
+  //           { text: "OK", onPress: () => console.log("OK Pressed") },
+  //         ],
+  //         { cancelable: false }
+  //       );
+  //     }
+  //     console.log("bye");
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   if (hasPermission === null) {
     return <View />;
@@ -138,13 +165,14 @@ const CameraScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}
+              onPress={() => translate()}
+            // onPress={() => {
+            //   setType(
+            //     type === Camera.Constants.Type.back
+            //       ? Camera.Constants.Type.front
+            //       : Camera.Constants.Type.back
+            //   );
+            // }}
           >
             <Text style={styles.text}> Flip </Text>
           </TouchableOpacity>
