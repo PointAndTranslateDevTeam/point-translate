@@ -50,21 +50,7 @@ const CameraScreen = () => {
     }
   }, [picture]);
 
-  const getLangs = async () => {
-    try {
-      let response = await fetch(
-        "https://translation.googleapis.com/language/translate/v2/languages/?key=" +
-          API_KEY,
-        {
-          method: "GET",
-        }
-      );
-      const jsonResponse = await response.json();
-      console.log("response", jsonResponse);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+
 
   const translate = async () => {
     console.log("heytranslate");
@@ -160,6 +146,7 @@ const CameraScreen = () => {
             // left console.log to show it is working but we can call a function to translate the text after press OK
             // also suggesting that we set the state of "responseJSON.responses[0].fullTextAnnotation.text" to be original text or anything after confirmation.. depends how we are using state/store/etc
             { text: "OK", onPress: () => translate() },
+            
           ],
           { cancelable: false }
         );
