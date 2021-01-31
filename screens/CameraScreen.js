@@ -133,11 +133,9 @@ const CameraScreen = () => {
     <View style={styles.container}>
       <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={() => takePicture()}>
-            <Text style={styles.text}>Take Picture</Text>
-          </TouchableOpacity>
+          
           <TouchableOpacity
-            style={styles.button}
+            style={styles.flipButton}
             onPress={() => {
               setType(
                 type === Camera.Constants.Type.back
@@ -146,7 +144,9 @@ const CameraScreen = () => {
               );
             }}
           >
-            <Text style={styles.text}> Flip </Text>
+            <Text style={styles.flipButtonText}> Flip </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.shutterButton} onPress={() => takePicture()}>
           </TouchableOpacity>
         </View>
       </Camera>
@@ -166,15 +166,35 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     backgroundColor: "transparent",
-    flexDirection: "row",
-    margin: 20,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    margin: 10,
   },
   button: {
     flex: 0.1,
     alignSelf: "flex-end",
     alignItems: "center",
   },
-  text: {
+  flipButton: {
+    flex: 0.1,
+    alignSelf: "flex-start",
+  },
+  shutterButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    padding: 40,
+    alignSelf: "center",
+    backgroundColor: "#D90E18",
+    borderColor: "#B00000",
+    borderBottomColor: '#AE2321',
+    borderRadius: 50,
+    borderWidth: 8,
+    width: 80,
+    height: 80,
+    justifyContent: "center",
+    margin: 20,
+  },
+  flipButtonText: {
     fontSize: 18,
     color: "white",
   },
