@@ -46,6 +46,8 @@ const CameraScreen = ({ getText, orgText, error }) => {
         try {
           console.log("before", error, orgText);
           await getText(picture);
+          console.log(orgText, error)
+          // setText because if we do not, orgText is not updating when we take 2 photos of the same text -- ask during CODE REVIEW
           setText(orgText)
         } catch (err) {
           console.error(err);
@@ -89,7 +91,10 @@ const CameraScreen = ({ getText, orgText, error }) => {
     } else {
       confLoaded.current = true;
     }
-  }, [text]);
+  },
+ [text]);
+ // if we use orgText, orgText isn't updating when we take 2 pictures of same text.. BUT error is when we take 2 images of NO text -- ask during CODE REVIEW
+  // [orgText, error]);
 
   const translate = async () => {
     console.log("heytranslate");

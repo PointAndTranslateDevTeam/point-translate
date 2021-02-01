@@ -61,7 +61,6 @@ export const getText = (picture) => {
       const text = await responseJSON.responses[0].fullTextAnnotation.text;
       if (text) {
         dispatch(detectedText(text));
-
       }
     } catch (err) {
       dispatch(error(err));
