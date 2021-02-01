@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 
 class TargetPicker extends React.Component {
   render() {
-    console.log("PROPS FROM PICKER", this.props.target);
     const { target, setTarget } = this.props;
     return (
       <Picker
