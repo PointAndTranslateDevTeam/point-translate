@@ -6,9 +6,8 @@ import {
     StyleSheet
 } from "react-native";
 import {connect} from "react-redux"
-import { useEffect } from 'react';
 
-const TranslationScreen = ({route, orgText}) => {
+const TranslationScreen = ({orgText, target}) => {
     const [translation, setTranslation] = useState(null);
 
     const translate = async () => {
@@ -27,7 +26,7 @@ const TranslationScreen = ({route, orgText}) => {
               body: JSON.stringify({
                 q: `${orgText}`,
                 //"source": "en",
-                target: "es",
+                target: `${target}`,
                 //"format": "text"
               }),
             }
@@ -55,10 +54,9 @@ const TranslationScreen = ({route, orgText}) => {
 }
 
 const mapStateToProps = (state) => {
-    // console.log("state", state);
     return {
         orgText: state.source.detectedText,
-        error: state.source.error
+        target: state.target,
     }
 }
 
