@@ -2,7 +2,7 @@ import { API_KEY } from "../secrets.js";
 
 const initialState = {
   detectedText: "",
-  error: "",
+  error: null,
 };
 
 const DETECTED_TEXT = "DETECTED_TEXT";
@@ -29,9 +29,9 @@ export const clearText = () => {
 };
 
 export const getText = (picture) => {
+
   return async (dispatch) => {
     try {
-
       let response = await fetch(
         "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
         {
@@ -48,7 +48,7 @@ export const getText = (picture) => {
                 },
                 features: [
                   {
-                    type: "DOCUMENT_TEXT_DETECTION",
+                    type: "TEXT_DETECTION",
                   },
                 ],
               },
@@ -56,18 +56,15 @@ export const getText = (picture) => {
           }),
         }
       );
-      dispatch(clearText())
+
       const responseJSON = await response.json();
-      if (responseJSON.responses[0].fullTextAnnotation) {
-        dispatch(
-          detectedText(responseJSON.responses[0].fullTextAnnotation.text)
-        );
-      } else {
-        dispatch(error('No Text'));
+      const text = await responseJSON.responses[0].fullTextAnnotation.text;
+      if (text) {
+        dispatch(detectedText(text));
+
       }
     } catch (err) {
-      console.error(err);
-
+      dispatch(error(err));
     }
   };
 };

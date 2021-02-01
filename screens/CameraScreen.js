@@ -18,7 +18,6 @@ const CameraScreen = ({ getText, orgText, error }) => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
-  const [confirm, setConfirm] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -39,17 +38,14 @@ const CameraScreen = ({ getText, orgText, error }) => {
     }
   };
 
-  //useRef: before mounting, textLoaded is false
-  // after mounting, it is true
-  // we can now run it
   const textLoaded = useRef(false);
   useEffect(() => {
     (async () => {
       if (textLoaded.current) {
         try {
+          console.log("before", error, orgText);
           await getText(picture);
-          // this sets that we are sending an alert after getting text
-          setConfirm(!confirm)
+          console.log("got Text");
         } catch (err) {
           console.error(err);
         }
@@ -61,46 +57,42 @@ const CameraScreen = ({ getText, orgText, error }) => {
 
   const confLoaded = useRef(false);
   useEffect(() => {
-    (async () => {
-      if (confLoaded.current) {
-        try {
-          if (error !== null) {
-            console.log("error", error);
-            Alert.alert(
-              "No Text",
-              "Sorry, we did not detect any text in your image.",
-              { text: "OK", onPress: () => console.log("OK Pressed") }
-            );
-          } else {
-            console.log("text", orgText);
-            Alert.alert(
-              "Please confirm detected text:",
-              orgText,
-              [
-                {
-                  text: "Cancel",
-                  onPress: () => console.log("Cancel Pressed"),
-                  style: "cancel",
-                },
-                { text: "OK", onPress: () => translate() },
-              ],
-              { cancelable: false }
-            );
-          }
-        } catch (err) {
-          console.error(err);
+    if (confLoaded.current) {
+      console.log("after", error, orgText);
+      try {
+        if (error !== null) {
+          Alert.alert(
+            "No Text",
+            "Sorry, we did not detect any text in your image.",
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          );
         }
-      } else {
-        confLoaded.current = true;
+        if (orgText !== "") {
+          Alert.alert(
+            "Please confirm detected text:",
+            orgText,
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel",
+              },
+              { text: "OK", onPress: () => translate() },
+            ],
+            { cancelable: false }
+          );
+        }
+      } catch (err) {
+        console.error(err);
       }
-    })();
-  }, [confirm]);
-
-
+    } else {
+      confLoaded.current = true;
+    }
+  }, [orgText, error]);
 
   const translate = async () => {
     console.log("heytranslate");
-    console.log("text", orgText);
+    // console.log("text", orgText);
     try {
       let response = await fetch(
         "https://translation.googleapis.com/language/translate/v2?key=" +
