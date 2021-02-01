@@ -1,27 +1,23 @@
 import { Camera } from "expo-camera";
-import { API_KEY } from "../secrets.js";
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  Image,
   Alert,
 } from "react-native";
 import { connect } from "react-redux";
 import { getText } from "../store/source";
-import TranslationScreen from "./TranslationScreen.js";
 import TargetPicker from "../components/TargetPicker";
 //Choosing a functional component gives us access to useState hook
-const CameraScreen = ({ getText, orgText, target, navigation, error }) => {
+const CameraScreen = ({ getText, orgText, navigation, error }) => {
 
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
   const [text, setText] = useState(null);
-  // const [target, setTarget] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -83,7 +79,7 @@ const CameraScreen = ({ getText, orgText, target, navigation, error }) => {
                 onPress: () => console.log("Cancel Pressed"),
                 style: "cancel",
               },
-              { text: "OK", onPress: () => navigation.navigate("Translation", {text: text})},
+              { text: "OK", onPress: () => navigation.navigate("Translation")},
             ],
             { cancelable: false }
           );
@@ -95,39 +91,7 @@ const CameraScreen = ({ getText, orgText, target, navigation, error }) => {
       confLoaded.current = true;
     }
   }, [text]);
-  // if we use orgText, orgText isn't updating when we take 2 pictures of same text.. BUT error is when we take 2 images of NO text -- ask during CODE REVIEW
-  // [orgText, error]);
-  
-  const translate = async () => {
-    console.log("heytranslate");
-    // console.log("text", orgText);
-    try {
-      let response = await fetch(
-        "https://translation.googleapis.com/language/translate/v2?key=" +
-          API_KEY,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            q: `${orgText}`,
-            //"source": "en",
-            target: `${target}`,
-            //"format": "text"
-          }),
-        }
-      );
-      const jsonResponse = await response.json();
-      console.log(
-        "translated response",
-        jsonResponse.data.translations[0].translatedText
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
   if (hasPermission === null) {
     return <View />;
   }
@@ -142,7 +106,6 @@ const CameraScreen = ({ getText, orgText, target, navigation, error }) => {
 
           <TouchableOpacity
             style={styles.flipButton}
-            // onPress={() => translate()}
             onPress={() => {
               setType(
                 type === Camera.Constants.Type.back
@@ -167,7 +130,6 @@ const mapStateToProps = (state) => {
   return {
     orgText: state.source.detectedText,
     error: state.source.error,
-    target: state.target,
   };
 };
 

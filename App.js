@@ -21,10 +21,5 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
-    // <View style={{
-    //   flex: 1
-    // }}>
-    //   <CameraScreen/>
-    // </View>
   );
 }
