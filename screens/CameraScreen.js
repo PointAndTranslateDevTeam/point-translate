@@ -11,9 +11,10 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { getText } from "../store/source";
+import TranslationScreen from "./TranslationScreen.js";
 
 //Choosing a functional component gives us access to useState hook
-const CameraScreen = ({ getText, orgText, error }) => {
+const CameraScreen = ({ getText, orgText, error, navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
@@ -80,7 +81,7 @@ const CameraScreen = ({ getText, orgText, error }) => {
                 onPress: () => console.log("Cancel Pressed"),
                 style: "cancel",
               },
-              { text: "OK", onPress: () => translate() },
+              { text: "OK", onPress: () => navigation.navigate("Translation", {text: text})},
             ],
             { cancelable: false }
           );
@@ -96,36 +97,7 @@ const CameraScreen = ({ getText, orgText, error }) => {
  // if we use orgText, orgText isn't updating when we take 2 pictures of same text.. BUT error is when we take 2 images of NO text -- ask during CODE REVIEW
   // [orgText, error]);
 
-  const translate = async () => {
-    console.log("heytranslate");
-    // console.log("text", orgText);
-    try {
-      let response = await fetch(
-        "https://translation.googleapis.com/language/translate/v2?key=" +
-          API_KEY,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            q: `${orgText}`,
-            //"source": "en",
-            target: "es",
-            //"format": "text"
-          }),
-        }
-      );
-      const jsonResponse = await response.json();
-      console.log(
-        "translated response",
-        jsonResponse.data.translations[0].translatedText
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  
 
   if (hasPermission === null) {
     return <View />;
