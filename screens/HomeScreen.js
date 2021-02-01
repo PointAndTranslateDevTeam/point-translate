@@ -26,9 +26,7 @@ function HomeScreen({ navigation }) {
         </Text>
         <View>
           <Text>Please select your target language:</Text>
-          <Text>
-            <TargetPicker initialValue="es" style={{ width: "50%" }} />
-          </Text>
+          <TargetPicker initialValue="es" style={{ width: "50%" }} />
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate("Camera")}
