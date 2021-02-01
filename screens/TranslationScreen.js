@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {API_KEY} from '../secrets.js';
 import {
-    View, 
+    View,
     Text,
     StyleSheet
 } from "react-native";
@@ -11,32 +11,9 @@ import { useEffect } from 'react';
 const TranslationScreen = ({route, orgText}) => {
     const [translation, setTranslation] = useState(null);
 
-    // useEffect(() => {
-    //     (() => {
-    //         translate(route.params.text);
-    //     })
-    // }, [orgText])
-
-    const textLoaded = useRef(false);
-    useEffect(() => {
-      (async () => {
-        if (textLoaded.current) {
-          try {
-            const { transl } = await translate(route.params.text);
-            setTranslation(transl);
-          } catch (err) {
-            console.error(err);
-          }
-        } else {
-          textLoaded.current = true;
-        }
-      })();
-    }, []);
-  
-
     const translate = async () => {
         console.log("heytranslate");
-        console.log("text", orgText);
+        // console.log("text", orgText);
         try {
           let response = await fetch(
             "https://translation.googleapis.com/language/translate/v2?key=" +
@@ -48,9 +25,9 @@ const TranslationScreen = ({route, orgText}) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                q: `${route.params.text}`,
+                q: `${orgText}`,
                 //"source": "en",
-                target: "en",
+                target: "es",
                 //"format": "text"
               }),
             }
@@ -60,27 +37,27 @@ const TranslationScreen = ({route, orgText}) => {
             "translated response",
             jsonResponse.data.translations[0].translatedText
           );
-          return jsonResponse.data.translations[0].translatedText;
+          setTranslation(jsonResponse.data.translations[0].translatedText);
         } catch (err) {
           console.log(err);
         }
       };
 
-    if (translation === null) {
-        return <Text>Uh Oh!</Text>
-    }
+      translate()
+
     return (
         <View>
-            {/* <Text>{translate(route.params.text)}</Text> */}
-            <Text>{res}</Text>
+          {console.log('entering translation screen:', translation)}
+            <Text>Original Text: {orgText}</Text>
+            <Text>Translation: {translation}</Text>
         </View>
     )
 }
 
 const mapStateToProps = (state) => {
-    console.log("state", state);
+    // console.log("state", state);
     return {
-        orgText: state.source.detectedText, 
+        orgText: state.source.detectedText,
         error: state.source.error
     }
 }
