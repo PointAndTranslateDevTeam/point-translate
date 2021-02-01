@@ -14,7 +14,7 @@ import { getText } from "../store/source";
 import TargetPicker from "../components/TargetPicker";
 
 //Choosing a functional component gives us access to useState hook
-const CameraScreen = ({ getText, orgText, error }) => {
+const CameraScreen = ({ getText, orgText, target, error }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
@@ -113,7 +113,7 @@ const CameraScreen = ({ getText, orgText, error }) => {
           body: JSON.stringify({
             q: `${orgText}`,
             //"source": "en",
-            target: "es",
+            target: `${target}`,
             //"format": "text"
           }),
         }
@@ -138,7 +138,7 @@ const CameraScreen = ({ getText, orgText, error }) => {
     <View style={styles.container}>
       <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
-          {/* <TargetPicker initialValue="es" style={{ width: "50%" }} /> */}
+          <TargetPicker initialValue="es" style={{ width: "50%" }} />
 
           <TouchableOpacity
             style={styles.flipButton}
@@ -167,6 +167,7 @@ const mapStateToProps = (state) => {
   return {
     orgText: state.source.detectedText,
     error: state.source.error,
+    target: state.target,
   };
 };
 

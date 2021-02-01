@@ -11,7 +11,7 @@ class TargetPicker extends React.Component {
       <Picker
         selectedValue={target}
         style={{ height: 50, width: 100 }}
-        onValueChange={setTarget(itemValue)}
+        onValueChange={(itemValue) => setTarget(itemValue)}
       >
         <Picker.Item label="Russian" value="ru" />
         <Picker.Item label="Spanish" value="es" />
