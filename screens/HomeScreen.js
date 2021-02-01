@@ -25,7 +25,15 @@ function HomeScreen({ navigation }) {
           Point & Translate
         </Text>
         <View>
-          <Text>Please select your target language:</Text>
+          <Text
+            style={{
+              color: "#fff",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            Please select your target language:
+          </Text>
           <Text>
             <TargetPicker initialValue="es" style={{ width: "50%" }} />
           </Text>
