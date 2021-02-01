@@ -10,7 +10,7 @@ class TargetPicker extends React.Component {
     return (
       <Picker
         selectedValue={target}
-        style={{ height: 50, width: 100 }}
+        style={{ height: 50, width: 200 }}
         onValueChange={(itemValue) => setTarget(itemValue)}
       >
         <Picker.Item label="Russian" value="ru" />

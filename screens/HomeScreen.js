@@ -24,7 +24,12 @@ function HomeScreen({ navigation }) {
         >
           Point & Translate
         </Text>
-        <TargetPicker initialValue="es" style={{ width: "50%" }} />
+        <View>
+          <Text>Please select your target language:</Text>
+          <Text>
+            <TargetPicker initialValue="es" style={{ width: "50%" }} />
+          </Text>
+        </View>
         <TouchableOpacity
           onPress={() => navigation.navigate("Camera")}
           style={{
