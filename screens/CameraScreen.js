@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { getText } from "../store/source";
+import TranslationScreen from "./TranslationScreen.js";
 import TargetPicker from "../components/TargetPicker";
-
 //Choosing a functional component gives us access to useState hook
-const CameraScreen = ({ getText, orgText, target, error }) => {
+const CameraScreen = ({ getText, orgText, target, navigation, error }) => {
+
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
@@ -82,7 +83,7 @@ const CameraScreen = ({ getText, orgText, target, error }) => {
                 onPress: () => console.log("Cancel Pressed"),
                 style: "cancel",
               },
-              { text: "OK", onPress: () => translate() },
+              { text: "OK", onPress: () => navigation.navigate("Translation", {text: text})},
             ],
             { cancelable: false }
           );
@@ -96,7 +97,7 @@ const CameraScreen = ({ getText, orgText, target, error }) => {
   }, [text]);
   // if we use orgText, orgText isn't updating when we take 2 pictures of same text.. BUT error is when we take 2 images of NO text -- ask during CODE REVIEW
   // [orgText, error]);
-
+  
   const translate = async () => {
     console.log("heytranslate");
     // console.log("text", orgText);
@@ -127,7 +128,6 @@ const CameraScreen = ({ getText, orgText, target, error }) => {
       console.log(err);
     }
   };
-
   if (hasPermission === null) {
     return <View />;
   }
