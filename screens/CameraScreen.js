@@ -11,14 +11,16 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { getText } from "../store/source";
+import TargetPicker from "../components/TargetPicker";
 
 //Choosing a functional component gives us access to useState hook
-const CameraScreen = ({ getText, orgText, error }) => {
+const CameraScreen = ({ getText, orgText, target, error }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
-  const [text, setText] = useState(null)
+  const [text, setText] = useState(null);
+  // const [target, setTarget] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -46,9 +48,9 @@ const CameraScreen = ({ getText, orgText, error }) => {
         try {
           console.log("before", error, orgText);
           await getText(picture);
-          console.log(orgText, error)
+          console.log(orgText, error);
           // setText because if we do not, orgText is not updating when we take 2 photos of the same text -- ask during CODE REVIEW
-          setText(orgText)
+          setText(orgText);
         } catch (err) {
           console.error(err);
         }
@@ -91,9 +93,8 @@ const CameraScreen = ({ getText, orgText, error }) => {
     } else {
       confLoaded.current = true;
     }
-  },
- [text]);
- // if we use orgText, orgText isn't updating when we take 2 pictures of same text.. BUT error is when we take 2 images of NO text -- ask during CODE REVIEW
+  }, [text]);
+  // if we use orgText, orgText isn't updating when we take 2 pictures of same text.. BUT error is when we take 2 images of NO text -- ask during CODE REVIEW
   // [orgText, error]);
 
   const translate = async () => {
@@ -112,7 +113,7 @@ const CameraScreen = ({ getText, orgText, error }) => {
           body: JSON.stringify({
             q: `${orgText}`,
             //"source": "en",
-            target: "es",
+            target: `${target}`,
             //"format": "text"
           }),
         }
@@ -137,6 +138,8 @@ const CameraScreen = ({ getText, orgText, error }) => {
     <View style={styles.container}>
       <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
+          <TargetPicker initialValue="es" style={{ width: "50%" }} />
+
           <TouchableOpacity
             style={styles.flipButton}
             // onPress={() => translate()}
@@ -164,6 +167,7 @@ const mapStateToProps = (state) => {
   return {
     orgText: state.source.detectedText,
     error: state.source.error,
+    target: state.target,
   };
 };
 
