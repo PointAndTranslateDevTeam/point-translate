@@ -1,6 +1,6 @@
 import { Camera } from "expo-camera";
 import { API_KEY } from "../secrets.js";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,15 +9,16 @@ import {
   Image,
   Alert,
 } from "react-native";
+import { connect } from "react-redux";
+import { getText } from "../store/source";
 
 //Choosing a functional component gives us access to useState hook
-const CameraScreen = () => {
+const CameraScreen = ({ getText, orgText, error }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
-  //the image should be accessible on state to any component which imports it
   const [picture, setPicture] = useState(null);
-  const [text, setText] = useState(null);
+  const [text, setText] = useState(null)
 
   useEffect(() => {
     (async () => {
@@ -31,11 +32,8 @@ const CameraScreen = () => {
       const option = { base64: true };
       if (camera) {
         const data = await camera.takePictureAsync(option);
-        // console.log(data.base64);
         setPicture(data.base64);
-        // console.log("PICTURE", picture[1]);
       }
-      // console.log(picture)
     } catch (err) {
       console.log(err);
     }
@@ -43,25 +41,64 @@ const CameraScreen = () => {
 
   const textLoaded = useRef(false);
   useEffect(() => {
-    if (textLoaded.current) {
-      toText();
-    } else {
-      textLoaded.current = true;
-    }
+    (async () => {
+      if (textLoaded.current) {
+        try {
+          console.log("before", error, orgText);
+          await getText(picture);
+          console.log(orgText, error)
+          // setText because if we do not, orgText is not updating when we take 2 photos of the same text -- ask during CODE REVIEW
+          setText(orgText)
+        } catch (err) {
+          console.error(err);
+        }
+      } else {
+        textLoaded.current = true;
+      }
+    })();
   }, [picture]);
 
-  const translateLoaded = useRef(false);
+  const confLoaded = useRef(false);
   useEffect(() => {
-    if (translateLoaded.current) {
-      translate()
+    if (confLoaded.current) {
+      console.log("after", error, orgText);
+      try {
+        if (error !== null) {
+          Alert.alert(
+            "No Text",
+            "Sorry, we did not detect any text in your image.",
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          );
+        }
+        if (orgText !== "") {
+          Alert.alert(
+            "Please confirm detected text:",
+            orgText,
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel",
+              },
+              { text: "OK", onPress: () => translate() },
+            ],
+            { cancelable: false }
+          );
+        }
+      } catch (err) {
+        console.error(err);
+      }
     } else {
-      translateLoaded.current = true;
+      confLoaded.current = true;
     }
-  }, [text]);
+  },
+ [text]);
+ // if we use orgText, orgText isn't updating when we take 2 pictures of same text.. BUT error is when we take 2 images of NO text -- ask during CODE REVIEW
+  // [orgText, error]);
 
   const translate = async () => {
     console.log("heytranslate");
-    console.log("text", text);
+    // console.log("text", orgText);
     try {
       let response = await fetch(
         "https://translation.googleapis.com/language/translate/v2?key=" +
@@ -73,7 +110,7 @@ const CameraScreen = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            q: text,
+            q: `${orgText}`,
             //"source": "en",
             target: "es",
             //"format": "text"
@@ -81,85 +118,12 @@ const CameraScreen = () => {
         }
       );
       const jsonResponse = await response.json();
-      console.log("response", jsonResponse);
+      console.log(
+        "translated response",
+        jsonResponse.data.translations[0].translatedText
+      );
     } catch (err) {
       console.log(err);
-    }
-  };
-
-  const toText = async () => {
-    console.log("hey");
-    try {
-      let response = await fetch(
-        "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            requests: [
-              {
-                image: {
-                  content: picture,
-                },
-                features: [
-                  {
-                    type: "DOCUMENT_TEXT_DETECTION",
-                  },
-                ],
-              },
-            ],
-          }),
-        }
-      );
-      // console.log(picture[1]);
-      const responseJSON = await response.json();
-      // console.log(await response.json())
-      // console.log(responseJSON);
-      // console.log(responseJSON.responses[0]);
-      // console.log(responseJSON.responses[0].fullTextAnnotation.text);
-      // need to specify that if responseJS.responses[0] is an empty object AND if fullTextAnnotation is undefined, then no text
-      if (
-        responseJSON.responses[0] === {} ||
-        !responseJSON.responses[0].fullTextAnnotation
-      ) {
-        Alert.alert(
-          "No Text",
-          "Sorry, we did not detect any text in your image.",
-          // do we need OK/cancel? If not, I can remove!
-          [
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel",
-            },
-            { text: "OK", onPress: () => console.log("OK Pressed") },
-          ],
-          { cancelable: false }
-        );
-      } else {
-        Alert.alert(
-          "Please confirm detected text:",
-          responseJSON.responses[0].fullTextAnnotation.text,
-          [
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel",
-            },
-            // left console.log to show it is working but we can call a function to translate the text after press OK
-            // also suggesting that we set the state of "responseJSON.responses[0].fullTextAnnotation.text" to be original text or anything after confirmation.. depends how we are using state/store/etc
-            // { text: "OK", onPress: console.log("HELLO") },
-            { text: "OK", onPress: () => setText(responseJSON.responses[0].fullTextAnnotation.text) },
-          ],
-          { cancelable: false }
-        );
-      }
-      console.log("bye");
-    } catch (err) {
-      console.error(err);
     }
   };
 
@@ -196,7 +160,20 @@ const CameraScreen = () => {
   );
 };
 
-export default CameraScreen;
+const mapStateToProps = (state) => {
+  return {
+    orgText: state.source.detectedText,
+    error: state.source.error,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getText: (pic) => dispatch(getText(pic)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);
 
 const styles = StyleSheet.create({
   container: {
