@@ -47,7 +47,6 @@ function HomeScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
-
       <StatusBar style="auto" />
     </View>
   );
