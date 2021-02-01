@@ -1,18 +1,10 @@
 import { Camera } from "expo-camera";
 import React, { useState, useEffect, useRef } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { getText } from "../store/source";
-import TargetPicker from "../components/TargetPicker";
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({ getText, orgText, navigation, error }) => {
-
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
@@ -79,7 +71,7 @@ const CameraScreen = ({ getText, orgText, navigation, error }) => {
                 onPress: () => console.log("Cancel Pressed"),
                 style: "cancel",
               },
-              { text: "OK", onPress: () => navigation.navigate("Translation")},
+              { text: "OK", onPress: () => navigation.navigate("Translation") },
             ],
             { cancelable: false }
           );
@@ -102,8 +94,6 @@ const CameraScreen = ({ getText, orgText, navigation, error }) => {
     <View style={styles.container}>
       <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
-          <TargetPicker initialValue="es" style={{ width: "50%" }} />
-
           <TouchableOpacity
             style={styles.flipButton}
             onPress={() => {

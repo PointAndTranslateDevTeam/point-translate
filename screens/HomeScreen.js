@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import TargetPicker from "../components/TargetPicker";
 
 function HomeScreen({ navigation }) {
   return (
@@ -23,7 +24,12 @@ function HomeScreen({ navigation }) {
         >
           Point & Translate
         </Text>
-
+        <View>
+          <Text>Please select your target language:</Text>
+          <Text>
+            <TargetPicker initialValue="es" style={{ width: "50%" }} />
+          </Text>
+        </View>
         <TouchableOpacity
           onPress={() => navigation.navigate("Camera")}
           style={{
