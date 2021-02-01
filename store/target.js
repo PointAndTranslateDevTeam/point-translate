@@ -1,6 +1,6 @@
-const initialState = {
-  target: "",
-};
+const initialState =
+  "ru"
+;
 
 const SET_TARGET = "SET_TARGET";
 
@@ -14,7 +14,7 @@ export const setTarget = (target) => {
 const targetReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_TARGET:
-      return { target: action.target };
+      return action.target;
     default:
       return state;
   }
