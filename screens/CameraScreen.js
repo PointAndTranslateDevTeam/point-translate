@@ -7,6 +7,7 @@ import Settings from "../components/Settings";
 import Error from "../components/Error";
 import Confirmation from "../components/Confirmation";
 import styles from "../styles/CameraStyle";
+import EditText from '../components/EditText'
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
@@ -16,6 +17,7 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
   const [picture, setPicture] = useState(null);
   const [text, setText] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showEdit, setShowEdit] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -77,6 +79,9 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
                 text: "Cancel",
                 onPress: () => console.log("Cancel Pressed"),
                 style: "cancel",
+              },              {
+                text: "Edit",
+                onPress: () => setShowEdit(true)
               },
               { text: "OK", onPress: () => navigation.navigate("Translation") },
             ],
@@ -128,6 +133,7 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
             ></TouchableOpacity>
           </View>
           <Settings showModal={showModal} setModal={setShowModal} />
+          <EditText showEdit={showEdit} setShowEdit={setShowEdit} />
         </View>
 
       </Camera>
