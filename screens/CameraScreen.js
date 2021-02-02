@@ -6,6 +6,7 @@ import { getText } from "../store/source";
 import Settings from "../components/Settings";
 import Error from '../components/Error'
 import Confirmation from '../components/Confirmation'
+import styles from '../styles/CameraStyle';
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({ getText, orgText, navigation, error, id }) => {

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { API_KEY } from "../secrets.js";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
+import styles from '../styles/TranslationStyle'
 
 const TranslationScreen = ({ orgText, target, navigation }) => {
   const [translation, setTranslation] = useState(null);
@@ -90,33 +91,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignContent: "center",
-    alignItems: "center",
-    marginTop: 10,
-  },
-  textContainer: {
-    width: "80%",
-    height: "35%",
-    alignItems: "center",
-    margin: 10,
-    padding: 10,
-    borderRadius: 10,
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.26,
-    elevation: 5,
-    backgroundColor: "white",
-    padding: 20,
-  },
-  header: {
-    fontSize: 50,
-  },
-  cameraBtn: {
-    marginTop: 50,
-  }
-});
 export default connect(mapStateToProps, null)(TranslationScreen);
