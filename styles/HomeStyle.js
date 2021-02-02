@@ -19,7 +19,7 @@ export default StyleSheet.create({
       textAlign: "center",
       fontSize: 36,
     },
-    targetPicker: { width: "50%" },
+    targetPicker: { width: '50%', justifyContent: 'center' },
     tapForCameraButton: {
       width: 130,
       borderRadius: 4,
