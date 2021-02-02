@@ -4,9 +4,9 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { getText } from "../store/source";
 import Settings from "../components/Settings";
-import Error from '../components/Error'
-import Confirmation from '../components/Confirmation'
-import styles from '../styles/CameraStyle';
+import Error from "../components/Error";
+import Confirmation from "../components/Confirmation";
+import styles from "../styles/CameraStyle";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
@@ -62,9 +62,10 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
       try {
         if (error !== null) {
           Alert.alert(
-            "No Text",
-            "Sorry, we did not detect any text in your image.",
-            { text: "OK", onPress: () => console.log("OK Pressed") }
+            "Error",
+            "Sorry, we could not find any text in your picture, try again!",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+            { cancelable: true }
           );
         }
         if (orgText !== "") {
@@ -90,7 +91,6 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
     }
   }, [id]);
 
-
   if (hasPermission === null) {
     return <View />;
   }
@@ -114,7 +114,10 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
             >
               <Text style={styles.flipButtonText}> Flip </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.langButton} onPress={() => setShowModal(true)}>
+            <TouchableOpacity
+              style={styles.langButton}
+              onPress={() => setShowModal(true)}
+            >
               <Text style={styles.flipButtonText}>MODAL BUTTON HERE</Text>
             </TouchableOpacity>
           </View>
@@ -126,7 +129,6 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
           </View>
         </View>
         <Settings showModal={showModal} setModal={setShowModal} />
-
       </Camera>
     </View>
   );
@@ -137,7 +139,7 @@ const mapStateToProps = (state) => {
   return {
     orgText: state.source.detectedText,
     error: state.source.error,
-    id: state.source.id
+    id: state.source.id,
   };
 };
 
@@ -148,4 +150,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);
-
