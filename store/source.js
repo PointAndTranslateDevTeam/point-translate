@@ -29,7 +29,7 @@ export const clearText = () => {
   };
 };
 
-export const getText = (picture) => {
+export const getText = (picture, ocrType) => {
 
   return async (dispatch) => {
     try {
@@ -49,7 +49,7 @@ export const getText = (picture) => {
                 },
                 features: [
                   {
-                    type: "TEXT_DETECTION",
+                    type: ocrType,
                   },
                 ],
               },

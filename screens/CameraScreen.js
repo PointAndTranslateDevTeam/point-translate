@@ -4,9 +4,9 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { getText } from "../store/source";
 import Settings from "../components/Settings";
-import Error from '../components/Error'
-import Confirmation from '../components/Confirmation'
-import styles from '../styles/CameraStyle';
+import Error from "../components/Error";
+import Confirmation from "../components/Confirmation";
+import styles from "../styles/CameraStyle";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
@@ -23,6 +23,8 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
       setHasPermission(status === "granted");
     })();
   }, []);
+
+  const ocrType = "DOCUMENT_TEXT_DETECTION";
 
   const takePicture = async () => {
     try {
@@ -42,7 +44,7 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
       if (textLoaded.current) {
         try {
           console.log("before", error, orgText);
-          await getText(picture);
+          await getText(picture, ocrType);
           // console.log(orgText, error);
           // setText because if we do not, orgText is not updating when we take 2 photos of the same text -- ask during CODE REVIEW
           // setText(orgText);
@@ -90,7 +92,6 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
     }
   }, [id]);
 
-
   if (hasPermission === null) {
     return <View />;
   }
@@ -114,7 +115,10 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
             >
               <Text style={styles.flipButtonText}> Flip </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.langButton} onPress={() => setShowModal(true)}>
+            <TouchableOpacity
+              style={styles.langButton}
+              onPress={() => setShowModal(true)}
+            >
               <Text style={styles.flipButtonText}>MODAL BUTTON HERE</Text>
             </TouchableOpacity>
           </View>
@@ -126,7 +130,6 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
           </View>
         </View>
         <Settings showModal={showModal} setModal={setShowModal} />
-
       </Camera>
     </View>
   );
@@ -137,15 +140,14 @@ const mapStateToProps = (state) => {
   return {
     orgText: state.source.detectedText,
     error: state.source.error,
-    id: state.source.id
+    id: state.source.id,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getText: (pic) => dispatch(getText(pic)),
+    getText: (pic, ocrType) => dispatch(getText(pic, ocrType)),
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);
-
