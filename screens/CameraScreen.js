@@ -3,13 +3,18 @@ import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { getText } from "../store/source";
+import Settings from "../components/Settings";
+import Error from '../components/Error'
+import Confirmation from '../components/Confirmation'
+
 //Choosing a functional component gives us access to useState hook
-const CameraScreen = ({ getText, orgText, navigation, error }) => {
+const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
   const [text, setText] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -37,9 +42,9 @@ const CameraScreen = ({ getText, orgText, navigation, error }) => {
         try {
           console.log("before", error, orgText);
           await getText(picture);
-          console.log(orgText, error);
+          // console.log(orgText, error);
           // setText because if we do not, orgText is not updating when we take 2 photos of the same text -- ask during CODE REVIEW
-          setText(orgText);
+          // setText(orgText);
         } catch (err) {
           console.error(err);
         }
@@ -82,7 +87,8 @@ const CameraScreen = ({ getText, orgText, navigation, error }) => {
     } else {
       confLoaded.current = true;
     }
-  }, [text]);
+  }, [id]);
+
 
   if (hasPermission === null) {
     return <View />;
@@ -94,32 +100,43 @@ const CameraScreen = ({ getText, orgText, navigation, error }) => {
     <View style={styles.container}>
       <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.flipButton}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}
-          >
-            <Text style={styles.flipButtonText}> Flip </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.shutterButton}
-            onPress={() => takePicture()}
-          ></TouchableOpacity>
+          <View style={styles.topButtons}>
+            <TouchableOpacity
+              style={styles.flipButton}
+              onPress={() => {
+                setType(
+                  type === Camera.Constants.Type.back
+                    ? Camera.Constants.Type.front
+                    : Camera.Constants.Type.back
+                );
+              }}
+            >
+              <Text style={styles.flipButtonText}> Flip </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.langButton} onPress={() => setShowModal(true)}>
+              <Text style={styles.flipButtonText}>MODAL BUTTON HERE</Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={styles.shutterButton}
+              onPress={() => takePicture()}
+            ></TouchableOpacity>
+          </View>
         </View>
+        <Settings showModal={showModal} setModal={setShowModal} />
+
       </Camera>
     </View>
   );
 };
 
 const mapStateToProps = (state) => {
+  // console.log('state', state)
   return {
     orgText: state.source.detectedText,
     error: state.source.error,
+    id: state.source.id
   };
 };
 
@@ -138,6 +155,13 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1,
   },
+  topButtons: {
+    flex: 1,
+    padding: 20,
+    height: 500,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   buttonContainer: {
     flex: 1,
     backgroundColor: "transparent",
@@ -151,8 +175,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   flipButton: {
-    flex: 0.1,
+
     alignSelf: "flex-start",
+  },
+  langButton: {
+    alignSelf: "flex-start",
+    fontSize: 18,
   },
   shutterButton: {
     paddingVertical: 10,
