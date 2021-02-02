@@ -8,45 +8,23 @@ function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View
-        style={{
-          flex: 1,
-          backgroundColor: "#fff",
-          justifyContent: "space-around",
-          alignItems: "center",
-        }}
+        style={styles.contentContainer}
       >
         <Text
-          style={{
-            color: "#14274e",
-            fontWeight: "bold",
-            textAlign: "center",
-            fontSize: 36,
-          }}
+          style={styles.titleText}
         >
           Point & Translate
         </Text>
         <View>
           <Text>Please select your target language:</Text>
-          <TargetPicker initialValue="es" style={{ width: "50%" }} />
+          <TargetPicker initialValue="es" style={styles.targetPicker} />
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate("Camera")}
-          style={{
-            width: 130,
-            borderRadius: 4,
-            backgroundColor: "#14274e",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            height: 40,
-          }}
+          style={styles.tapForCameraButton}
         >
           <Text
-            style={{
-              color: "#fff",
-              fontWeight: "bold",
-              textAlign: "center",
-            }}
+            style={styles.tapForCameraText}
           >
             Tap For Camera
           </Text>
