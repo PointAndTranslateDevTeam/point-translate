@@ -14,7 +14,7 @@ export default StyleSheet.create({
 
   audioContainer: {
      
-      alignItems: 'center',
+    alignItems: 'center',
     paddingVertical: 10
   },
 })

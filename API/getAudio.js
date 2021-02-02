@@ -1,8 +1,7 @@
 import { API_KEY } from "../secrets.js";
 
 export default getAudio = async (string) => {
-    console.log("heytranslate");
-    // console.log("text", orgText);
+    console.log("typeof", typeof string);
     try {
       let response = await fetch(
         "https://texttospeech.googleapis.com/v1/text:synthesize?key=" +

@@ -81,7 +81,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
             Back to Camera
           </Text>
         </TouchableOpacity>
-        <AudioButton/>
+        <AudioButton text={translation}/>
       </View>
     </View>
   );
