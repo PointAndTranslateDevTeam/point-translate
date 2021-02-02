@@ -1,13 +1,14 @@
 import { API_KEY } from "../secrets.js";
 
 const initialState = {
+  id: 0,
   detectedText: "",
   error: null,
 };
 
 const DETECTED_TEXT = "DETECTED_TEXT";
 const CLEAR_TEXT = "CLEAR_TEXT";
-const ERROR = "ERROR";
+const ERROR = "ERROR"
 
 export const detectedText = (source) => {
   return {
@@ -73,11 +74,12 @@ const sourceReducer = (state = initialState, action) => {
     case DETECTED_TEXT:
       return {
         ...state,
+        id: state.id+=1,
         detectedText: action.source,
         error: null,
       };
     case ERROR:
-      return { ...state, detectedText: "", error: action.error };
+      return { ...state, id: state.id+=1, detectedText: "", error: action.error };
     case CLEAR_TEXT:
       return initialState;
     default:
