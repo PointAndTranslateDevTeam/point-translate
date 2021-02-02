@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import TargetPicker from "../components/TargetPicker";
 import styles from '../styles/HomeStyle'
 
