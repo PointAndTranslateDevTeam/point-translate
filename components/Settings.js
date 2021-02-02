@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TargetPicker from "../components/TargetPicker";
+import styles from '../styles/SettingsStyle'
 
 import {
   View,
@@ -12,15 +13,14 @@ import {
 
 const Settings = (props) => {
   return (
-    <Modal visible={props.showModal} animationType="slide">
-      <View style={styles.screen}>
-        <View style={styles.settingContainer}>
-          <TouchableOpacity onPress={() => props.setModal(false)}>
-            <Text>Back to camera</Text>
-          </TouchableOpacity>
-          <View>
+    <Modal transparent={true} visible={props.showModal} animationType="slide">
+      <View style={styles.screenContainer}>
+        <View style={styles.screen}>
+          <View style={styles.settingContainer}>
             <Text>Please select a language:</Text>
-            {/* <TargetPicker initialValue="es" style={{ width: "50%" }} /> */}
+            <TouchableOpacity onPress={() => props.setModal(false)}>
+              <Text>Back to camera</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -28,15 +28,4 @@ const Settings = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  settingContainer: {
-
-  },
-});
 export default Settings;

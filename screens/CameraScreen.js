@@ -127,8 +127,9 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
               onPress={() => takePicture()}
             ></TouchableOpacity>
           </View>
+          <Settings showModal={showModal} setModal={setShowModal} />
         </View>
-        <Settings showModal={showModal} setModal={setShowModal} />
+
       </Camera>
     </View>
   );
