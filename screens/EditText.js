@@ -24,7 +24,6 @@ const EditText = ({
   editText,
   showEdit,
   setShowEdit,
-  route,
 }) => {
   const [newText, setNewText] = useState(orgText);
 
@@ -35,7 +34,6 @@ const EditText = ({
     try {
       await editText(newText);
       setShowEdit(false);
-      navigation.navigate("Translation");
     } catch (err) {
       console.error(err);
     }
