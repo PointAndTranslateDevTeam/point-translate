@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const DETECTED_TEXT = "DETECTED_TEXT";
-const CLEAR_TEXT = "CLEAR_TEXT";
+const EDIT_TEXT = "EDIT_TEXT";
 const ERROR = "ERROR";
 
 export const detectedText = (source) => {
@@ -23,9 +23,10 @@ export const error = (error) => {
     error,
   };
 };
-export const clearText = () => {
+export const editText = (revText) => {
   return {
-    type: CLEAR_TEXT,
+    type: EDIT_TEXT,
+    revText,
   };
 };
 
@@ -84,8 +85,12 @@ const sourceReducer = (state = initialState, action) => {
         detectedText: "",
         error: action.error,
       };
-    case CLEAR_TEXT:
-      return initialState;
+    case EDIT_TEXT:
+      return {
+        ...state,
+        detectedText: action.revText,
+        error: null,
+      };
     default:
       return state;
   }

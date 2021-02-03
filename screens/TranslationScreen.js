@@ -1,8 +1,15 @@
 import React, { useState, useRef } from "react";
 import { API_KEY } from "../secrets.js";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { connect } from "react-redux";
 import styles from '../styles/TranslationStyle'
+import AudioButton from '../components/audioButton'
 
 const TranslationScreen = ({ orgText, target, navigation }) => {
   const [translation, setTranslation] = useState(null);
@@ -48,13 +55,17 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
         <View style={styles.header}>
           <Text style={{ fontSize: 35 }}>Original Text:</Text>
         </View>
-        <Text>{orgText}</Text>
+        <ScrollView>
+          <Text>{orgText}</Text>
+        </ScrollView>
       </View>
       <View style={styles.textContainer}>
         <View style={styles.header}>
           <Text style={{ fontSize: 35 }}>Translation:</Text>
         </View>
-        <Text>{translation}</Text>
+        <ScrollView>
+          <Text>{translation}</Text>
+        </ScrollView>
       </View>
       <View style={styles.cameraBtn}>
         <TouchableOpacity
@@ -79,6 +90,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
             Back to Camera
           </Text>
         </TouchableOpacity>
+        <AudioButton text={translation}/>
       </View>
     </View>
   );

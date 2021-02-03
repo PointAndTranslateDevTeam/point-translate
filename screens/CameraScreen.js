@@ -7,6 +7,7 @@ import Settings from "../components/Settings";
 import Error from "../components/Error";
 import Confirmation from "../components/Confirmation";
 import styles from "../styles/CameraStyle";
+import EditText from './EditText'
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
@@ -23,6 +24,7 @@ const CameraScreen = ({
   const [picture, setPicture] = useState(null);
   const [text, setText] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showEdit, setShowEdit] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -71,9 +73,10 @@ const CameraScreen = ({
       try {
         if (error !== null) {
           Alert.alert(
-            "No Text",
-            "Sorry, we did not detect any text in your image.",
-            { text: "OK", onPress: () => console.log("OK Pressed") }
+            "Error",
+            "Sorry, we could not find any text in your picture, try again!",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+            { cancelable: true }
           );
         }
         if (orgText !== "") {
@@ -85,6 +88,9 @@ const CameraScreen = ({
                 text: "Cancel",
                 onPress: () => console.log("Cancel Pressed"),
                 style: "cancel",
+              },              {
+                text: "Edit",
+                onPress: () => navigation.navigate("EditText")
               },
               { text: "OK", onPress: () => navigation.navigate("Translation") },
             ],
@@ -135,8 +141,8 @@ const CameraScreen = ({
               onPress={() => takePicture()}
             ></TouchableOpacity>
           </View>
+          <Settings showModal={showModal} setModal={setShowModal} />
         </View>
-        <Settings showModal={showModal} setModal={setShowModal} />
       </Camera>
     </View>
   );
