@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import TargetPicker from "../components/TargetPicker";
+import { connect } from "react-redux";
+import { toggleOCR } from "../store/toggleReducer";
 
 import {
   View,
@@ -12,9 +14,6 @@ import {
 } from "react-native";
 
 const Settings = (props) => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-
   return (
     <Modal visible={props.showModal} animationType="slide">
       <View style={styles.screen}>
@@ -26,10 +25,10 @@ const Settings = (props) => {
             <Text>Optimize for handwriting recognition?</Text>
             <Switch
               trackColor={{ false: "#767577", true: "#81b0ff" }}
-              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              thumbColor={props.handwriting ? "#f5dd4b" : "#f4f3f4"}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
+              onValueChange={props.toggleOCR}
+              value={props.handwriting}
             />
           </View>
           <View>
@@ -55,4 +54,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Settings;
+const mapStateToProps = (state) => {
+  return {
+    handwriting: state.toggle.handwriting,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleOCR: () => dispatch(toggleOCR()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
