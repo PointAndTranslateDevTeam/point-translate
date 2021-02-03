@@ -6,11 +6,26 @@ import {
   TouchableOpacity,
   Modal,
   Text,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { connect } from "react-redux";
 import { editText } from "../store/source";
 
-const EditText = ({ navigation, orgText, editText }) => {
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
+
+const EditText = ({
+  navigation,
+  orgText,
+  editText,
+  showEdit,
+  setShowEdit,
+  route,
+}) => {
   const [newText, setNewText] = useState(orgText);
 
   const editTextInputHandler = (edittedText) => {
@@ -19,46 +34,54 @@ const EditText = ({ navigation, orgText, editText }) => {
   const inputEditText = async () => {
     try {
       await editText(newText);
+      setShowEdit(false);
+      navigation.navigate("Translation");
     } catch (err) {
       console.error(err);
     }
   };
+
   return (
-    <View style={styles.screenContainer}>
-      <View style={styles.screen}>
-        <Text style={{fontSize:30}}>Detected text:</Text>
-        <TextInput onChangeText={editTextInputHandler} multiline={true}>
-          {orgText}
-        </TextInput>
-        <View>
-          <TouchableOpacity
-            onPress={() => {
-              inputEditText();
-              navigation.navigate("Translation");
-            }}
-            style={{
-              width: 130,
-              borderRadius: 4,
-              backgroundColor: "#14274e",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              height: 40,
-            }}
-          >
-            <Text
-              style={{
-                color: "#fff",
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              Translate
-            </Text>
-          </TouchableOpacity>
+
+      <Modal transparent={true} visible={showEdit} animationType="slide">
+            <DismissKeyboard>
+        <View style={styles.screenContainer}>
+          <View style={styles.screen}>
+            <Text style={{ fontSize: 30 }}>Detected text:</Text>
+            <TextInput onChangeText={editTextInputHandler} multiline={true}>
+              {orgText}
+            </TextInput>
+            <View>
+              <TouchableOpacity
+                onPress={() => {
+                  inputEditText();
+                  navigation.navigate("Translation");
+                }}
+                style={{
+                  width: 130,
+                  borderRadius: 4,
+                  backgroundColor: "#14274e",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 40,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#fff",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  Translate
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
-    </View>
+        </DismissKeyboard>
+      </Modal>
   );
 };
 
@@ -95,7 +118,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowOpacity: 0.26,
     elevation: 5,
-
   },
   settingContainer: {
     flexDirection: "column",
