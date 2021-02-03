@@ -18,14 +18,14 @@ const getAudio = async (string) => {
       const jsonResponse = await response.json();
 
       let mimeType = "data:audio/mp3;base64,"
-      let hopefulUri = mimeType + jsonResponse.audioContent;
+      let uri = mimeType + jsonResponse.audioContent;
 
       const { sound: playbackObject } = await Audio.Sound.createAsync (    
-          { uri: hopefulUri },
+          { uri: uri },
           { shouldPlay: true }
       );
       await playbackObject.playAsync();
-      return hopefulUri;
+      return uri;
     } catch (err) {
       console.log(err);
     }
