@@ -8,9 +8,13 @@ import {
   StyleSheet,
   Modal,
   TouchableOpacity,
+  Switch,
 } from "react-native";
 
 const Settings = (props) => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
   return (
     <Modal visible={props.showModal} animationType="slide">
       <View style={styles.screen}>
@@ -18,6 +22,16 @@ const Settings = (props) => {
           <TouchableOpacity onPress={() => props.setModal(false)}>
             <Text>Back to camera</Text>
           </TouchableOpacity>
+          <View style={styles.toggleContainer}>
+            <Text>Optimize for handwriting recognition?</Text>
+            <Switch
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+          </View>
           <View>
             <Text>Please select a language:</Text>
             {/* <TargetPicker initialValue="es" style={{ width: "50%" }} /> */}
@@ -35,8 +49,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  settingContainer: {
-
+  settingContainer: {},
+  toggleContainer: {
+    padding: 70,
   },
 });
+
 export default Settings;
