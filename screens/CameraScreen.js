@@ -10,7 +10,14 @@ import styles from "../styles/CameraStyle";
 import EditText from './EditText'
 
 //Choosing a functional component gives us access to useState hook
-const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
+const CameraScreen = ({
+  getText,
+  orgText,
+  navigation,
+  error,
+  id,
+  handwriting,
+}) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
@@ -25,6 +32,8 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
       setHasPermission(status === "granted");
     })();
   }, []);
+
+  const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
 
   const takePicture = async () => {
     try {
@@ -44,7 +53,7 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
       if (textLoaded.current) {
         try {
           console.log("before", error, orgText);
-          await getText(picture);
+          await getText(picture, ocrType);
           // console.log(orgText, error);
           // setText because if we do not, orgText is not updating when we take 2 photos of the same text -- ask during CODE REVIEW
           // setText(orgText);
@@ -134,7 +143,6 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
           </View>
           <Settings showModal={showModal} setModal={setShowModal} />
         </View>
-
       </Camera>
     </View>
   );
@@ -146,12 +154,13 @@ const mapStateToProps = (state) => {
     orgText: state.source.detectedText,
     error: state.source.error,
     id: state.source.id,
+    handwriting: state.toggle.handwriting,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getText: (pic) => dispatch(getText(pic)),
+    getText: (pic, ocrType) => dispatch(getText(pic, ocrType)),
   };
 };
 

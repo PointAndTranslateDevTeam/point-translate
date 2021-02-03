@@ -30,7 +30,7 @@ export const editText = (revText) => {
   };
 };
 
-export const getText = (picture) => {
+export const getText = (picture, ocrType) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
@@ -49,7 +49,7 @@ export const getText = (picture) => {
                 },
                 features: [
                   {
-                    type: "TEXT_DETECTION",
+                    type: ocrType,
                   },
                 ],
               },
