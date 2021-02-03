@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const DETECTED_TEXT = "DETECTED_TEXT";
-const EDIT_TEXT = "CLEAR_TEXT";
+const EDIT_TEXT = "EDIT_TEXT";
 const ERROR = "ERROR";
 
 export const detectedText = (source) => {
