@@ -8,7 +8,7 @@ const initialState = {
 
 const DETECTED_TEXT = "DETECTED_TEXT";
 const CLEAR_TEXT = "CLEAR_TEXT";
-const ERROR = "ERROR"
+const ERROR = "ERROR";
 
 export const detectedText = (source) => {
   return {
@@ -30,7 +30,6 @@ export const clearText = () => {
 };
 
 export const getText = (picture, ocrType) => {
-
   return async (dispatch) => {
     try {
       let response = await fetch(
@@ -74,12 +73,17 @@ const sourceReducer = (state = initialState, action) => {
     case DETECTED_TEXT:
       return {
         ...state,
-        id: state.id+=1,
+        id: (state.id += 1),
         detectedText: action.source,
         error: null,
       };
     case ERROR:
-      return { ...state, id: state.id+=1, detectedText: "", error: action.error };
+      return {
+        ...state,
+        id: (state.id += 1),
+        detectedText: "",
+        error: action.error,
+      };
     case CLEAR_TEXT:
       return initialState;
     default:

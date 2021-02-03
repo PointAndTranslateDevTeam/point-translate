@@ -9,7 +9,14 @@ import Confirmation from "../components/Confirmation";
 import styles from "../styles/CameraStyle";
 
 //Choosing a functional component gives us access to useState hook
-const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
+const CameraScreen = ({
+  getText,
+  orgText,
+  navigation,
+  error,
+  id,
+  handwriting,
+}) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
@@ -24,7 +31,7 @@ const CameraScreen = ({ getText, orgText, navigation, error, id }) => {
     })();
   }, []);
 
-  const ocrType = "DOCUMENT_TEXT_DETECTION";
+  const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
 
   const takePicture = async () => {
     try {
@@ -141,6 +148,7 @@ const mapStateToProps = (state) => {
     orgText: state.source.detectedText,
     error: state.source.error,
     id: state.source.id,
+    handwriting: state.toggle.handwriting,
   };
 };
 
