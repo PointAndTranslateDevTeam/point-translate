@@ -1,26 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TextInput,
   View,
   TouchableOpacity,
   Modal,
-  Text
+  Text,
 } from "react-native";
 import { connect } from "react-redux";
+import { editText } from "../store/source";
 
-const EditText = ({navigation, orgText, showEdit, setShowEdit}) => {
+const EditText = ({ navigation, orgText, editText }) => {
+  const [newText, setNewText] = useState(orgText);
+
+  const editTextInputHandler = (edittedText) => {
+    setNewText(edittedText);
+  };
+  const inputEditText = async () => {
+    try {
+      await editText(newText);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
-
-    <Modal transparent={true} visible={showEdit} animationType="slide">
-      <View style={styles.screenContainer}>
-        <View style={styles.screen}>
-          <TextInput multiline={true}>{orgText}</TextInput>
-          <View>
+    <View style={styles.screenContainer}>
+      <View style={styles.screen}>
+        <Text style={{fontSize:30}}>Detected text:</Text>
+        <TextInput onChangeText={editTextInputHandler} multiline={true}>
+          {orgText}
+        </TextInput>
+        <View>
           <TouchableOpacity
             onPress={() => {
-              setShowEdit(false); 
-              navigation.navigate('Camera')}}
+              inputEditText();
+              navigation.navigate("Translation");
+            }}
             style={{
               width: 130,
               borderRadius: 4,
@@ -41,10 +56,9 @@ const EditText = ({navigation, orgText, showEdit, setShowEdit}) => {
               Translate
             </Text>
           </TouchableOpacity>
-          </View>
         </View>
       </View>
-    </Modal>
+    </View>
   );
 };
 
@@ -53,23 +67,35 @@ const mapStateToProps = (state) => {
     orgText: state.source.detectedText,
   };
 };
+const mapDispatchtoProps = (dispatch) => {
+  return {
+    editText: (revText) => dispatch(editText(revText)),
+  };
+};
 
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
+    opacity: 0.9,
   },
   screen: {
     backgroundColor: "#fff",
     alignItems: "center",
-    backgroundColor: "lightgray",
+    backgroundColor: "white",
     margin: 50,
     padding: 40,
     borderRadius: 10,
-    height: "50%",
+    height: "70%",
     alignContent: "center",
     flexDirection: "column",
     justifyContent: "center",
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 6,
+    shadowOpacity: 0.26,
+    elevation: 5,
+
   },
   settingContainer: {
     flexDirection: "column",
@@ -83,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps)(EditText);
+export default connect(mapStateToProps, mapDispatchtoProps)(EditText);

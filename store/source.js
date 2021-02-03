@@ -88,7 +88,6 @@ const sourceReducer = (state = initialState, action) => {
     case EDIT_TEXT:
       return {
         ...state,
-        id: (state.id += 1),
         detectedText: action.revText,
         error: null,
       };
