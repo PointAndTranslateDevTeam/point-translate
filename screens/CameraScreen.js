@@ -54,9 +54,6 @@ const CameraScreen = ({
         try {
           console.log("before", error, orgText);
           await getText(picture, ocrType);
-          // console.log(orgText, error);
-          // setText because if we do not, orgText is not updating when we take 2 photos of the same text -- ask during CODE REVIEW
-          // setText(orgText);
         } catch (err) {
           console.error(err);
         }
@@ -90,7 +87,7 @@ const CameraScreen = ({
                 style: "cancel",
               },              {
                 text: "Edit",
-                onPress: () => navigation.navigate("EditText")
+                onPress: () => setShowEdit(true)
               },
               { text: "OK", onPress: () => navigation.navigate("Translation") },
             ],
@@ -142,6 +139,7 @@ const CameraScreen = ({
             ></TouchableOpacity>
           </View>
           <Settings showModal={showModal} setModal={setShowModal} />
+          <EditText showEdit={showEdit} setShowEdit={setShowEdit} navigation={navigation}/>
         </View>
       </Camera>
     </View>
