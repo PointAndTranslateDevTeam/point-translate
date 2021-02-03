@@ -1,7 +1,7 @@
 import { API_KEY } from "../secrets.js";
+import {Audio} from 'expo-av';
 
-export default getAudio = async (string) => {
-    console.log("typeof", typeof string);
+const getAudio = async (string) => {
     try {
       let response = await fetch(
         "https://texttospeech.googleapis.com/v1/text:synthesize?key=" +
@@ -9,16 +9,26 @@ export default getAudio = async (string) => {
         {
           method: "POST",
           body: JSON.stringify({
-            input: {text: string},
+            input: {text: "hello world!"},
             voice: {languageCode: 'en-US', ssmlGender: 'FEMALE'},
             audioConfig: {audioEncoding: 'MP3'},
           }),
         }
       );
       const jsonResponse = await response.json();
-      console.log("responded", jsonResponse);
-      return jsonResponse;
+
+      let mimeType = "data:audio/mp3;base64,"
+      let hopefulUri = mimeType + jsonResponse.audioContent;
+
+      const { sound: playbackObject } = await Audio.Sound.createAsync (    
+          { uri: hopefulUri },
+          { shouldPlay: true }
+      );
+      await playbackObject.playAsync();
+      return hopefulUri;
     } catch (err) {
       console.log(err);
     }
   };
+
+  export default getAudio
