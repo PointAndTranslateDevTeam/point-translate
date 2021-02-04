@@ -13,15 +13,19 @@ function HomeScreen({ navigation }) {
         </View>
         <Image style={styles.image} source={require("../CamAnimation.gif")} />
         <View>
+          <Text style={styles.headlineText}>
+            Use your device's camera to capture text, then have it translated
+            into your language of choice
+          </Text>
           <Text>Please select your target language:</Text>
-            <TargetPicker initialValue="es" style={styles.targetPicker} />
+          <TargetPicker initialValue="es" style={styles.targetPicker} />
         </View>
         <View>
           <TouchableOpacity
             onPress={() => navigation.navigate("Camera")}
             style={styles.tapForCameraButton}
           >
-            <Text style={styles.tapForCameraText}>Tap For Camera</Text>
+            <Text style={styles.tapForCameraText}>Tap To Start</Text>
           </TouchableOpacity>
         </View>
       </View>
