@@ -52,20 +52,21 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
     <View style={styles.screen}>
       {console.log("entering translation screen:", translation)}
       <View style={styles.textContainer}>
-        <View style={styles.header}>
-          <Text style={{ fontSize: 35 }}>Original Text:</Text>
+        <View >
+          <Text style={styles.header}>Original Text:</Text>
         </View>
         <ScrollView>
           <Text>{orgText}</Text>
         </ScrollView>
       </View>
       <View style={styles.textContainer}>
-        <View style={styles.header}>
-          <Text style={{ fontSize: 35 }}>Translation:</Text>
+        <View >
+          <Text style={styles.header}>Translation:</Text>
         </View>
         <ScrollView>
           <Text>{translation}</Text>
         </ScrollView>
+        <AudioButton text={translation}/>
       </View>
       <View style={styles.cameraBtn}>
         <TouchableOpacity
@@ -90,7 +91,6 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
             Back to Camera
           </Text>
         </TouchableOpacity>
-        <AudioButton text={translation}/>
       </View>
     </View>
   );

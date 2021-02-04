@@ -8,11 +8,11 @@ export default StyleSheet.create({
       marginTop: 10,
     },
     textContainer: {
-      width: "80%",
-      height: "35%",
+      width: "90%",
+      height: "40%",
       alignItems: "center",
       margin: 10,
-      padding: 10,
+      padding: 20,
       borderRadius: 10,
       shadowColor: "black",
       shadowOffset: { width: 0, height: 2 },
@@ -20,12 +20,14 @@ export default StyleSheet.create({
       shadowOpacity: 0.26,
       elevation: 5,
       backgroundColor: "white",
-      padding: 20,
+      paddingTop: 1,
     },
     header: {
-      fontSize: 50,
+      fontSize: 25,
+      fontWeight: 'bold',
+      padding: 8
     },
     cameraBtn: {
-      marginTop: 50,
+      margin: 10,
     }
   });
