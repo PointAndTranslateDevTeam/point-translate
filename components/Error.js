@@ -18,11 +18,10 @@ const Error = (props) => {
         <View style={styles.screen}>
           <View style={styles.settingContainer}>
             <View>
-              <Text>Error:</Text>
               <Text>Sorry, we did not detect any text in your image.</Text>
             </View>
             <TouchableOpacity onPress={() => props.setShowError(false)}>
-              <Text>Back to camera</Text>
+              <Text style={{fontWeight: 'bold'}}>Back to camera</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -50,11 +49,18 @@ const styles = StyleSheet.create({
     margin: 50,
     padding: 40,
     borderRadius: 10,
-    height: "50%",
+    height: "20%",
     alignContent: "center",
     flexDirection: "column",
     justifyContent: "center",
   },
-  settingContainer: {},
+  settingContainer: {
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignContent: "center",
+    textAlign: 'center',
+    alignItems:'center',
+    flex: 1
+  },
 });
 export default connect(mapStateToProps)(Error);
