@@ -20,6 +20,12 @@ export default StyleSheet.create({
     textAlign: "center",
     fontSize: 42,
   },
+  headlineText: {
+    color: "#14274e",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 30,
+  },
   targetPicker: {
     width: "50%",
   },
