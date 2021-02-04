@@ -18,13 +18,7 @@ const DismissKeyboard = ({ children }) => (
   </TouchableWithoutFeedback>
 );
 
-const EditText = ({
-  navigation,
-  orgText,
-  editText,
-  showEdit,
-  setShowEdit,
-}) => {
+const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
   const [newText, setNewText] = useState(orgText);
 
   const editTextInputHandler = (edittedText) => {
@@ -40,9 +34,8 @@ const EditText = ({
   };
 
   return (
-
-      <Modal transparent={true} visible={showEdit} animationType="slide">
-            <DismissKeyboard>
+    <Modal transparent={true} visible={showEdit} animationType="slide">
+      <DismissKeyboard>
         <View style={styles.screenContainer}>
           <View style={styles.screen}>
             <Text style={{ fontSize: 30 }}>Detected text:</Text>
@@ -78,8 +71,8 @@ const EditText = ({
             </View>
           </View>
         </View>
-        </DismissKeyboard>
-      </Modal>
+      </DismissKeyboard>
+    </Modal>
   );
 };
 

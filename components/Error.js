@@ -13,15 +13,16 @@ import {
 
 const Error = (props) => {
   return (
-    <Modal visible={props.showError} animationType="slide">
-      <View style={styles.screen}>
-        <View style={styles.settingContainer}>
-          <TouchableOpacity onPress={() => props.setError(false)}>
-            <Text>Back to camera</Text>
-          </TouchableOpacity>
-          <View>
-            <Text>Error:</Text>
-            <Text>Sorry, we did not detect any text in your image.</Text>
+    <Modal visible={props.showError} animationType="slide" transparent={true}>
+      <View style={styles.screenContainer}>
+        <View style={styles.screen}>
+          <View style={styles.settingContainer}>
+            <View>
+              <Text>Sorry, we did not detect any text in your image.</Text>
+            </View>
+            <TouchableOpacity onPress={() => props.setShowError(false)}>
+              <Text style={{fontWeight: 'bold'}}>Back to camera</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -37,12 +38,29 @@ const mapStateToProps = (state) => {
 };
 
 const styles = StyleSheet.create({
-  screen: {
+  screenContainer: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
     justifyContent: "center",
   },
-  settingContainer: {},
+  screen: {
+    backgroundColor: "#fff",
+    alignItems: "center",
+    backgroundColor: "lightgray",
+    margin: 50,
+    padding: 40,
+    borderRadius: 10,
+    height: "20%",
+    alignContent: "center",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  settingContainer: {
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignContent: "center",
+    textAlign: 'center',
+    alignItems:'center',
+    flex: 1
+  },
 });
 export default connect(mapStateToProps)(Error);

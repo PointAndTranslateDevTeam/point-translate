@@ -7,7 +7,7 @@ import Settings from "../components/Settings";
 import Error from "../components/Error";
 import Confirmation from "../components/Confirmation";
 import styles from "../styles/CameraStyle";
-import EditText from './EditText'
+import EditText from "./EditText";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
@@ -22,9 +22,10 @@ const CameraScreen = ({
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
-  const [text, setText] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [showEdit, setShowEdit] = useState(false)
+  const [showError, setShowError] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -66,33 +67,15 @@ const CameraScreen = ({
   const confLoaded = useRef(false);
   useEffect(() => {
     if (confLoaded.current) {
-      console.log("after", error, orgText);
+      console.log("after", error, orgText, id);
       try {
         if (error !== null) {
-          Alert.alert(
-            "Error",
-            "Sorry, we could not find any text in your picture, try again!",
-            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-            { cancelable: true }
-          );
+          console.log("error", error);
+          console.log(showError);
+          setShowError(true);
         }
         if (orgText !== "") {
-          Alert.alert(
-            "Please confirm detected text:",
-            orgText,
-            [
-              {
-                text: "Cancel",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "cancel",
-              },              {
-                text: "Edit",
-                onPress: () => setShowEdit(true)
-              },
-              { text: "OK", onPress: () => navigation.navigate("Translation") },
-            ],
-            { cancelable: false }
-          );
+          setShowConfirmation(true);
         }
       } catch (err) {
         console.error(err);
@@ -139,7 +122,23 @@ const CameraScreen = ({
             ></TouchableOpacity>
           </View>
           <Settings showModal={showModal} setModal={setShowModal} />
-          <EditText showEdit={showEdit} setShowEdit={setShowEdit} navigation={navigation}/>
+          <EditText
+            showEdit={showEdit}
+            setShowEdit={setShowEdit}
+            navigation={navigation}
+          />
+          <Error
+            showError={showError}
+            setShowError={setShowError}
+            navigation={navigation}
+          />
+          <Confirmation
+            showEdit={showEdit}
+            setShowEdit={setShowEdit}
+            showConfirmation={showConfirmation}
+            setShowConfirmation={setShowConfirmation}
+            navigation={navigation}
+          />
         </View>
       </Camera>
     </View>
