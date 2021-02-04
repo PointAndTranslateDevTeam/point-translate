@@ -129,7 +129,7 @@ const CameraScreen = ({
               style={styles.langButton}
               onPress={() => setShowModal(true)}
             >
-              <Text style={styles.flipButtonText}>MODAL BUTTON HERE</Text>
+              <Text style={styles.flipButtonText}>Settings</Text>
             </TouchableOpacity>
           </View>
           <View>
