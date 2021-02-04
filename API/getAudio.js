@@ -9,7 +9,7 @@ const getAudio = async (string) => {
         {
           method: "POST",
           body: JSON.stringify({
-            input: {text: "hello world!"},
+            input: {text: string},
             voice: {languageCode: 'en-US', ssmlGender: 'FEMALE'},
             audioConfig: {audioEncoding: 'MP3'},
           }),
