@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Modal, ActivityIndicator } from 'react-native';
+import { StyleSheet, Modal, ActivityIndicator } from 'react-native';
 
 const LoadingWheel = (props) => {
     return (
