@@ -5,16 +5,16 @@ export default StyleSheet.create({
     //marginTop: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 40,
-    width: 80,
-    height: 80,
+    borderRadius: 20,
+    width: 40,
+    height: 40,
     borderColor : "#7AEEBA",
     borderWidth : 3
   },
 
   audioContainer: {
-     
-    alignItems: 'center',
-    paddingVertical: 10
+
+    // alignItems: 'center',
+    paddingVertical: 5
   },
 })
