@@ -20,9 +20,6 @@ const Settings = (props) => {
     <View style={styles.screenContainer}>
       <View style={styles.screen}>
         <View style={styles.settingContainer}>
-          <TouchableOpacity onPress={() => props.setModal(false)}>
-            <Text>Back to camera</Text>
-          </TouchableOpacity>
           <View style={styles.toggleContainer}>
             <Text>Optimize for handwriting recognition?</Text>
             <Switch
@@ -34,7 +31,6 @@ const Settings = (props) => {
             />
           </View>
           <View>
-            <Text>Please select a language:</Text>
             <TouchableOpacity onPress={() => props.setModal(false)}>
               <Text>Back to camera</Text>
             </TouchableOpacity>

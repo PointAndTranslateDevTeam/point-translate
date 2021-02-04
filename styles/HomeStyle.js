@@ -3,23 +3,27 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fb7573",
     alignItems: "center",
     justifyContent: "center",
   },
   contentContainer: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fb7573",
     justifyContent: "space-around",
     alignItems: "center",
+    marginVertical: 20,
   },
   titleText: {
     color: "#14274e",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 36,
+    fontSize: 42,
   },
-  targetPicker: { width: "50%" },
+  targetPicker: {
+    width: "50%",
+  },
+
   tapForCameraButton: {
     width: 130,
     borderRadius: 4,
@@ -33,5 +37,12 @@ export default StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
+  },
+
+  image: {
+    width: 250,
+    height: 185,
+    resizeMode: "contain",
+    marginVertical: 0,
   },
 });
