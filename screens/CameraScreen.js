@@ -65,8 +65,9 @@ const CameraScreen = ({
       }
     })();
   }, [picture]);
-
+  
   const confLoaded = useRef(false);
+  
   useEffect(() => {
     if (confLoaded.current) {
       console.log("after", error, orgText);
@@ -80,6 +81,7 @@ const CameraScreen = ({
           );
         }
         if (orgText !== "") {
+          setShowLoading(false);
           Alert.alert(
             "Please confirm detected text:",
             orgText,
@@ -102,6 +104,7 @@ const CameraScreen = ({
       }
     } else {
       confLoaded.current = true;
+      
     }
   }, [id]);
 
@@ -140,7 +143,8 @@ const CameraScreen = ({
               style={styles.shutterButton}
               onPress={() => {
                 setShowLoading(true);
-                takePicture()
+                takePicture();
+                //setShowLoading(false);
               }
             }
             ></TouchableOpacity>
