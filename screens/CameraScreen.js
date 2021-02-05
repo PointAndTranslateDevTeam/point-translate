@@ -8,6 +8,7 @@ import Error from "../components/Error";
 import Confirmation from "../components/Confirmation";
 import styles from "../styles/CameraStyle";
 import EditText from "./EditText";
+import LoadingWheel from "../components/LoadingWheel";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
@@ -26,6 +27,7 @@ const CameraScreen = ({
   const [showError, setShowError] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -66,6 +68,7 @@ const CameraScreen = ({
 
   const confLoaded = useRef(false);
   useEffect(() => {
+    setLoading(false);
     if (confLoaded.current) {
       console.log("after", error, orgText, id);
       try {
@@ -118,7 +121,10 @@ const CameraScreen = ({
           <View>
             <TouchableOpacity
               style={styles.shutterButton}
-              onPress={() => takePicture()}
+              onPress={() => {
+                setLoading(true);
+                takePicture();
+              }}
             ></TouchableOpacity>
           </View>
           <Settings showModal={showModal} setModal={setShowModal} />
@@ -139,6 +145,7 @@ const CameraScreen = ({
             setShowConfirmation={setShowConfirmation}
             navigation={navigation}
           />
+          <LoadingWheel loading={loading}/>
         </View>
       </Camera>
     </View>

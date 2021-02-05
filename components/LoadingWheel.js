@@ -3,8 +3,8 @@ import { StyleSheet, Modal, ActivityIndicator } from 'react-native';
 
 const LoadingWheel = (props) => {
     return (
-        <Modal transparent={true} visible={props.showLoading} animationType="none" style={styles.container}>
-            <ActivityIndicator visible={props.showLoading}  size="large" color="white" style={styles.activityIndicator}/>
+        <Modal transparent={true} visible={props.loading} animationType="none" style={styles.container}>
+            <ActivityIndicator visible={props.loading}  size="large" color="white" style={styles.activityIndicator}/>
         </Modal>
     );
 }
