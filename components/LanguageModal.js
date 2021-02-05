@@ -9,6 +9,11 @@ const LanguageModal = (props) => {
     <Modal transparent={true} visible={props.showModal} animationType="slide">
       <View style={langModStyles.container}>
         <View style={langModStyles.pickerContainer}>
+          <View>
+            <TouchableOpacity>
+            </TouchableOpacity>
+            <Text>Okay</Text>
+          </View>
           <Text>Please select your target language:</Text>
           <TargetPicker initialValue="es" style={styles.targetPicker} />
         </View>
@@ -22,7 +27,6 @@ const langModStyles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-end",
-    backgroundColor: "#006575",
   },
   pickerContainer: {
     height: 200,

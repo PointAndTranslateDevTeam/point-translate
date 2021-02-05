@@ -27,7 +27,9 @@ export default StyleSheet.create({
     fontSize: 30,
   },
   targetPicker: {
-    width: "50%",
+    flex: 1,
+    justifyContent: "center",
+    flexDirection: "column",
   },
 
   tapForCameraButton: {
