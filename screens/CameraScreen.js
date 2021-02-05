@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { getText } from "../store/source";
 import Settings from "../components/Settings";
+import LanguageModal from "../components/LanguageModal";
 import Error from "../components/Error";
 import Confirmation from "../components/Confirmation";
 import styles from "../styles/CameraStyle";
@@ -26,6 +27,7 @@ const CameraScreen = ({
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showOtherModal, setShowOtherModal] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -104,6 +106,12 @@ const CameraScreen = ({
             
             <TouchableOpacity
               style={styles.langButton}
+              onPress={() => setShowOtherModal(true)}
+            >
+              <Text style={styles.flipButtonText}>Select Language</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.langButton}
               onPress={() => setShowModal(true)}
             >
               <Text style={styles.flipButtonText}>Settings</Text>
@@ -121,6 +129,7 @@ const CameraScreen = ({
             <FlipButton/> 
             {/* this button is a placeholder for flash */}
           </View>
+          <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
           <Settings showModal={showModal} setModal={setShowModal} />
           <EditText
             showEdit={showEdit}
@@ -139,7 +148,7 @@ const CameraScreen = ({
             setShowConfirmation={setShowConfirmation}
             navigation={navigation}
           />
-          <LoadingWheel loading={loading}/>
+          <LoadingWheel loading={loading} />
         </View>
       </Camera>
     </View>
