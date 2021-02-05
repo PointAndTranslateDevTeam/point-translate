@@ -39,7 +39,7 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     padding: 40,
     alignSelf: "center",
-    backgroundColor: "#D90E18",
+   // backgroundColor: "#D90E18",
     // backgroundColor: "#009FB8",
     backgroundColor: "#FC9E9C",
     // borderColor: "#006575",
