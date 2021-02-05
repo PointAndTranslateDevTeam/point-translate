@@ -23,7 +23,7 @@ const Settings = (props) => {
             <View style={styles.button}>
               <TouchableOpacity onPress={() => props.setModal(false)}>
                 <Text style={{ fontWeight: "bold", color: "white" }}>
-                  Back to camera
+                  Confirm
                 </Text>
               </TouchableOpacity>
             </View>

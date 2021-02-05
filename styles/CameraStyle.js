@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native'
+import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
@@ -11,8 +11,8 @@ export default StyleSheet.create({
     flex: 1,
     padding: 20,
     height: 500,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   buttonContainer: {
     flex: 1,
@@ -27,8 +27,27 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   flipButton: {
-
     alignSelf: "flex-start",
+  },
+
+  selectText: {
+    textAlign: "center",
+    padding: 5,
+    borderRadius: 10,
+    marginTop: 3,
+    color: "white",
+    fontSize: 16
+
+  },
+  languageButton: {
+    alignSelf: "flex-start",
+    fontSize: 18,
+    height: 35,
+    width: 150,
+    backgroundColor: "gray",
+    borderRadius: 10,
+    alignContent: "center",
+    opacity: 0.6,
   },
   langButton: {
     alignSelf: "flex-start",
@@ -55,10 +74,10 @@ export default StyleSheet.create({
     color: "white",
   },
   cameraControlContainer: {
-    flex: .2,
+    flex: 0.2,
     flexDirection: "row",
     justifyContent: "space-between",
-    //alignItems: "baseline", 
-    alignContent: "center"
-  }
+    //alignItems: "baseline",
+    alignContent: "center",
+  },
 });
