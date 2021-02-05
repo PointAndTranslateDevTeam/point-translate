@@ -24,7 +24,8 @@ export default StyleSheet.create({
     color: "#14274e",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 30,
+    fontSize: 25,
+    padding: 20,
   },
   targetPicker: {
     width: "50%",
@@ -52,7 +53,6 @@ export default StyleSheet.create({
     marginVertical: 0,
   },
   helpButtonContainer: {
-    flex: 1,
     justifyContent: "flex-end",
   },
 });
