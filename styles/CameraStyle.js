@@ -61,8 +61,6 @@ export default StyleSheet.create({
   cameraControlContainer: {
     flex: .2,
     flexDirection: "row",
-    //alignSelf: "center",
-    backgroundColor: "red",
     justifyContent: "space-between"
   }
 });
