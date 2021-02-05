@@ -10,9 +10,9 @@ import Confirmation from "../components/Confirmation";
 import styles from "../styles/CameraStyle";
 import EditText from "./EditText";
 import LoadingWheel from "../components/LoadingWheel";
-import FlipButton from '../components/FlipButton';
-import FlashButton from '../components/FlashButton';
-
+import FlipButton from "../components/FlipButton";
+import FlashButton from "../components/FlashButton";
+import SettingsButton from "../components/settingsButton";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
@@ -102,10 +102,14 @@ const CameraScreen = ({
   }
   return (
     <View style={styles.container}>
-      <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type} flashMode={flash}>
+      <Camera
+        ref={(ref) => setCamera(ref)}
+        style={styles.camera}
+        type={type}
+        flashMode={flash}
+      >
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
-            
             <TouchableOpacity
               style={styles.langButton}
               onPress={() => setShowOtherModal(true)}
@@ -116,11 +120,11 @@ const CameraScreen = ({
               style={styles.langButton}
               onPress={() => setShowModal(true)}
             >
-              <Text style={styles.flipButtonText}>Settings</Text>
+              <SettingsButton />
             </TouchableOpacity>
           </View>
           <View style={styles.cameraControlContainer}>
-            <FlipButton type={type} setType={setType}/>
+            <FlipButton type={type} setType={setType} />
             <TouchableOpacity
               style={styles.shutterButton}
               onPress={() => {
@@ -128,9 +132,12 @@ const CameraScreen = ({
                 takePicture();
               }}
             ></TouchableOpacity>
-            <FlashButton flash={flash} setFlash={setFlash}/> 
+            <FlashButton flash={flash} setFlash={setFlash} />
           </View>
-          <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
+          <LanguageModal
+            showModal={showOtherModal}
+            setModal={setShowOtherModal}
+          />
           <Settings showModal={showModal} setModal={setShowModal} />
           <EditText
             showEdit={showEdit}
