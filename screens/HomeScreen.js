@@ -1,7 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
-import TargetPicker from "../components/TargetPicker";
 import styles from "../styles/HomeStyle";
 
 function HomeScreen({ navigation }) {
@@ -17,8 +16,6 @@ function HomeScreen({ navigation }) {
             Use your device's camera to capture text, then have it translated
             into your language of choice
           </Text>
-          <Text>Please select your target language:</Text>
-          <TargetPicker initialValue="es" style={styles.targetPicker} />
         </View>
         <View>
           <TouchableOpacity
