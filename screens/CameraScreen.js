@@ -10,7 +10,8 @@ import Confirmation from "../components/Confirmation";
 import styles from "../styles/CameraStyle";
 import EditText from "./EditText";
 import LoadingWheel from "../components/LoadingWheel";
-import FlipButton from '../components/FlipButton'
+import FlipButton from '../components/FlipButton';
+import FlashButton from '../components/FlashButton';
 
 
 //Choosing a functional component gives us access to useState hook
@@ -118,7 +119,7 @@ const CameraScreen = ({
             </TouchableOpacity>
           </View>
           <View style={styles.cameraControlContainer}>
-            <FlipButton/>
+            <FlipButton type={type} setType={setType}/>
             <TouchableOpacity
               style={styles.shutterButton}
               onPress={() => {
@@ -126,8 +127,7 @@ const CameraScreen = ({
                 takePicture();
               }}
             ></TouchableOpacity>
-            <FlipButton/> 
-            {/* this button is a placeholder for flash */}
+            <FlashButton/> 
           </View>
           <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
           <Settings showModal={showModal} setModal={setShowModal} />

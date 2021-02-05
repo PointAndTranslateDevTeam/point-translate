@@ -39,7 +39,6 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     padding: 40,
     alignSelf: "center",
-    justifyContent: "center",
     // backgroundColor: "#D90E18",
     backgroundColor: "#009FB8",
     // backgroundColor: "#FC9E9C",
@@ -51,7 +50,6 @@ export default StyleSheet.create({
     borderWidth: 8,
     width: 80,
     height: 80,
-    //justifyContent: "center",
     margin: 20,
   },
   flipButtonText: {
@@ -61,6 +59,8 @@ export default StyleSheet.create({
   cameraControlContainer: {
     flex: .2,
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    //alignItems: "baseline", 
+    alignContent: "center"
   }
 });
