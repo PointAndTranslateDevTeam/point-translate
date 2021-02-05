@@ -13,6 +13,8 @@ import CameraScreen from "./screens/CameraScreen";
 import HomeScreen from "./screens/HomeScreen";
 import TranslationScreen from "./screens/TranslationScreen";
 import EditText from "./screens/EditText";
+import Confirmation from './components/Confirmation'
+import Error from './components/Error';
 import store from "./store";
 import { Provider } from "react-redux";
 
@@ -36,6 +38,8 @@ export default function App() {
         <RootStack.Navigator mode="modal" headerMode="none">
           <RootStack.Screen name="Main" component={MainStackScreen} />
           <RootStack.Screen name="EditText" component={EditText} />
+          <RootStack.Screen name="Error" component={Error} />
+          <RootStack.Screen name="Confirmation" component={Confirmation} />
         </RootStack.Navigator>
       </NavigationContainer>
     </Provider>
