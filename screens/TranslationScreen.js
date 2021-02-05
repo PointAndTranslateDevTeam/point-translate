@@ -8,8 +8,8 @@ import {
   ScrollView,
 } from "react-native";
 import { connect } from "react-redux";
-import styles from '../styles/TranslationStyle'
-import AudioButton from '../components/audioButton'
+import styles from "../styles/TranslationStyle";
+import AudioButton from "../components/audioButton";
 
 const TranslationScreen = ({ orgText, target, navigation }) => {
   const [translation, setTranslation] = useState(null);
@@ -51,22 +51,25 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
   return (
     <View style={styles.screen}>
       {console.log("entering translation screen:", translation)}
-      <View style={styles.textContainer}>
-        <View >
+      <View style={styles.originalContainer}>
+        <View>
           <Text style={styles.header}>Original Text:</Text>
         </View>
         <ScrollView>
-          <Text>{orgText}</Text>
+          <Text style={styles.text}>{orgText}</Text>
         </ScrollView>
       </View>
-      <View style={styles.textContainer}>
-        <View >
+      <View style={styles.translateContainer}>
+        <View>
           <Text style={styles.header}>Translation:</Text>
         </View>
         <ScrollView>
-          <Text>{translation}</Text>
+          <Text style={styles.text}>{translation}</Text>
         </ScrollView>
-        <AudioButton text={translation}/>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.text}>Listen:</Text>
+          <AudioButton text={translation} />
+        </View>
       </View>
       <View style={styles.cameraBtn}>
         <TouchableOpacity
@@ -79,6 +82,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
             justifyContent: "center",
             alignItems: "center",
             height: 40,
+            backgroundColor: "#FB7573",
           }}
         >
           <Text
