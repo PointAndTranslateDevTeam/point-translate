@@ -18,12 +18,13 @@ export default StyleSheet.create({
     color: "#032D38",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 45,
+    fontSize: 53,
+    fontFamily: "Staatliches"
   },
   headlineText: {
     color: "#032D38",
     textAlign: "center",
-    fontSize: 13,
+    fontSize: 12.5,
   },
   targetPicker: {
     flex: 1,
@@ -44,11 +45,13 @@ export default StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "Staatliches",
+    fontSize: 20
   },
 
   image: {
-    width: 350,
-    height: 250,
+    width: 375,
+    height: 275,
     resizeMode: "contain",
     marginVertical: 0,
   },
