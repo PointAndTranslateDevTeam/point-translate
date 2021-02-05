@@ -42,27 +42,29 @@ const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
       <DismissKeyboard>
         <View style={styles.screenContainer}>
           <View style={styles.screen}>
-            <Text style={{ fontSize: 30 }}>Detected text:</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Edit detected text:</Text>
+            <View style={styles.textInput}>
             <TextInput
               onChangeText={editTextInputHandler}
               multiline={true}
               value={newText}
             ></TextInput>
-            <View>
+            </View>
+            <View style={styles.button}>
               <TouchableOpacity
                 onPress={() => {
-                  // console.log(newText)
                   inputEditText();
                   navigation.navigate("Translation");
                 }}
                 style={{
-                  width: 130,
+                  width: 100,
                   borderRadius: 4,
-                  backgroundColor: "#14274e",
+                  backgroundColor: "#fb7573",
                   flexDirection: "row",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: 40,
+                  height: 35,
+                  marginVertical: 5
                 }}
               >
                 <Text
@@ -98,19 +100,21 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
-    opacity: 0.9,
+    alignContent: 'center',
+    alignItems:'center'
   },
   screen: {
-    backgroundColor: "#fff",
+    color: "#fff",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#94B2BA",
     margin: 50,
     padding: 40,
     borderRadius: 10,
-    height: "70%",
+    height: "75%",
+    width: "90%",
     alignContent: "center",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "space-around",
     shadowColor: "black",
     shadowOffset: { width: 0, height: 0 },
     shadowRadius: 6,
@@ -127,6 +131,10 @@ const styles = StyleSheet.create({
   text: {
     margin: 20,
   },
+  textInput: {
+    height: "80%",
+    width: "90%"
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchtoProps)(EditText);
