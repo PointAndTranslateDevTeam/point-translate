@@ -1,9 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import styles from "../styles/HomeStyle";
+import { MaterialIcons } from "@expo/vector-icons";
+import HelpfulText from "../components/HelpfulText";
 
 function HomeScreen({ navigation }) {
+  const [showModal, setShowModal] = useState(false);
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
@@ -25,8 +28,14 @@ function HomeScreen({ navigation }) {
             <Text style={styles.tapForCameraText}>Tap To Start</Text>
           </TouchableOpacity>
         </View>
+        <StatusBar style="auto" />
       </View>
-      <StatusBar style="auto" />
+      <View style={styles.helpButtonContainer}>
+        <TouchableOpacity onPress={() => setShowModal(true)}>
+          <MaterialIcons name="help" size={50} color="#14274E" />
+        </TouchableOpacity>
+      </View>
+      <HelpfulText showModal={showModal} setModal={setShowModal} />
     </View>
   );
 }

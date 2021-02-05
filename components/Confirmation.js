@@ -25,13 +25,14 @@ const Confirmation = (props) => {
         <View style={styles.screen}>
           <View style={styles.settingContainer}>
             <View style={styles.confContainer}>
-              <View>
-                <Text style={{ fontWeight: "bold" }}>Text Detected:</Text>
-              </View>
-              <ScrollView>
+              <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                Text Detected:
+              </Text>
+              <ScrollView style={{ flex: 1, width: "100%" }}>
                 <Text>{props.orgText}</Text>
               </ScrollView>
             </View>
+
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={styles.button}
@@ -39,7 +40,7 @@ const Confirmation = (props) => {
                   props.setShowConfirmation(false), props.setShowEdit(true);
                 }}
               >
-                <Text style={{ color: "white" }}>Edit</Text>
+                <Text style={{ color: "white", fontWeight: "bold" }}>Edit</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.button}
@@ -48,13 +49,17 @@ const Confirmation = (props) => {
                   props.navigation.navigate("Translation");
                 }}
               >
-                <Text style={{ color: "white" }}>Confirm</Text>
+                <Text style={{ color: "white", fontWeight: "bold" }}>
+                  Confirm
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => props.setShowConfirmation(false)}
               >
-                <Text style={{ color: "white" }}>Cancel</Text>
+                <Text style={{ color: "white", fontWeight: "bold" }}>
+                  Cancel
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -75,22 +80,26 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: 'center',
-    alignContent: 'center'
+    alignItems: "center",
+    alignContent: "center",
   },
   screen: {
-    backgroundColor: "lightgray",
+    backgroundColor: "#94B2BA",
     alignItems: "center",
     marginTop: 50,
     borderRadius: 10,
     height: "75%",
-    width: "85%",
+    width: "90%",
     alignContent: "center",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: 'center'
+    alignItems: "center",
   },
-
+  settingContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+  },
   confContainer: {
     width: "80%",
     height: "80%",
@@ -99,6 +108,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     padding: 20,
+    justifyContent: "space-between",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -106,7 +116,7 @@ const styles = StyleSheet.create({
   button: {
     width: 75,
     borderRadius: 4,
-    backgroundColor: "#14274e",
+    backgroundColor: "#fb7573",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
