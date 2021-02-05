@@ -56,7 +56,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
           <Text style={styles.header}>Original Text:</Text>
         </View>
         <ScrollView>
-          <Text>{orgText}</Text>
+          <Text style={styles.text}>{orgText}</Text>
         </ScrollView>
       </View>
       <View style={styles.translateContainer}>
@@ -64,10 +64,10 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
           <Text style={styles.header}>Translation:</Text>
         </View>
         <ScrollView>
-          <Text>{translation}</Text>
+          <Text style={styles.text}>{translation}</Text>
         </ScrollView>
         <View style={{flexDirection: 'row'}}>
-          <Text>Listen:</Text>
+          <Text style={styles.text}>Listen:</Text>
           <AudioButton text={translation} />
         </View>
       </View>
@@ -82,6 +82,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
             justifyContent: "center",
             alignItems: "center",
             height: 40,
+            backgroundColor: "#FB7573",
           }}
         >
           <Text

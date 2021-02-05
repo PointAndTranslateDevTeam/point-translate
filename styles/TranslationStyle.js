@@ -5,22 +5,23 @@ export default StyleSheet.create({
       flex: 1,
       alignContent: "center",
       alignItems: "center",
-      marginTop: 10,
+      backgroundColor: "#94B2BA",
     },
     originalContainer: {
       width: "90%",
       height: "35%",
       alignItems: "center",
       margin: 10,
+      marginTop: 30,
       padding: 20,
+      paddingTop: 5,
       borderRadius: 10,
       shadowColor: "black",
       shadowOffset: { width: 0, height: 2 },
       shadowRadius: 6,
       shadowOpacity: 0.26,
       elevation: 5,
-      backgroundColor: "white",
-      paddingTop: 1,
+      backgroundColor: "#006575",
     },
     translateContainer: {
       width: "90%",
@@ -28,21 +29,26 @@ export default StyleSheet.create({
       alignItems: "center",
       margin: 10,
       padding: 20,
+      paddingTop: 5,
       borderRadius: 10,
       shadowColor: "black",
       shadowOffset: { width: 0, height: 2 },
       shadowRadius: 6,
       shadowOpacity: 0.26,
       elevation: 5,
-      backgroundColor: "white",
-      paddingTop: 1,
+      backgroundColor: "#006575",
+
     },
     header: {
       fontSize: 25,
       fontWeight: 'bold',
-      padding: 8
+      padding: 8,
+      color: "white"
     },
     cameraBtn: {
       margin: 10,
+    },
+    text: {
+      color: "white"
     }
   });
