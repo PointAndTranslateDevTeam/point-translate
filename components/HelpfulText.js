@@ -17,7 +17,7 @@ const HelpfulText = (props) => {
       <View style={styles.screenContainer}>
         <View style={styles.screen}>
           <View style={styles.settingContainer}>
-            <View style={styles.toggleContainer}>
+            <View>
               <Text>
                 Welcome to your fabulous placeholder for helpful instructions on
                 how to use our magnificent application!
