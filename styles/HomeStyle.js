@@ -15,17 +15,15 @@ export default StyleSheet.create({
     marginVertical: 20,
   },
   titleText: {
-    color: "#14274e",
+    color: "#032D38",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 42,
+    fontSize: 45,
   },
   headlineText: {
-    color: "#14274e",
-    fontWeight: "bold",
+    color: "#032D38",
     textAlign: "center",
-    fontSize: 25,
-    padding: 20,
+    fontSize: 13,
   },
   targetPicker: {
     flex: 1,
@@ -36,7 +34,7 @@ export default StyleSheet.create({
   tapForCameraButton: {
     width: 130,
     borderRadius: 4,
-    backgroundColor: "#14274e",
+    backgroundColor: "#032D38",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -49,8 +47,8 @@ export default StyleSheet.create({
   },
 
   image: {
-    width: 250,
-    height: 185,
+    width: 350,
+    height: 250,
     resizeMode: "contain",
     marginVertical: 0,
   },

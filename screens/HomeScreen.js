@@ -12,14 +12,12 @@ function HomeScreen({ navigation }) {
       <View style={styles.contentContainer}>
         <View style={styles.title}>
           <Text style={styles.titleText}>Point & Translate</Text>
-        </View>
-        <Image style={styles.image} source={require("../CamAnimation.gif")} />
-        <View>
           <Text style={styles.headlineText}>
-            Use your device's camera to capture text, then have it translated
-            into your language of choice
+            Capture an image of text & translate it to another language
           </Text>
         </View>
+        <Image style={styles.image} source={require("../CamAnimation.gif")} />
+        <View></View>
         <View>
           <TouchableOpacity
             onPress={() => navigation.navigate("Camera")}
@@ -31,8 +29,8 @@ function HomeScreen({ navigation }) {
         <StatusBar style="auto" />
       </View>
       <View style={styles.helpButtonContainer}>
-        <TouchableOpacity onPress={() => setShowModal(true)}>
-          <MaterialIcons name="help" size={50} color="#14274E" />
+        <TouchableOpacity onPress={() => setShowModal(true)} style={{margin: 10}}>
+          <MaterialIcons name="help" size={35} color="#032D38" />
         </TouchableOpacity>
       </View>
       <HelpfulText showModal={showModal} setModal={setShowModal} />
