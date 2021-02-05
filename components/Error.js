@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)"
   },
   screen: {
     alignItems: "center",
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     margin: 50,
     padding: 40,
     borderRadius: 10,
-    height: "20%",
+    height: "35%",
     alignContent: "center",
     flexDirection: "column",
     justifyContent: "center",

@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)"
   },
   screen: {
     backgroundColor: "#94B2BA",
