@@ -8,7 +8,7 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   contentContainer: {
-    flex: 1,
+    flex: 8,
     backgroundColor: "#fb7573",
     justifyContent: "space-around",
     alignItems: "center",
@@ -24,7 +24,8 @@ export default StyleSheet.create({
     color: "#14274e",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 30,
+    fontSize: 25,
+    padding: 20,
   },
   targetPicker: {
     width: "50%",
@@ -50,5 +51,11 @@ export default StyleSheet.create({
     height: 185,
     resizeMode: "contain",
     marginVertical: 0,
+  },
+  helpButtonContainer: {
+    flex: 1,
+    alignSelf: "flex-end",
+    justifyContent: "flex-end",
+    padding: 10,
   },
 });
