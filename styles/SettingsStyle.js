@@ -26,7 +26,7 @@ export default StyleSheet.create({
     alignContent: 'center'
   },
   button: {
-    width: 135,
+    width: 100,
     borderRadius: 4,
     backgroundColor: "#fb7573",
     flexDirection: "row",
