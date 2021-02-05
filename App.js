@@ -8,10 +8,18 @@ import TranslationScreen from "./screens/TranslationScreen";
 import EditText from "./screens/EditText";
 import store from "./store";
 import { Provider } from "react-redux";
+import { useFonts } from 'expo-font';
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [loaded] = useFonts({
+    Staatliches: require('./assets/fonts/Staatliches-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   return (
     <Provider store={store}>
       <NavigationContainer>
