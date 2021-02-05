@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import TargetPicker from "../components/TargetPicker";
 import { connect } from "react-redux";
 import { toggleOCR } from "../store/toggleReducer";
 import styles from '../styles/SettingsStyle'
@@ -7,8 +6,6 @@ import styles from '../styles/SettingsStyle'
 import {
   View,
   Text,
-  Button,
-  StyleSheet,
   Modal,
   TouchableOpacity,
   Switch,
