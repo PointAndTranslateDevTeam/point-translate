@@ -51,4 +51,8 @@ export default StyleSheet.create({
     resizeMode: "contain",
     marginVertical: 0,
   },
+  helpButtonContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
 });

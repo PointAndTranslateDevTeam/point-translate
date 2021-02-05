@@ -3,6 +3,7 @@ import React from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import TargetPicker from "../components/TargetPicker";
 import styles from "../styles/HomeStyle";
+import { MaterialIcons } from "@expo/vector-icons";
 
 function HomeScreen({ navigation }) {
   return (
@@ -26,6 +27,11 @@ function HomeScreen({ navigation }) {
             style={styles.tapForCameraButton}
           >
             <Text style={styles.tapForCameraText}>Tap To Start</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.helpButtonContainer}>
+          <TouchableOpacity>
+            <MaterialIcons name="help" size={50} color="#14274E" />
           </TouchableOpacity>
         </View>
       </View>
