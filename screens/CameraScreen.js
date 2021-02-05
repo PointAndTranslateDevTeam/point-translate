@@ -9,6 +9,8 @@ import Confirmation from "../components/Confirmation";
 import styles from "../styles/CameraStyle";
 import EditText from "./EditText";
 import LoadingWheel from "../components/LoadingWheel";
+import FlipButton from '../components/FlipButton'
+
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
@@ -99,18 +101,7 @@ const CameraScreen = ({
       <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
-            <TouchableOpacity
-              style={styles.flipButton}
-              onPress={() => {
-                setType(
-                  type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-              }}
-            >
-              <Text style={styles.flipButtonText}> Flip </Text>
-            </TouchableOpacity>
+            <FlipButton/>
             <TouchableOpacity
               style={styles.langButton}
               onPress={() => setShowModal(true)}
