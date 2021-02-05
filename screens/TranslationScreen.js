@@ -52,7 +52,6 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
   return (
     <View style={styles.screen}>
       {console.log("entering translation screen:", translation)}
-      {console.log(Languages[target])}
       <View style={styles.originalContainer}>
         <View>
           <Text style={styles.header}>Original Text:</Text>
