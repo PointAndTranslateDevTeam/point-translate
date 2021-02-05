@@ -50,11 +50,17 @@ export default StyleSheet.create({
     borderWidth: 8,
     width: 80,
     height: 80,
-    justifyContent: "center",
     margin: 20,
   },
   flipButtonText: {
     fontSize: 18,
     color: "white",
   },
+  cameraControlContainer: {
+    flex: .2,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    //alignItems: "baseline", 
+    alignContent: "center"
+  }
 });

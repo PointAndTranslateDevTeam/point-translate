@@ -10,7 +10,8 @@ import Confirmation from "../components/Confirmation";
 import styles from "../styles/CameraStyle";
 import EditText from "./EditText";
 import LoadingWheel from "../components/LoadingWheel";
-import FlipButton from '../components/FlipButton'
+import FlipButton from '../components/FlipButton';
+import FlashButton from '../components/FlashButton';
 
 
 //Choosing a functional component gives us access to useState hook
@@ -24,6 +25,7 @@ const CameraScreen = ({
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -100,10 +102,10 @@ const CameraScreen = ({
   }
   return (
     <View style={styles.container}>
-      <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
+      <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type} flashMode={flash}>
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
-            <FlipButton/>
+            
             <TouchableOpacity
               style={styles.langButton}
               onPress={() => setShowOtherModal(true)}
@@ -117,7 +119,8 @@ const CameraScreen = ({
               <Text style={styles.flipButtonText}>Settings</Text>
             </TouchableOpacity>
           </View>
-          <View>
+          <View style={styles.cameraControlContainer}>
+            <FlipButton type={type} setType={setType}/>
             <TouchableOpacity
               style={styles.shutterButton}
               onPress={() => {
@@ -125,6 +128,7 @@ const CameraScreen = ({
                 takePicture();
               }}
             ></TouchableOpacity>
+            <FlashButton flash={flash} setFlash={setFlash}/> 
           </View>
           <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
           <Settings showModal={showModal} setModal={setShowModal} />
