@@ -10,6 +10,7 @@ import {
 import { connect } from "react-redux";
 import styles from "../styles/TranslationStyle";
 import AudioButton from "../components/audioButton";
+import Languages from "../languages";
 
 const TranslationScreen = ({ orgText, target, navigation }) => {
   const [translation, setTranslation] = useState(null);
@@ -51,6 +52,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
   return (
     <View style={styles.screen}>
       {console.log("entering translation screen:", translation)}
+      {console.log(Languages[target])}
       <View style={styles.originalContainer}>
         <View>
           <Text style={styles.header}>Original Text:</Text>
@@ -61,12 +63,12 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
       </View>
       <View style={styles.translateContainer}>
         <View>
-          <Text style={styles.header}>Translation:</Text>
+          <Text style={styles.header}>{Languages[target]} Translation:</Text>
         </View>
         <ScrollView>
           <Text style={styles.text}>{translation}</Text>
         </ScrollView>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: "row" }}>
           <Text style={styles.text}>Listen:</Text>
           <AudioButton text={translation} />
         </View>
