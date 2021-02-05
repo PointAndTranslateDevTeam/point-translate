@@ -20,7 +20,8 @@ const FlipButton = () => {
 }
 const styles = StyleSheet.create({
     flipButton: {
-      alignSelf: "flex-start",
+      alignSelf: "flex-end",
+      padding: 20
     },
     flipIcon: {
         flex:1,

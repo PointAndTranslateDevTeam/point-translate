@@ -101,7 +101,7 @@ const CameraScreen = ({
       <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
-            <FlipButton/>
+            
             <TouchableOpacity
               style={styles.langButton}
               onPress={() => setShowModal(true)}
@@ -109,7 +109,8 @@ const CameraScreen = ({
               <Text style={styles.flipButtonText}>Settings</Text>
             </TouchableOpacity>
           </View>
-          <View>
+          <View style={styles.cameraControlContainer}>
+            <FlipButton/>
             <TouchableOpacity
               style={styles.shutterButton}
               onPress={() => {
@@ -117,6 +118,8 @@ const CameraScreen = ({
                 takePicture();
               }}
             ></TouchableOpacity>
+            <FlipButton/> 
+            {/* this button is a placeholder for flash */}
           </View>
           <Settings showModal={showModal} setModal={setShowModal} />
           <EditText
