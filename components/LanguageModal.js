@@ -50,8 +50,7 @@ const langModStyles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
-    // backgroundColor: "white",
-    // opacity: .5
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   screen: {
     alignItems: "center",
