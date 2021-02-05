@@ -37,7 +37,6 @@ export default StyleSheet.create({
   },
   text: {
     margin: 20,
-    backgroundColor: "red"
   },
   toggleContainer: {
     // backgroundColor: "white"
