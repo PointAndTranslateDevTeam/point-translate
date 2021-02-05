@@ -25,6 +25,7 @@ const CameraScreen = ({
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -101,7 +102,7 @@ const CameraScreen = ({
   }
   return (
     <View style={styles.container}>
-      <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type}>
+      <Camera ref={(ref) => setCamera(ref)} style={styles.camera} type={type} flashMode={flash}>
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
             
@@ -127,7 +128,7 @@ const CameraScreen = ({
                 takePicture();
               }}
             ></TouchableOpacity>
-            <FlashButton/> 
+            <FlashButton flash={flash} setFlash={setFlash}/> 
           </View>
           <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
           <Settings showModal={showModal} setModal={setShowModal} />
