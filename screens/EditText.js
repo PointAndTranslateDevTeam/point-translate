@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -19,7 +19,7 @@ const DismissKeyboard = ({ children }) => (
 );
 
 const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
-  const [newText, setNewText] = useState(orgText);
+  const [newText, setNewText] = useState("");
 
   const editTextInputHandler = (edittedText) => {
     setNewText(edittedText);
@@ -33,18 +33,25 @@ const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
     }
   };
 
+  useEffect(() => {
+    setNewText(orgText);
+  }, [orgText]);
+
   return (
     <Modal transparent={true} visible={showEdit} animationType="slide">
       <DismissKeyboard>
         <View style={styles.screenContainer}>
           <View style={styles.screen}>
             <Text style={{ fontSize: 30 }}>Detected text:</Text>
-            <TextInput onChangeText={editTextInputHandler} multiline={true}>
-              {orgText}
-            </TextInput>
+            <TextInput
+              onChangeText={editTextInputHandler}
+              multiline={true}
+              value={newText}
+            ></TextInput>
             <View>
               <TouchableOpacity
                 onPress={() => {
+                  // console.log(newText)
                   inputEditText();
                   navigation.navigate("Translation");
                 }}
