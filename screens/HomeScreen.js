@@ -32,13 +32,13 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
-        <View style={styles.helpButtonContainer}>
-          <TouchableOpacity onPress={() => setShowModal(true)}>
-            <MaterialIcons name="help" size={50} color="#14274E" />
-          </TouchableOpacity>
-        </View>
-        <HelpfulText showModal={showModal} setModal={setShowModal} />
       </View>
+      <View style={styles.helpButtonContainer}>
+        <TouchableOpacity onPress={() => setShowModal(true)}>
+          <MaterialIcons name="help" size={50} color="#14274E" />
+        </TouchableOpacity>
+      </View>
+      <HelpfulText showModal={showModal} setModal={setShowModal} />
     </View>
   );
 }

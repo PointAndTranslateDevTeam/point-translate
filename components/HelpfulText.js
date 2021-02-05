@@ -19,8 +19,8 @@ const HelpfulText = (props) => {
           <View style={styles.settingContainer}>
             <View style={styles.toggleContainer}>
               <Text>
-                Welcome to your placeholder for helpful instructions on how to
-                use our magnificent application!
+                Welcome to your fabulous placeholder for helpful instructions on
+                how to use our magnificent application!
               </Text>
             </View>
           </View>

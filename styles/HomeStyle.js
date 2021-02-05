@@ -8,7 +8,7 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   contentContainer: {
-    flex: 1,
+    flex: 8,
     backgroundColor: "#fb7573",
     justifyContent: "space-around",
     alignItems: "center",
@@ -53,6 +53,9 @@ export default StyleSheet.create({
     marginVertical: 0,
   },
   helpButtonContainer: {
+    flex: 1,
+    alignSelf: "flex-end",
     justifyContent: "flex-end",
+    padding: 10,
   },
 });
