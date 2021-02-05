@@ -9,7 +9,7 @@ const AudioButton = (text) => {
     console.log("type", typeof text);
     return (
         <TouchableOpacity onPress={() => getAudio(JSON.stringify(text))} style={styles.audioContainer}>
-            <MaterialIcons name="play-circle-filled" size={40} color="#7AEEBA" style={styles.outerCircle} />
+            <MaterialIcons name="play-circle-filled" size={34} color="#FB7573" style={styles.outerCircle} />
         </TouchableOpacity>
     )
 }
