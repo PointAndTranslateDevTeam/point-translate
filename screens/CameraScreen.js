@@ -120,7 +120,7 @@ const CameraScreen = ({
               style={styles.langButton}
               onPress={() => setShowModal(true)}
             >
-              <Text style={styles.flipButtonText}>Settings</Text>
+              <Text style={styles.selectText}>Settings</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.cameraControlContainer}>
