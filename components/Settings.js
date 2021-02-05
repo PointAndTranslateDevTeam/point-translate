@@ -11,7 +11,7 @@ const Settings = (props) => {
       <View style={styles.screenContainer}>
         <View style={styles.screen}>
           <View style={styles.settingContainer}>
-            <Text style= {{color: "white", fontSize: 18, padding:15}}>Optimize for handwriting recognition?</Text>
+            <Text style= {{color: "white", fontSize: 16, padding:15, fontWeight: "500"}}>Optimize for handwriting recognition?</Text>
             <View style={styles.toggleContainer}>
               <Switch
                 trackColor={{ false: "#006575", true: "#006575"}}
