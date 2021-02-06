@@ -46,8 +46,8 @@ const CameraScreen = ({
     })();
   }, []);
 
-  //const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
-  const ocrType = "LABEL_DETECTION";
+  const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
+ // const ocrType = "LABEL_DETECTION";
   const takePicture = async () => {
     try {
       const option = { base64: true };
@@ -66,8 +66,8 @@ const CameraScreen = ({
       if (textLoaded.current) {
         try {
           console.log("before", error, orgText);
-          //await getText(picture, ocrType);
-          await getLabels(picture);
+          await getText(picture, ocrType);
+          //await getLabels(picture);
         } catch (err) {
           console.error(err);
         }
