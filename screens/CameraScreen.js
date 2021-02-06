@@ -12,7 +12,6 @@ import EditText from "./EditText";
 import LoadingWheel from "../components/LoadingWheel";
 import FlipButton from "../components/FlipButton";
 import FlashButton from "../components/FlashButton";
-import SettingsButton from "../components/settingsButton";
 import { Ionicons } from "@expo/vector-icons";
 import Languages from "../languages";
 
