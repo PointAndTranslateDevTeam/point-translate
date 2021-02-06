@@ -14,11 +14,13 @@ import FlipButton from "../components/FlipButton";
 import FlashButton from "../components/FlashButton";
 import { Ionicons } from "@expo/vector-icons";
 import Languages from "../languages";
+import { getLabels } from "../store/label";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
   getText,
   orgText,
+  getLabels,
   navigation,
   error,
   id,
@@ -44,8 +46,8 @@ const CameraScreen = ({
     })();
   }, []);
 
-  const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
-
+  //const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
+  const ocrType = "LABEL_DETECTION";
   const takePicture = async () => {
     try {
       const option = { base64: true };
@@ -64,7 +66,8 @@ const CameraScreen = ({
       if (textLoaded.current) {
         try {
           console.log("before", error, orgText);
-          await getText(picture, ocrType);
+          //await getText(picture, ocrType);
+          await getLabels(picture);
         } catch (err) {
           console.error(err);
         }
@@ -195,6 +198,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getText: (pic, ocrType) => dispatch(getText(pic, ocrType)),
+    getLabels: (pic) => dispatch(getLabels(pic))
   };
 };
 
