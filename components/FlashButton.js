@@ -27,9 +27,6 @@ const styles = StyleSheet.create({
       alignSelf: "flex-end",
       padding: 30,
     }
-    // flashIcon: {
-    //     padding: 10
-    // }
   }
 );
 
