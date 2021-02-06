@@ -4,6 +4,7 @@ import React from 'react';
 import {TouchableOpacity, StyleSheet} from 'react-native';
 
 const FlashButton = (props) => {
+    console.log(props.flash);
     return (
         <TouchableOpacity 
          style={styles.flashButton} 
@@ -15,7 +16,8 @@ const FlashButton = (props) => {
                  : Camera.Constants.FlashMode.torch
              )
              }}>
-            <Ionicons name="flash-outline" size={30} color={"white"} style={styles.flashIcon}/>
+            <Ionicons 
+                name={ props.flash === 0? "flash-outline" : "flash-off-outline"} size={30} color={"white"} style={styles.flashIcon}/>
         </TouchableOpacity>
     )
 }
@@ -25,9 +27,6 @@ const styles = StyleSheet.create({
       alignSelf: "flex-end",
       padding: 30,
     }
-    // flashIcon: {
-    //     padding: 10
-    // }
   }
 );
 
