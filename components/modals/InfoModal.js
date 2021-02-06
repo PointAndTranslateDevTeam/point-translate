@@ -1,12 +1,6 @@
 import React from "react";
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  Modal,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, Modal, TouchableOpacity } from "react-native";
 
 const HelpfulText = (props) => {
   return (
@@ -16,24 +10,28 @@ const HelpfulText = (props) => {
           <View style={[styles.infoBox]}>
             <View>
               <Text style={styles.infoText}>
-                Congratulations on downloading the best photo translation app in town!
-
-                First, find the printed or handwritten text you would like to translate.
+                Congratulations on downloading the best photo translation app in
+                town! First, find the printed or handwritten text you would like
+                to translate.
                 {"\n"}
-                Click "Tap to start" for the camera.
-                Select your desired language at the top left.
+                Click "Tap to start" for the camera. Select your desired
+                language at the top left.
                 {"\n"}
                 Take a picture to request a translation. Edit text if necessary.
                 {"\n"}
-                Click confirm and view your text in its origin and your chosen language!
+                Click confirm and view your text in its origin and your chosen
+                language!
                 {"\n"}
                 Click back to camera to try another translation.
               </Text>
             </View>
           </View>
           <View>
-            <TouchableOpacity style={styles.button} onPress={() => props.setModal(false)}>
-              <Text style={styles.backText}>Back</Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => props.setModal(false)}
+            >
+              <Text style={styles.okayText}>Okay</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -60,27 +58,26 @@ const styles = StyleSheet.create({
   infoBox: {
     padding: 10,
     paddingBottom: 15,
-    paddingTop: 5
+    paddingTop: 5,
   },
   infoText: {
     // color: '#405C64',
     color: "white",
-    fontWeight: "500"
+    fontWeight: "500",
   },
-  button:
-    {
-      width: 130,
-      borderRadius: 4,
-      justifyContent: "center",
-      alignItems: "center",
-      height: 40,
-      backgroundColor: "#FB7573",
-    },
-    backText: {
-      color: "white",
-      fontWeight: "bold",
-      fontSize: 15
-    },
-})
+  button: {
+    width: 130,
+    height: 40,
+    borderRadius: 4,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FB7573",
+  },
+  okayText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 15,
+  },
+});
 
 export default HelpfulText;

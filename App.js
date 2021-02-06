@@ -1,11 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+// import { StyleSheet, Text, View, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import CameraScreen from "./screens/CameraScreen";
 import HomeScreen from "./screens/HomeScreen";
 import TranslationScreen from "./screens/TranslationScreen";
-import EditText from "./screens/EditText";
 import store from "./store";
 import { Provider } from "react-redux";
 import { useFonts } from 'expo-font';
@@ -27,7 +26,6 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Camera" component={CameraScreen} />
           <Stack.Screen name="Translation" component={TranslationScreen} />
-          <Stack.Screen name="EditText" component={EditText} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

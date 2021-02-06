@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import EditText from "../screens/EditText";
+import EditText from "./modals/EditTextModal";
 
 const Confirmation = (props) => {
   const [showEdit, setShowEdit] = useState(false);

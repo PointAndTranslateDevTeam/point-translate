@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { toggleOCR } from "../store/toggleReducer";
-// import styles from "../styles/SettingsStyle";
+import { toggleOCR } from "../../store/toggleReducer";
 
 import {
   View,

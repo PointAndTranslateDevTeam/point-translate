@@ -10,7 +10,7 @@ import {
   Keyboard,
 } from "react-native";
 import { connect } from "react-redux";
-import { editText } from "../store/source";
+import { editText } from "../../store/source";
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems:'center',
     backgroundColor: "rgba(0,0,0,0.5)",
-    
+
   },
   screen: {
     color: "#fff",
