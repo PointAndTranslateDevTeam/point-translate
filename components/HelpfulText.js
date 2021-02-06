@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import styles from "../styles/SettingsStyle";
+import React from "react";
 
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   Modal,
   TouchableOpacity,
-  Switch,
 } from "react-native";
 
 const HelpfulText = (props) => {
@@ -16,15 +13,15 @@ const HelpfulText = (props) => {
     <Modal transparent={true} visible={props.showModal} animationType="slide">
       <View style={styles.screenContainer}>
         <View style={styles.screen}>
-          <View style={[styles.settingContainer, hStyles.helpfulBox]}>
+          <View style={[styles.infoBox]}>
             <View>
-              <Text style={hStyles.settingsText}>
+              <Text style={styles.infoText}>
                 Congratulations on downloading the best photo translation app in town!
-               
-                First, find the printed or handwritten text you would like to translate. 
+
+                First, find the printed or handwritten text you would like to translate.
                 {"\n"}
-                Click "tap to start" for the camera. 
-                Select your desired language at the top right.
+                Click "Tap to start" for the camera.
+                Select your desired language at the top left.
                 {"\n"}
                 Take a picture to request a translation. Edit text if necessary.
                 {"\n"}
@@ -35,8 +32,8 @@ const HelpfulText = (props) => {
             </View>
           </View>
           <View>
-            <TouchableOpacity style={hStyles.backButton} onPress={() => props.setModal(false)}>
-              <Text style={hStyles.backText}>Back</Text>
+            <TouchableOpacity style={styles.button} onPress={() => props.setModal(false)}>
+              <Text style={styles.backText}>Back</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -45,22 +42,45 @@ const HelpfulText = (props) => {
   );
 };
 
-const hStyles = StyleSheet.create({
-  helpfulBox: {
-    padding: 5
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
-  settingsText: {
-    padding: 5,
-    color: '#405C64'
+  screen: {
+    alignItems: "center",
+    backgroundColor: "#94B2BA",
+    margin: 35,
+    padding: 15,
+    borderRadius: 10,
+    height: "60%",
+    justifyContent: "center",
   },
-  backButton: {
-    backgroundColor: "#405C64",
-    padding: 5,
-    borderRadius: 10
+  infoBox: {
+    padding: 10,
+    paddingBottom: 15,
+    paddingTop: 5
   },
-  backText: {
-    color: "white"
-  }
+  infoText: {
+    // color: '#405C64',
+    color: "white",
+    fontWeight: "500"
+  },
+  button:
+    {
+      width: 130,
+      borderRadius: 4,
+      justifyContent: "center",
+      alignItems: "center",
+      height: 40,
+      backgroundColor: "#FB7573",
+    },
+    backText: {
+      color: "white",
+      fontWeight: "bold",
+      fontSize: 15
+    },
 })
 
 export default HelpfulText;

@@ -1,42 +1,24 @@
 import React from "react";
 import TargetPicker from "../components/TargetPicker";
-import styles from "../styles/HomeStyle";
 
-import {
-  View,
-  Text,
-  Modal,
-  TouchableOpacity,
-  Switch,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
 
 const LanguageModal = (props) => {
   return (
     <Modal transparent={true} visible={props.showModal} animationType="slide">
-      <View style={langModStyles.screenContainer}>
-        <View style={langModStyles.screen}>
-          <View style={langModStyles.settingContainer}>
-            <Text style={{color: "#fff", fontSize: 18, fontWeight: "500", padding:15, paddingBottom:1}}>Please select your target language:</Text>
-            <TargetPicker style={styles.targetPicker} />
-            <View style={{padding:15}}>
-              <TouchableOpacity onPress={() => props.setModal(false)}
-              style={{
-                width: 130,
-                borderRadius: 4,
-                backgroundColor: "#14274e",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                height: 40,
-                backgroundColor: "#FB7573",
-              }}>
-                <Text style={{
-              color: "#fff",
-              fontWeight: "700",
-              fontSize: 15,
-              textAlign: "center",
-            }} >Confirm</Text>
+      <View style={styles.screenContainer}>
+        <View style={styles.screen}>
+          <View style={styles.selectionContainer}>
+            <Text style={styles.promptText}>
+              Please select your target language:
+            </Text>
+            <TargetPicker />
+            <View style={{ padding: 15 }}>
+              <TouchableOpacity
+                onPress={() => props.setModal(false)}
+                style={styles.button}
+              >
+                <Text style={styles.confirmText}>Confirm</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -46,7 +28,7 @@ const LanguageModal = (props) => {
   );
 };
 
-const langModStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
@@ -62,9 +44,9 @@ const langModStyles = StyleSheet.create({
     alignContent: "center",
     flexDirection: "column",
     justifyContent: "center",
-    opacity: 1
+    opacity: 1,
   },
-  settingContainer: {
+  selectionContainer: {
     flexDirection: "column",
     justifyContent: "space-around",
     alignContent: "center",
@@ -72,15 +54,28 @@ const langModStyles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
-  // container: {
-  //   flex: 1,
-  //   alignItems: "center",
-  //   justifyContent: "flex-start",
-  // },
-  // pickerContainer: {
-  //   height: 200,
-  //   width: "100%",
-  //   backgroundColor: "#2286A2",
-  // },
+  promptText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "500",
+    padding: 15,
+    paddingBottom: 1,
+  },
+  button: {
+    width: 130,
+    borderRadius: 4,
+    backgroundColor: "#14274e",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 40,
+    backgroundColor: "#FB7573",
+  },
+  confirmText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 15,
+    textAlign: "center",
+  }
 });
 export default LanguageModal;

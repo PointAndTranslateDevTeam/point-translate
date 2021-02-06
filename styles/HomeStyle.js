@@ -26,12 +26,6 @@ export default StyleSheet.create({
     textAlign: "center",
     fontSize: 12.5,
   },
-  targetPicker: {
-    flex: 1,
-    justifyContent: "center",
-    flexDirection: "column",
-  },
-
   tapForCameraButton: {
     width: 130,
     borderRadius: 4,

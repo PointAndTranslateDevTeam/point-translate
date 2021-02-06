@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { toggleOCR } from "../store/toggleReducer";
-import styles from "../styles/SettingsStyle";
+// import styles from "../styles/SettingsStyle";
 
-import { View, Text, Modal, TouchableOpacity, Switch } from "react-native";
+import {
+  View,
+  Text,
+  Modal,
+  TouchableOpacity,
+  Switch,
+  StyleSheet,
+} from "react-native";
 
 const Settings = (props) => {
   return (
@@ -11,10 +18,12 @@ const Settings = (props) => {
       <View style={styles.screenContainer}>
         <View style={styles.screen}>
           <View style={styles.settingContainer}>
-            <Text style= {{color: "white", fontSize: 16, padding:15, fontWeight: "500"}}>Optimize for handwriting recognition?</Text>
-            <View style={styles.toggleContainer}>
+            <Text style={styles.optionText}>
+              Optimize for handwriting recognition?
+            </Text>
+            <View>
               <Switch
-                trackColor={{ false: "#006575", true: "#006575"}}
+                trackColor={{ false: "#006575", true: "#006575" }}
                 thumbColor={props.handwriting ? "white" : "#f4f3f4"}
                 onValueChange={props.toggleOCR}
                 value={props.handwriting}
@@ -22,9 +31,7 @@ const Settings = (props) => {
             </View>
             <View style={styles.button}>
               <TouchableOpacity onPress={() => props.setModal(false)}>
-                <Text style={{ fontWeight: "bold", color: "white" }}>
-                  Confirm
-                </Text>
+                <Text style={styles.confirmText}>Confirm</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -47,3 +54,46 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  screen: {
+    alignItems: "center",
+    backgroundColor: "#94B2BA",
+    margin: 50,
+    padding: 10,
+    borderRadius: 10,
+    height: "30%",
+    justifyContent: "center",
+  },
+  settingContainer: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "100%",
+    alignItems: "center",
+    alignContent: "center",
+  },
+  optionText: {
+    color: "white",
+    fontSize: 16,
+    padding: 15,
+    fontWeight: "500",
+  },
+  button: {
+    width: 100,
+    borderRadius: 4,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 35,
+    margin: 30,
+    backgroundColor: "#fb7573",
+  },
+  confirmText: {
+    fontWeight: "bold",
+    color: "white",
+  },
+});
