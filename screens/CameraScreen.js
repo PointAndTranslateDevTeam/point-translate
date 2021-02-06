@@ -6,7 +6,7 @@ import { getText } from "../store/source";
 import Settings from "../components/modals/SettingsModal";
 import LanguageModal from "../components/modals/LanguageModal";
 import Error from "../components/modals/ErrorModal";
-import Confirmation from "../components/Confirmation";
+import Confirmation from "../components/modals/ConfirmationModal";
 import styles from "../styles/CameraStyle";
 import EditText from "../components/modals/EditTextModal";
 import LoadingWheel from "../components/LoadingWheel";
