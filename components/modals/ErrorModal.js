@@ -1,27 +1,22 @@
-import React, { useState } from "react";
-import TargetPicker from "../components/TargetPicker";
+import React from "react";
 import { connect } from "react-redux";
 
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  Modal,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, Modal, TouchableOpacity } from "react-native";
 
 const Error = (props) => {
   return (
     <Modal visible={props.showError} animationType="slide" transparent={true}>
       <View style={styles.screenContainer}>
         <View style={styles.screen}>
-          <View style={styles.settingContainer}>
+          <View style={styles.errorContainer}>
             <View>
-              <Text>Sorry, we did not detect any text in your image.</Text>
+              <Text style={styles.errorText} >Sorry, we did not detect any text in your image.</Text>
             </View>
-            <TouchableOpacity style={styles.button} onPress={() => props.setShowError(false)}>
-              <Text style={{ fontWeight: "bold", color: 'white'}}>Back to camera</Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => props.setShowError(false)}
+            >
+              <Text style={styles.backText}>Back to camera</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -41,36 +36,39 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "rgba(0,0,0,0.5)"
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   screen: {
     alignItems: "center",
     backgroundColor: "#94B2BA",
     margin: 50,
     padding: 40,
+    paddingTop: 35,
     borderRadius: 10,
-    height: "35%",
-    alignContent: "center",
-    flexDirection: "column",
+    height: "25%",
     justifyContent: "center",
   },
-  settingContainer: {
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignContent: "center",
-    textAlign: "center",
+  errorContainer: {
     alignItems: "center",
     flex: 1,
   },
+  errorText: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 15,
+  },
   button: {
-    width: 125,
+    width: 145,
+    height: 37,
     borderRadius: 4,
-    backgroundColor: "#fb7573",
-    flexDirection: "row",
+    margin: 30,
     justifyContent: "center",
     alignItems: "center",
-    height: 30,
-    margin: 30,
+    backgroundColor: "#fb7573",
+  },
+  backText: {
+    fontWeight: "bold",
+    color: "white",
   },
 });
 export default connect(mapStateToProps)(Error);

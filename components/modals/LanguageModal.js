@@ -1,5 +1,5 @@
 import React from "react";
-import TargetPicker from "../components/TargetPicker";
+import TargetPicker from "../TargetPicker";
 
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
 

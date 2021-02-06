@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import styles from "../styles/HomeStyle";
 import { MaterialIcons } from "@expo/vector-icons";
-import HelpfulText from "../components/HelpfulText";
+import HelpfulText from "../components/modals/InfoModal";
 
 function HomeScreen({ navigation }) {
   const [showModal, setShowModal] = useState(false);
