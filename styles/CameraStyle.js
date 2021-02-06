@@ -40,6 +40,7 @@ export default StyleSheet.create({
     fontSize: 20,
   },
   languageButton: {
+    flexDirection: "row",
     flex: 0.6,
     alignSelf: "flex-start",
     fontSize: 18,
@@ -47,7 +48,8 @@ export default StyleSheet.create({
     width: 150,
     backgroundColor: "rgba(0,0,0,0.5)",
     borderRadius: 10,
-    // alignItems: "baseline",
+    alignItems: "center",
+    justifyContent: "center",
     // opacity: 0.6,
   },
   langButton: {

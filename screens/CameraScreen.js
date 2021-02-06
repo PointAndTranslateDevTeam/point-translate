@@ -124,8 +124,8 @@ const CameraScreen = ({
                   color={"white"}
                   style={styles.selectText}
                 />
-                {Languages[target]}
               </Text>
+              <Text style={styles.selectText}>{Languages[target]}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
