@@ -50,5 +50,12 @@ export default StyleSheet.create({
     },
     text: {
       color: "white"
-    }
+    },
+    audioButtonContainer: {
+      flexDirection: "row",
+      alignSelf: "flex-end"
+    },
+    // audioText: {
+    //   alignSelf: "center",
+    // }
   });

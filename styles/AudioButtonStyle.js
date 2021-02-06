@@ -3,18 +3,19 @@ import {StyleSheet} from 'react-native'
 export default StyleSheet.create({
    outerCircle: {
     //marginTop: 8,
+    alignSelf: "center",
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     width: 40,
     height: 40,
-    borderColor : "#7AEEBA",
-    borderWidth : 3
+    borderColor : "#FC9E9C",
+    borderWidth : 3,
   },
 
   audioContainer: {
-
-    // alignItems: 'center',
-    paddingVertical: 5
+    alignSelf: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })

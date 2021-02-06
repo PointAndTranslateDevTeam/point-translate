@@ -67,8 +67,8 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
         <ScrollView>
           <Text style={styles.text}>{translation}</Text>
         </ScrollView>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.text}>Listen:</Text>
+        <View style={styles.audioButtonContainer}>
+          {/* <Text style={[styles.text, styles.audioText]}>Listen: </Text> */}
           <AudioButton text={translation} />
         </View>
       </View>
@@ -88,7 +88,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
         >
           <Text
             style={{
-              color: "#fff",
+              color: "#FED8D7",
               fontWeight: "bold",
               textAlign: "center",
             }}

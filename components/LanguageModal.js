@@ -17,11 +17,26 @@ const LanguageModal = (props) => {
       <View style={langModStyles.screenContainer}>
         <View style={langModStyles.screen}>
           <View style={langModStyles.settingContainer}>
-            <Text>Please select your target language:</Text>
+            <Text style={{color: "#fff", fontSize: 18, fontWeight: "500", padding:15, paddingBottom:1}}>Please select your target language:</Text>
             <TargetPicker style={styles.targetPicker} />
-            <View>
-              <TouchableOpacity onPress={() => props.setModal(false)}>
-                <Text>Confirm</Text>
+            <View style={{padding:15}}>
+              <TouchableOpacity onPress={() => props.setModal(false)}
+              style={{
+                width: 130,
+                borderRadius: 4,
+                backgroundColor: "#14274e",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                height: 40,
+                backgroundColor: "#FB7573",
+              }}>
+                <Text style={{
+              color: "#fff",
+              fontWeight: "700",
+              fontSize: 15,
+              textAlign: "center",
+            }} >Confirm</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -35,11 +50,11 @@ const langModStyles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   screen: {
-    backgroundColor: "#fff",
     alignItems: "center",
-    backgroundColor: "lightgray",
+    backgroundColor: "#94B2BA",
     margin: 50,
     padding: 15,
     borderRadius: 10,
@@ -47,6 +62,7 @@ const langModStyles = StyleSheet.create({
     alignContent: "center",
     flexDirection: "column",
     justifyContent: "center",
+    opacity: 1
   },
   settingContainer: {
     flexDirection: "column",

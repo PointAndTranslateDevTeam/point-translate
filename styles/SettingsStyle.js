@@ -4,6 +4,7 @@ export default StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   screen: {
     backgroundColor: "#fff",
@@ -26,7 +27,7 @@ export default StyleSheet.create({
     alignContent: 'center'
   },
   button: {
-    width: 135,
+    width: 100,
     borderRadius: 4,
     backgroundColor: "#fb7573",
     flexDirection: "row",
@@ -37,7 +38,6 @@ export default StyleSheet.create({
   },
   text: {
     margin: 20,
-    backgroundColor: "red"
   },
   toggleContainer: {
     // backgroundColor: "white"

@@ -13,6 +13,8 @@ import LoadingWheel from "../components/LoadingWheel";
 import FlipButton from "../components/FlipButton";
 import FlashButton from "../components/FlashButton";
 import SettingsButton from "../components/settingsButton";
+import { Ionicons } from "@expo/vector-icons";
+import Languages from "../languages";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
@@ -22,6 +24,7 @@ const CameraScreen = ({
   error,
   id,
   handwriting,
+  target,
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -111,16 +114,32 @@ const CameraScreen = ({
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
             <TouchableOpacity
-              style={styles.langButton}
+              style={styles.languageButton}
               onPress={() => setShowOtherModal(true)}
             >
-              <Text style={styles.flipButtonText}>Select Language</Text>
+              <Text style={styles.selectText}>
+                {/* <Text style={styles.selectText}>Select Language</Text> */}
+                <Ionicons
+                  name="globe-outline"
+                  size={30}
+                  color={"white"}
+                  style={styles.selectText}
+                />
+                {Languages[target]}
+              </Text>
             </TouchableOpacity>
+
             <TouchableOpacity
               style={styles.langButton}
               onPress={() => setShowModal(true)}
             >
-              <SettingsButton />
+              <Ionicons
+                name={handwriting ? "pencil-outline" : "text-outline"}
+                size={30}
+                color={"white"}
+                style={styles.selectText}
+              />
+              {/* <Text style={styles.selectText}>Settings</Text> */}
             </TouchableOpacity>
           </View>
           <View style={styles.cameraControlContainer}>
@@ -170,6 +189,7 @@ const mapStateToProps = (state) => {
     error: state.source.error,
     id: state.source.id,
     handwriting: state.toggle.handwriting,
+    target: state.target,
   };
 };
 
