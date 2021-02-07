@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import { API_KEY } from "../secrets.js";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { connect } from "react-redux";
-import AudioButton from "../components/audioButton";
+import { AudioButton, TranslateHeader } from "../components";
 import Languages from "../languages";
-import TranslateHeader from '../components/headers/TranslateHeader'
+
 const TranslationScreen = ({ orgText, target, navigation }) => {
   const [translation, setTranslation] = useState(null);
 
@@ -49,7 +44,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
 
   return (
     <View style={styles.screen}>
-      <TranslateHeader title="Point & Translate" navigation={navigation}/>
+      <TranslateHeader title="Point & Translate" navigation={navigation} />
       {console.log("entering translation screen:", translation)}
       <View style={styles.contentContainer}>
         <View>
@@ -119,25 +114,23 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.26,
     elevation: 5,
     backgroundColor: "#006575",
-
   },
   header: {
     fontSize: 25,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     padding: 8,
-    color: "white"
+    color: "white",
   },
   text: {
-    color: "white"
+    color: "white",
   },
   audioButtonContainer: {
     flexDirection: "row",
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
   },
   // audioText: {
   //   alignSelf: "center",
   // }
 });
-
 
 export default connect(mapStateToProps, null)(TranslationScreen);

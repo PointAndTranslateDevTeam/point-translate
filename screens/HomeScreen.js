@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import HelpfulText from "../components/modals/InfoModal";
+import { HelpfulText } from "../components";
 
 function HomeScreen({ navigation }) {
   const [showModal, setShowModal] = useState(false);

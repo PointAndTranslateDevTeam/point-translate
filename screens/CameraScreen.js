@@ -3,17 +3,19 @@ import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { getText } from "../store/source";
-import Settings from "../components/modals/SettingsModal";
-import LanguageModal from "../components/modals/LanguageModal";
-import Error from "../components/modals/ErrorModal";
-import Confirmation from "../components/modals/ConfirmationModal";
-import EditText from "../components/modals/EditTextModal";
-import LoadingWheel from "../components/LoadingWheel";
-import FlipButton from "../components/FlipButton";
-import FlashButton from "../components/FlashButton";
+import {
+  Settings,
+  LanguageModal,
+  Error,
+  Confirmation,
+  EditText,
+  LoadingWheel,
+  FlipButton,
+  FlashButton,
+  Header,
+} from "../components";
 import { Ionicons } from "@expo/vector-icons";
 import Languages from "../languages";
-import Header from "../components/headers/Header";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
@@ -104,7 +106,7 @@ const CameraScreen = ({
   }
   return (
     <View style={styles.screen}>
-      <Header title="Point & Translate" navigation={navigation}/>
+      <Header title="Point & Translate" navigation={navigation} />
       <Camera
         ref={(ref) => setCamera(ref)}
         style={styles.camera}
