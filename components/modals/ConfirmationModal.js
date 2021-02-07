@@ -26,7 +26,7 @@ const Confirmation = (props) => {
               <ScrollView style={styles.scrollView}>
                 { props.orgText !== ""
                   ? <Text style={styles.text}>{props.orgText}</Text> 
-                  : <Text style={styles.text}>{props.orgLabels.map(x=> <Text>{x}{"\n"}</Text> )}</Text>
+                  : props.orgLabels.map ((x, i) => <Text key={i}>{x}{"\n"}</Text> )
                   }
                 
               </ScrollView>
