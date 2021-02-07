@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import styles from "../styles/TranslationStyle";
 import AudioButton from "../components/audioButton";
 import Languages from "../languages";
-
+import TranslateHeader from '../TranslateHeader'
 const TranslationScreen = ({ orgText, target, navigation }) => {
   const [translation, setTranslation] = useState(null);
 
@@ -51,6 +51,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
 
   return (
     <View style={styles.screen}>
+      <TranslateHeader title="Point & Translate" navigation={navigation}/>
       {console.log("entering translation screen:", translation)}
       <View style={styles.originalContainer}>
         <View>
@@ -73,7 +74,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
         </View>
       </View>
       <View style={styles.cameraBtn}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate("Camera")}
           style={{
             width: 130,
@@ -95,7 +96,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
           >
             Back to Camera
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

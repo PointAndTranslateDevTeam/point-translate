@@ -14,6 +14,7 @@ import FlipButton from "../components/FlipButton";
 import FlashButton from "../components/FlashButton";
 import { Ionicons } from "@expo/vector-icons";
 import Languages from "../languages";
+import Header from "../Header";
 
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
@@ -104,6 +105,7 @@ const CameraScreen = ({
   }
   return (
     <View style={styles.container}>
+      <Header title="Point & Translate" />
       <Camera
         ref={(ref) => setCamera(ref)}
         style={styles.camera}
