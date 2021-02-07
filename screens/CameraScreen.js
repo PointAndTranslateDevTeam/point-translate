@@ -16,15 +16,28 @@ import { Ionicons } from "@expo/vector-icons";
 import Languages from "../languages";
 import { getLabels } from "../store/label";
 
+//A few ideas of ways to implement labels.
+//One, handwriting and labels cannot be set at the same time-- if a user wants labels, the handwriting toggle is useless.
+//So 1. coopt ocrType with a ternary-- if handwriting, then document_text_detection, but if not handwriting, then, if labels, then label_detection, and otherwise, text_detection
+// { handwriting ? doccument_text_detection: {labels? label_detection : text_detection}}
+//2. run the getLabels function only if no text is found in the photo-- i like this option
+//3. just put another labels variable on state. least elegant option,
+//and what is implemented below.
+
+
 //Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
   getText,
   orgText,
   getLabels,
+  orgLabels,
   navigation,
   error,
+  labelsError,
   id,
+  labelsId,
   handwriting,
+  labels,
   target,
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -35,6 +48,7 @@ const CameraScreen = ({
   const [showModal, setShowModal] = useState(false);
   const [showOtherModal, setShowOtherModal] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [showLabelsError, setShowLabelsError] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -65,9 +79,14 @@ const CameraScreen = ({
     (async () => {
       if (textLoaded.current) {
         try {
-          console.log("before", error, orgText);
-          await getText(picture, ocrType);
-          //await getLabels(picture);
+          console.log("before", error, orgText, orgLabels);
+          if (!labels) {
+          await getText(picture, ocrType);  
+          }
+          if (labels) {
+            console.log("we want labels!")
+            await getLabels(picture);
+          }
         } catch (err) {
           console.error(err);
         }
@@ -80,16 +99,22 @@ const CameraScreen = ({
   const confLoaded = useRef(false);
   useEffect(() => {
     setLoading(false);
+    console.log("got thru");
     if (confLoaded.current) {
-      console.log("after", error, orgText, id);
+      console.log("after", error, orgText, id, orgLabels);
       try {
-        if (error !== null) {
-          console.log("error", error);
-          console.log(showError);
-          setShowError(true);
-        }
+        
         if (orgText !== "") {
           setShowConfirmation(true);
+          console.log("past show conf", setShowConfirmation);
+        } if (orgLabels.length>0) {
+          setShowConfirmation(true);
+          console.log("confirmation set");
+
+        } else if (error !== null || labelsError !== null) { //this way, the error screen only shows up if there is no text AND no labels detected.
+          console.log("error", error); //it might be preferable to have two different errors on state,
+          console.log("this is the error", showError); //so that if text isn't detected, the user trying to get text doesn't get labels instead.
+          setShowError(true);
         }
       } catch (err) {
         console.error(err);
@@ -97,7 +122,7 @@ const CameraScreen = ({
     } else {
       confLoaded.current = true;
     }
-  }, [id]);
+  }, [id, labelsId]);
 
   if (hasPermission === null) {
     return <View />;
@@ -185,12 +210,16 @@ const CameraScreen = ({
 };
 
 const mapStateToProps = (state) => {
-  // console.log('state', state)
+  console.log("state", state);
   return {
     orgText: state.source.detectedText,
+    orgLabels: state.labels.detectedLabels,
     error: state.source.error,
+    labelsError: state.labels.error,
     id: state.source.id,
-    handwriting: state.toggle.handwriting,
+    labelsId: state.labels.id,
+        handwriting: state.toggle.handwriting,
+    labels: state.toggle.labels,
     target: state.target,
   };
 };
