@@ -10,16 +10,6 @@ const TranslateHeader = (props) => {
           <TouchableOpacity
             styles={styles.btn}
             onPress={() => props.navigation.navigate("Camera")}
-            // style={{
-            //   width: 130,
-            //   borderRadius: 4,
-            //   backgroundColor: "#14274e",
-            //   flexDirection: "row",
-            //   justifyContent: "center",
-            //   alignItems: "center",
-            //   height: 40,
-            //   backgroundColor: "#FB7573",
-            // }}
           >
             <AntDesign name="camerao" size={28} color="white" />
           </TouchableOpacity>
