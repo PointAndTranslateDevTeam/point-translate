@@ -16,8 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Languages from "../languages";
 import { getLabels } from "../store/label";
 
-//A few ideas of ways to implement labels.
-//One, handwriting and labels cannot be set at the same time-- if a user wants labels, the handwriting toggle is useless.
+//A few 
 //So 1. coopt ocrType with a ternary-- if handwriting, then document_text_detection, but if not handwriting, then, if labels, then label_detection, and otherwise, text_detection
 // { handwriting ? doccument_text_detection: {labels? label_detection : text_detection}}
 //2. run the getLabels function only if no text is found in the photo-- i like this option
@@ -84,7 +83,6 @@ const CameraScreen = ({
           await getText(picture, ocrType);  
           }
           if (labels) {
-            console.log("we want labels!")
             await getLabels(picture);
           }
         } catch (err) {
@@ -99,21 +97,18 @@ const CameraScreen = ({
   const confLoaded = useRef(false);
   useEffect(() => {
     setLoading(false);
-    console.log("got thru");
     if (confLoaded.current) {
       console.log("after", error, orgText, id, orgLabels);
       try {
         
         if (orgText !== "") {
           setShowConfirmation(true);
-          console.log("past show conf", setShowConfirmation);
-        } if (orgLabels.length>0) {
+        } 
+        if (orgLabels.length>0) {
           setShowConfirmation(true);
-          console.log("confirmation set");
-
-        } else if (error !== null || labelsError !== null) { //this way, the error screen only shows up if there is no text AND no labels detected.
-          console.log("error", error); //it might be preferable to have two different errors on state,
-          console.log("this is the error", showError); //so that if text isn't detected, the user trying to get text doesn't get labels instead.
+        } else if (error !== null || labelsError !== null) { 
+          console.log("error", error);
+          console.log("this is the error", showError); 
           setShowError(true);
         }
       } catch (err) {
@@ -218,7 +213,7 @@ const mapStateToProps = (state) => {
     labelsError: state.labels.error,
     id: state.source.id,
     labelsId: state.labels.id,
-        handwriting: state.toggle.handwriting,
+    handwriting: state.toggle.handwriting,
     labels: state.toggle.labels,
     target: state.target,
   };
