@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   StyleSheet,
   TextInput,
@@ -42,35 +43,43 @@ const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
       <DismissKeyboard>
         <View style={styles.screenContainer}>
           <View style={styles.screen}>
-            <View style = {styles.editContainer}>
-              <View style={styles.topContainer} >
-             <TouchableOpacity
-                style={styles.button}
-                onPress={() => props.setShowConfirmation(false)}
-              >
-                <Text style={styles.buttonText}>Cancel</Text>
-              </TouchableOpacity><Text style={styles.headerText}>Tap to edit:</Text>
-              </View>
-            <View style={styles.textInput}>
-              <TextInput
-                onChangeText={editTextInputHandler}
-                multiline={true}
-                value={newText}
-              ></TextInput>
-            </View>
-            <View>
-              <TouchableOpacity
-                onPress={() => {
-                  inputEditText();
-                  navigation.navigate("Translation");
+            <TouchableOpacity onPress={() => setShowEdit(false)}>
+              <MaterialIcons
+                name="clear"
+                size={30}
+                color="#006575"
+                style={{
+                  position: "absolute",
+                  left: 115,
+                  top: 0,
                 }}
-                style={styles.button}
-              >
-                <Text style={styles.buttonText}>Translate</Text>
-              </TouchableOpacity>
+              />
+            </TouchableOpacity>
+            <View style={styles.editContainer}>
+              <View style={styles.topContainer}>
+                <Text style={styles.headerText}>Tap to edit:</Text>
+              </View>
+              <View style={styles.textInput}>
+                <TextInput
+                  onChangeText={editTextInputHandler}
+                  multiline={true}
+                  value={newText}
+                  style={styles.text}
+                ></TextInput>
+              </View>
+              <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    inputEditText();
+                    navigation.navigate("Translation");
+                  }}
+                  style={styles.button}
+                >
+                  <Text style={styles.buttonText}>Translate</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
         </View>
       </DismissKeyboard>
     </Modal>
@@ -102,26 +111,29 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: "75%",
     width: "90%",
-    justifyContent: "space-around",
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 6,
-    shadowOpacity: 0.26,
-    elevation: 5,
+    justifyContent: "center",
+    // shadowColor: "black",
+    // shadowOffset: { width: 0, height: 0 },
+    // shadowRadius: 6,
+    // shadowOpacity: 0.26,
+    // elevation: 5,
   },
   editContainer: {
     flexDirection: "column",
-    justifyContent: "space-between",
-    height: "80%",
+    justifyContent: "center",
+    height: "90%",
     width: "75%",
     alignItems: "center",
   },
   textInput: {
-    height: "85%",
+    height: "75%",
     width: "100%",
     paddingBottom: 10,
+  },
+  text: {
     color: "white",
-    fontWeight: "500"
+    fontWeight: "600",
+    paddingBottom: 10,
   },
   button: {
     width: 100,
@@ -142,10 +154,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  topContainer : {
-    backgroundColor: "green",
+  topContainer: {
     flexDirection: "row",
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchtoProps)(EditText);
