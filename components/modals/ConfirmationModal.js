@@ -11,6 +11,7 @@ import {
 } from "react-native";
 
 const Confirmation = (props) => {
+  console.log("got to confirmation modal");
   return (
     <Modal
       visible={props.showConfirmation}
@@ -23,7 +24,11 @@ const Confirmation = (props) => {
             <View style={styles.confContainer}>
               <Text style={styles.headerText}>Text Detected:</Text>
               <ScrollView style={styles.scrollView}>
-                <Text style={styles.text}>{props.orgText}</Text>
+                { props.orgText !== ""
+                  ? <Text style={styles.text}>{props.orgText}</Text> 
+                  : <Text style={styles.text}>{props.orgLabels.map(x=> <Text>{x}{"\n"}</Text> )}</Text>
+                  }
+                
               </ScrollView>
             </View>
 
@@ -62,6 +67,7 @@ const Confirmation = (props) => {
 const mapStateToProps = (state) => {
   return {
     orgText: state.source.detectedText,
+    orgLabels: state.labels.detectedLabels
   };
 };
 
