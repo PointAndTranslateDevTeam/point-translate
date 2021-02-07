@@ -42,43 +42,35 @@ const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
       <DismissKeyboard>
         <View style={styles.screenContainer}>
           <View style={styles.screen}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Edit detected text:</Text>
+            <View style = {styles.editContainer}>
+              <View style={styles.topContainer} >
+             <TouchableOpacity
+                style={styles.button}
+                onPress={() => props.setShowConfirmation(false)}
+              >
+                <Text style={styles.buttonText}>Cancel</Text>
+              </TouchableOpacity><Text style={styles.headerText}>Tap to edit:</Text>
+              </View>
             <View style={styles.textInput}>
-            <TextInput
-              onChangeText={editTextInputHandler}
-              multiline={true}
-              value={newText}
-            ></TextInput>
+              <TextInput
+                onChangeText={editTextInputHandler}
+                multiline={true}
+                value={newText}
+              ></TextInput>
             </View>
-            <View style={styles.button}>
+            <View>
               <TouchableOpacity
                 onPress={() => {
                   inputEditText();
                   navigation.navigate("Translation");
                 }}
-                style={{
-                  width: 100,
-                  borderRadius: 4,
-                  backgroundColor: "#fb7573",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 35,
-                  marginVertical: 5
-                }}
+                style={styles.button}
               >
-                <Text
-                  style={{
-                    color: "#fff",
-                    fontWeight: "bold",
-                    textAlign: "center",
-                  }}
-                >
-                  Translate
-                </Text>
+                <Text style={styles.buttonText}>Translate</Text>
               </TouchableOpacity>
             </View>
           </View>
+        </View>
         </View>
       </DismissKeyboard>
     </Modal>
@@ -100,22 +92,16 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
-    alignContent: 'center',
-    alignItems:'center',
+    alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.5)",
-
   },
   screen: {
-    color: "#fff",
-    alignItems: "center",
     backgroundColor: "#94B2BA",
+    alignItems: "center",
     margin: 50,
-    padding: 40,
     borderRadius: 10,
     height: "75%",
     width: "90%",
-    alignContent: "center",
-    flexDirection: "column",
     justifyContent: "space-around",
     shadowColor: "black",
     shadowOffset: { width: 0, height: 0 },
@@ -123,19 +109,42 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.26,
     elevation: 5,
   },
-  settingContainer: {
+  editContainer: {
     flexDirection: "column",
     justifyContent: "space-between",
-    height: "100%",
+    height: "80%",
+    width: "75%",
     alignItems: "center",
-    alignContent: "center",
-  },
-  text: {
-    margin: 20,
   },
   textInput: {
-    height: "80%",
-    width: "90%"
+    height: "85%",
+    width: "100%",
+    paddingBottom: 10,
+    color: "white",
+    fontWeight: "500"
+  },
+  button: {
+    width: 100,
+    height: 37,
+    borderRadius: 4,
+    backgroundColor: "#fb7573",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "white",
+    paddingBottom: 15,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  topContainer : {
+    backgroundColor: "green",
+    flexDirection: "row",
   }
 });
 
