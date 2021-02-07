@@ -10,12 +10,15 @@ import { connect } from "react-redux";
 import AudioButton from "../components/audioButton";
 import Languages from "../languages";
 import TranslateHeader from '../components/headers/TranslateHeader'
-const TranslationScreen = ({ orgText, target, navigation }) => {
+const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) => {
   const [translation, setTranslation] = useState(null);
+
+  
 
   const translate = async () => {
     console.log("heytranslate");
-    // console.log("text", orgText);
+    console.log("text", orgLabels, "org", orgLabels.join(", "));
+    let textToTranslate = labels ? orgLabels.join(", ") : orgText;
     try {
       let response = await fetch(
         "https://translation.googleapis.com/language/translate/v2?key=" +
@@ -27,7 +30,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            q: `${orgText}`,
+            q: `${textToTranslate}`,
             //"source": "en",
             target: `${target}`,
             //"format": "text"
@@ -56,7 +59,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
           <Text style={styles.header}>Original Text:</Text>
         </View>
         <ScrollView>
-          <Text style={styles.text}>{orgText}</Text>
+          <Text style={styles.text}>{labels ? orgLabels.join(", ") : orgText}</Text>
         </ScrollView>
       </View>
       <View style={styles.translateContainer}>
@@ -78,7 +81,9 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
 const mapStateToProps = (state) => {
   return {
     orgText: state.source.detectedText,
+    orgLabels: state.labels.detectedLabels,
     target: state.target,
+    labels: state.toggle.labels
   };
 };
 

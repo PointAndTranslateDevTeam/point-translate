@@ -2,7 +2,7 @@ import { Camera } from "expo-camera";
 import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
-import { getText } from "../store/source";
+import { getText, clearText } from "../store/source";
 import Settings from "../components/modals/SettingsModal";
 import LanguageModal from "../components/modals/LanguageModal";
 import Error from "../components/modals/ErrorModal";
@@ -38,6 +38,7 @@ const CameraScreen = ({
   handwriting,
   labels,
   target,
+  clearText
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -83,6 +84,7 @@ const CameraScreen = ({
           await getText(picture, ocrType);  
           }
           if (labels) {
+            await clearText();
             await getLabels(picture);
           }
         } catch (err) {
@@ -222,7 +224,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getText: (pic, ocrType) => dispatch(getText(pic, ocrType)),
-    getLabels: (pic) => dispatch(getLabels(pic))
+    getLabels: (pic) => dispatch(getLabels(pic)),
+    clearText: (pic) => dispatch(clearText())
   };
 };
 
