@@ -9,6 +9,7 @@ const initialState = {
 const DETECTED_TEXT = "DETECTED_TEXT";
 const EDIT_TEXT = "EDIT_TEXT";
 const ERROR = "ERROR";
+const CLEAR_TEXT = "CLEAR_TEXT";
 
 export const detectedText = (source) => {
   return {
@@ -29,6 +30,12 @@ export const editText = (revText) => {
     revText,
   };
 };
+
+export const clear = () => {
+  return {
+    type: CLEAR_TEXT
+  };
+}
 
 export const getText = (picture, ocrType) => {
   return async (dispatch) => {
@@ -69,6 +76,12 @@ export const getText = (picture, ocrType) => {
   };
 };
 
+export const clearText = () => {
+  return (dispatch) => {
+    dispatch(clear());
+  };
+}
+
 const sourceReducer = (state = initialState, action) => {
   switch (action.type) {
     case DETECTED_TEXT:
@@ -91,6 +104,13 @@ const sourceReducer = (state = initialState, action) => {
         detectedText: action.revText,
         error: null,
       };
+
+      case CLEAR_TEXT:
+        return {
+        ...state,
+        detectedText: "",
+        error: null,
+        }; 
     default:
       return state;
   }
