@@ -123,7 +123,7 @@ const CameraScreen = ({
                 {/* <Text style={styles.selectText}>Select Language</Text> */}
                 <Ionicons
                   name="globe-outline"
-                  size={30}
+                  size={30}g
                   color={"white"}
                   style={styles.selectText}
                 />
