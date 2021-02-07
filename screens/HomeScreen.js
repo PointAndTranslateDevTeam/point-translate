@@ -1,14 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Text, View, TouchableOpacity, Image } from "react-native";
-import styles from "../styles/HomeStyle";
+import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import HelpfulText from "../components/modals/InfoModal";
 
 function HomeScreen({ navigation }) {
   const [showModal, setShowModal] = useState(false);
   return (
-    <View style={styles.container}>
+    <View style={styles.screen}>
       <View style={styles.contentContainer}>
         <View style={styles.title}>
           <Text style={styles.titleText}>Point & Translate</Text>
@@ -29,7 +28,10 @@ function HomeScreen({ navigation }) {
         <StatusBar style="auto" />
       </View>
       <View style={styles.helpButtonContainer}>
-        <TouchableOpacity onPress={() => setShowModal(true)} style={{margin: 10}}>
+        <TouchableOpacity
+          onPress={() => setShowModal(true)}
+          style={{ margin: 10 }}
+        >
           <MaterialIcons name="help" size={35} color="#032D38" />
         </TouchableOpacity>
       </View>
@@ -37,5 +39,62 @@ function HomeScreen({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: "#fb7573",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  contentContainer: {
+    flex: 8,
+    backgroundColor: "#fb7573",
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  titleText: {
+    color: "#032D38",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 53,
+    fontFamily: "Staatliches",
+  },
+  headlineText: {
+    color: "#032D38",
+    textAlign: "center",
+    fontSize: 12.5,
+  },
+  tapForCameraButton: {
+    width: 130,
+    borderRadius: 4,
+    backgroundColor: "#032D38",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 40,
+  },
+  tapForCameraText: {
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontFamily: "Staatliches",
+    fontSize: 20,
+  },
+
+  image: {
+    width: 375,
+    height: 275,
+    resizeMode: "contain",
+    marginVertical: 0,
+  },
+  helpButtonContainer: {
+    flex: 1,
+    alignSelf: "flex-end",
+    justifyContent: "flex-end",
+    padding: 10,
+  },
+});
 
 export default HomeScreen;

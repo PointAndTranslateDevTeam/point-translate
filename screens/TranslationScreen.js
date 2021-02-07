@@ -1,17 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { API_KEY } from "../secrets.js";
 import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   ScrollView,
 } from "react-native";
 import { connect } from "react-redux";
-import styles from "../styles/TranslationStyle";
 import AudioButton from "../components/audioButton";
 import Languages from "../languages";
-
+import TranslateHeader from '../components/headers/TranslateHeader'
 const TranslationScreen = ({ orgText, target, navigation }) => {
   const [translation, setTranslation] = useState(null);
 
@@ -51,8 +49,9 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
 
   return (
     <View style={styles.screen}>
+      <TranslateHeader title="Point & Translate" navigation={navigation}/>
       {console.log("entering translation screen:", translation)}
-      <View style={styles.originalContainer}>
+      <View style={styles.contentContainer}>
         <View>
           <Text style={styles.header}>Original Text:</Text>
         </View>
@@ -72,31 +71,6 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
           <AudioButton text={translation} />
         </View>
       </View>
-      <View style={styles.cameraBtn}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Camera")}
-          style={{
-            width: 130,
-            borderRadius: 4,
-            backgroundColor: "#14274e",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            height: 40,
-            backgroundColor: "#FB7573",
-          }}
-        >
-          <Text
-            style={{
-              color: "#FED8D7",
-              fontWeight: "bold",
-              textAlign: "center",
-            }}
-          >
-            Back to Camera
-          </Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -107,5 +81,63 @@ const mapStateToProps = (state) => {
     target: state.target,
   };
 };
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    alignContent: "center",
+    alignItems: "center",
+    backgroundColor: "#94B2BA",
+  },
+  contentContainer: {
+    width: "90%",
+    height: "35%",
+    alignItems: "center",
+    margin: 10,
+    marginTop: 30,
+    padding: 20,
+    paddingTop: 5,
+    borderRadius: 10,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    shadowOpacity: 0.26,
+    elevation: 5,
+    backgroundColor: "#006575",
+  },
+  translateContainer: {
+    width: "90%",
+    height: "40%",
+    alignItems: "center",
+    margin: 10,
+    padding: 20,
+    paddingTop: 5,
+    borderRadius: 10,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    shadowOpacity: 0.26,
+    elevation: 5,
+    backgroundColor: "#006575",
+
+  },
+  header: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    padding: 8,
+    color: "white"
+  },
+  text: {
+    color: "white"
+  },
+  audioButtonContainer: {
+    flexDirection: "row",
+    alignSelf: "flex-end"
+  },
+  // audioText: {
+  //   alignSelf: "center",
+  // }
+});
+
 
 export default connect(mapStateToProps, null)(TranslationScreen);
