@@ -53,7 +53,7 @@ export const getLabels = (picture) => {
           );
     
           const responseJSON = await response.json();
-          console.log("response json", responseJSON);
+          //console.log("response json", responseJSON);
           const labels = await responseJSON.responses[0].labelAnnotations.map(x=> x.description);
           console.log("did it map right?", labels)
           if (labels) {
@@ -67,6 +67,7 @@ export const getLabels = (picture) => {
 }
 
 const labelReducer = (state = initialState, action) => {
+    console.log("action", action)
     switch (action.type) {
         case DETECTED_LABELS: 
             return {
