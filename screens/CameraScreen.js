@@ -225,7 +225,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getText: (pic, ocrType) => dispatch(getText(pic, ocrType)),
     getLabels: (pic) => dispatch(getLabels(pic)),
-    clearText: (pic) => dispatch(clearText())
+    clearText: () => dispatch(clearText())
   };
 };
 
