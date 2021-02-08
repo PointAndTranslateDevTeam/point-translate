@@ -10,16 +10,14 @@ import {
 import { connect } from "react-redux";
 import AudioButton from "../components/audioButton";
 import Languages from "../languages";
-<<<<<<< HEAD
 import TranslateHeader from '../components/headers/TranslateHeader'
-const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) => {
-=======
-import TranslateHeader from "../components/headers/TranslateHeader";
 import LanguageModal from "../components/modals/LanguageModal";
 import { Ionicons } from "@expo/vector-icons";
 
-const TranslationScreen = ({ orgText, target, navigation }) => {
->>>>>>> 7ba3b120cb40d163444878302c6e430ed9269990
+import TranslateHeader from '../components/headers/TranslateHeader'
+import LanguageModal from "../components/modals/LanguageModal";
+import { Ionicons } from "@expo/vector-icons";
+const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) => {
   const [translation, setTranslation] = useState(null);
   const [showOtherModal, setShowOtherModal] = useState(false);
 
