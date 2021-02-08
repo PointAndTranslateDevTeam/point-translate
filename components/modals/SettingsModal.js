@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     margin: 50,
     padding: 10,
     borderRadius: 10,
-    height: "30%",
+    height: "43%",
     justifyContent: "center",
   },
   settingContainer: {
