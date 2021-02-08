@@ -27,7 +27,7 @@ const Confirmation = (props) => {
               {props.image && (
                 <Image
                   source={{ uri: props.image }}
-                  style={{ width: 200, height: 200, resizeMode: "contain" }}
+                  style={{ width: 200, height: 225, resizeMode: "contain", marginBottom: 10 }}
                 />
               )}
 
@@ -110,9 +110,11 @@ const styles = StyleSheet.create({
     height: "80%",
     alignItems: "center",
     margin: 10,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingBottom: 5,
     borderRadius: 10,
     justifyContent: "space-between",
+    flex: 1
   },
   headerText: {
     color: "white",
