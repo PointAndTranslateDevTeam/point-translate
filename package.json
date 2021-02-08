@@ -22,6 +22,7 @@
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-gesture-handler": "~1.8.0",
+    "react-native-image-picker": "^3.1.4",
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.2",
@@ -30,7 +31,8 @@
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "expo-image-picker": "~9.2.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

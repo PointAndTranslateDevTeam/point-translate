@@ -12,8 +12,9 @@ import {
   FlipButton,
   FlashButton,
   Header,
+  PhotoPicker,
 } from "../components";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Languages from "../languages";
 import { getText, clearText } from "../store/source";
 import { getLabels } from "../store/label";
@@ -31,7 +32,7 @@ const CameraScreen = ({
   handwriting,
   labels,
   target,
-  clearText
+  clearText,
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -54,7 +55,7 @@ const CameraScreen = ({
   }, []);
 
   const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
- // const ocrType = "LABEL_DETECTION";
+  // const ocrType = "LABEL_DETECTION";
   const takePicture = async () => {
     try {
       const option = { base64: true };
@@ -74,7 +75,7 @@ const CameraScreen = ({
         try {
           console.log("before", error, orgText, orgLabels);
           if (!labels) {
-          await getText(picture, ocrType);  
+            await getText(picture, ocrType);
           }
           if (labels) {
             await clearText();
@@ -95,15 +96,14 @@ const CameraScreen = ({
     if (confLoaded.current) {
       console.log("after", error, orgText, id, orgLabels);
       try {
-        
         if (orgText !== "") {
           setShowConfirmation(true);
-        } 
-        if (orgLabels.length>0) {
+        }
+        if (orgLabels.length > 0) {
           setShowConfirmation(true);
-        } else if (error !== null || labelsError !== null) { 
+        } else if (error !== null || labelsError !== null) {
           console.log("error", error);
-          console.log("this is the error", showError); 
+          console.log("this is the error", showError);
           setShowError(true);
         }
       } catch (err) {
@@ -146,16 +146,15 @@ const CameraScreen = ({
               </Text>
               <Text style={styles.selectText}>{Languages[target]}</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.langButton}
-              onPress={() => setShowModal(true)}
-            >
-              <Ionicons
-                name={handwriting ? "pencil-outline" : "text-outline"}
+            <TouchableOpacity style={styles.languageButton}>
+              <PhotoPicker />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setShowModal(true)}>
+              <MaterialIcons
+                name={"settings"}
                 size={30}
                 color={"white"}
-                style={styles.selectText}
+                // style={styles.selectText}
               />
             </TouchableOpacity>
           </View>
@@ -218,7 +217,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getText: (pic, ocrType) => dispatch(getText(pic, ocrType)),
     getLabels: (pic) => dispatch(getLabels(pic)),
-    clearText: () => dispatch(clearText())
+    clearText: () => dispatch(clearText()),
   };
 };
 
@@ -231,10 +230,10 @@ const styles = StyleSheet.create({
   },
   topButtons: {
     flex: 1,
-    padding: 20,
+    padding: 10,
     height: 500,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   buttonContainer: {
     flex: 1,
@@ -259,13 +258,13 @@ const styles = StyleSheet.create({
     marginTop: 1,
     marginBottom: 3,
     color: "white",
-    fontSize: 20,
+    fontSize: 15,
   },
   languageButton: {
     flexDirection: "row",
-    flex: 0.6,
+    flex: 0.45,
     alignSelf: "flex-start",
-    fontSize: 18,
+    fontSize: 15,
     height: 40,
     width: 150,
     backgroundColor: "rgba(0,0,0,0.5)",
