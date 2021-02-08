@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   Image,
-  View,
   Platform,
   StyleSheet,
   TouchableOpacity,
@@ -45,6 +43,9 @@ export default function PhotoPicker() {
   return (
     <TouchableOpacity onPress={pickImage}>
       <Text style={styles.selectText}>Upload Photo</Text>
+      {image && (
+        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+      )}
     </TouchableOpacity>
   );
 }
@@ -58,6 +59,5 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     color: "white",
     fontSize: 15,
-    backgroundColor: "transparent",
   },
 });

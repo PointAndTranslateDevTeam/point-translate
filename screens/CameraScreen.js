@@ -150,12 +150,7 @@ const CameraScreen = ({
               <PhotoPicker />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setShowModal(true)}>
-              <MaterialIcons
-                name={"settings"}
-                size={30}
-                color={"white"}
-                // style={styles.selectText}
-              />
+              <MaterialIcons name={"settings"} size={30} color={"white"} />
             </TouchableOpacity>
           </View>
           <View style={styles.cameraControlContainer}>
