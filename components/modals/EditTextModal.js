@@ -58,7 +58,7 @@ const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
             </TouchableOpacity>
             <View style={styles.editContainer}>
               <View style={styles.topContainer}>
-                <Text style={styles.headerText}>Tap to edit:</Text>
+                <Text style={styles.headerText}>Tap text to edit:</Text>
               </View>
               <View style={styles.textInput}>
                 <TextInput

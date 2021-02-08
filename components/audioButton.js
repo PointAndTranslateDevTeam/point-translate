@@ -1,13 +1,18 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import getAudio from "../API/getAudio";
+import * as Speech from 'expo-speech';
 
-const AudioButton = (text) => {
-  console.log("type", typeof text);
+const AudioButton = (text, lang) => {
+  //console.log("type", typeof text);
   return (
     <TouchableOpacity
-      onPress={() => getAudio(JSON.stringify(text))}
+      onPress={() => {
+          Speech.speak(JSON.stringify(text.text), {
+            language: text.lang
+          })
+        } 
+      }
       style={styles.audioContainer}
     >
       <MaterialIcons

@@ -1,6 +1,10 @@
 import { API_KEY } from "../secrets.js";
 import {Audio} from 'expo-av';
 
+//this function calls Google's text-to-speech API-- 
+//if and when there is no issue with expo-av on iOS, 
+//we can implement this function with expo-av rather than expo-speech.
+
 const getAudio = async (string) => {
     try {
       let response = await fetch(
@@ -19,7 +23,7 @@ const getAudio = async (string) => {
 
       let mimeType = "data:audio/mp3;base64,"
       let uri = mimeType + jsonResponse.audioContent;
-
+      console.log("before error");
       const { sound: playbackObject } = await Audio.Sound.createAsync (    
           { uri: uri },
           { shouldPlay: true }

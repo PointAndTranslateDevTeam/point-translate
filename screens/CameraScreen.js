@@ -46,6 +46,7 @@ const CameraScreen = ({
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null)
 
   useEffect(() => {
     (async () => {
@@ -62,6 +63,7 @@ const CameraScreen = ({
       if (camera) {
         const data = await camera.takePictureAsync(option);
         setPicture(data.base64);
+        setImage(data.uri)
       }
     } catch (err) {
       console.log(err);
@@ -180,6 +182,7 @@ const CameraScreen = ({
             navigation={navigation}
           />
           <Confirmation
+            image={image}
             showEdit={showEdit}
             setShowEdit={setShowEdit}
             showConfirmation={showConfirmation}
