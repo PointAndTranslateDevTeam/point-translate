@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { toggleOCR } from "../../store/toggleReducer";
+import { toggleOCR, toggleLabels } from "../../store/toggleReducer";
 
 import {
   View,
@@ -28,6 +28,17 @@ const Settings = (props) => {
                 value={props.handwriting}
               />
             </View>
+            <Text style={styles.optionText}>
+              Get labels? (beta)
+            </Text>
+            <View>
+              <Switch
+                trackColor={{ false: "#006575", true: "#006575" }}
+                thumbColor={props.labels ? "white" : "#f4f3f4"}
+                onValueChange={props.toggleLabels}
+                value={props.labels}
+              />
+            </View>
             <View style={styles.button}>
               <TouchableOpacity onPress={() => props.setModal(false)}>
                 <Text style={styles.confirmText}>Confirm</Text>
@@ -43,12 +54,14 @@ const Settings = (props) => {
 const mapStateToProps = (state) => {
   return {
     handwriting: state.toggle.handwriting,
+    labels: state.toggle.labels
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleOCR: () => dispatch(toggleOCR()),
+    toggleLabels: () => dispatch(toggleLabels())
   };
 };
 

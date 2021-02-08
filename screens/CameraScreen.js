@@ -2,7 +2,6 @@ import { Camera } from "expo-camera";
 import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
-import { getText } from "../store/source";
 import {
   Settings,
   LanguageModal,
@@ -16,16 +15,23 @@ import {
 } from "../components";
 import { Ionicons } from "@expo/vector-icons";
 import Languages from "../languages";
+import { getText, clearText } from "../store/source";
+import { getLabels } from "../store/label";
 
-//Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
   getText,
   orgText,
+  getLabels,
+  orgLabels,
   navigation,
   error,
+  labelsError,
   id,
+  labelsId,
   handwriting,
+  labels,
   target,
+  clearText
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -35,6 +41,7 @@ const CameraScreen = ({
   const [showModal, setShowModal] = useState(false);
   const [showOtherModal, setShowOtherModal] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [showLabelsError, setShowLabelsError] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -47,7 +54,7 @@ const CameraScreen = ({
   }, []);
 
   const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
-
+ // const ocrType = "LABEL_DETECTION";
   const takePicture = async () => {
     try {
       const option = { base64: true };
@@ -65,8 +72,14 @@ const CameraScreen = ({
     (async () => {
       if (textLoaded.current) {
         try {
-          console.log("before", error, orgText);
-          await getText(picture, ocrType);
+          console.log("before", error, orgText, orgLabels);
+          if (!labels) {
+          await getText(picture, ocrType);  
+          }
+          if (labels) {
+            await clearText();
+            await getLabels(picture);
+          }
         } catch (err) {
           console.error(err);
         }
@@ -80,15 +93,18 @@ const CameraScreen = ({
   useEffect(() => {
     setLoading(false);
     if (confLoaded.current) {
-      console.log("after", error, orgText, id);
+      console.log("after", error, orgText, id, orgLabels);
       try {
-        if (error !== null) {
-          console.log("error", error);
-          console.log(showError);
-          setShowError(true);
-        }
+        
         if (orgText !== "") {
           setShowConfirmation(true);
+        } 
+        if (orgLabels.length>0) {
+          setShowConfirmation(true);
+        } else if (error !== null || labelsError !== null) { 
+          console.log("error", error);
+          console.log("this is the error", showError); 
+          setShowError(true);
         }
       } catch (err) {
         console.error(err);
@@ -96,7 +112,7 @@ const CameraScreen = ({
     } else {
       confLoaded.current = true;
     }
-  }, [id]);
+  }, [id, labelsId]);
 
   if (hasPermission === null) {
     return <View />;
@@ -184,11 +200,16 @@ const CameraScreen = ({
 };
 
 const mapStateToProps = (state) => {
+  console.log("state", state);
   return {
     orgText: state.source.detectedText,
+    orgLabels: state.labels.detectedLabels,
     error: state.source.error,
+    labelsError: state.labels.error,
     id: state.source.id,
+    labelsId: state.labels.id,
     handwriting: state.toggle.handwriting,
+    labels: state.toggle.labels,
     target: state.target,
   };
 };
@@ -196,6 +217,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getText: (pic, ocrType) => dispatch(getText(pic, ocrType)),
+    getLabels: (pic) => dispatch(getLabels(pic)),
+    clearText: () => dispatch(clearText())
   };
 };
 

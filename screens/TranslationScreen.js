@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import { API_KEY } from "../secrets.js";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { connect } from "react-redux";
-import { AudioButton, TranslateHeader } from "../components";
+import { AudioButton, TranslateHeader, LanguageModal } from "../components";
 import Languages from "../languages";
+import { Ionicons } from "@expo/vector-icons";
 
-const TranslationScreen = ({ orgText, target, navigation }) => {
+const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) => {
+
   const [translation, setTranslation] = useState(null);
+  const [showOtherModal, setShowOtherModal] = useState(false);
+
+  
 
   const translate = async () => {
     console.log("heytranslate");
-    // console.log("text", orgText);
+    console.log("text", orgLabels, "org", orgLabels.join(", "));
+    let textToTranslate = labels ? orgLabels.join(", ") : orgText;
     try {
       let response = await fetch(
         "https://translation.googleapis.com/language/translate/v2?key=" +
@@ -22,7 +34,7 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            q: `${orgText}`,
+            q: `${textToTranslate}`,
             //"source": "en",
             target: `${target}`,
             //"format": "text"
@@ -46,12 +58,13 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
     <View style={styles.screen}>
       <TranslateHeader title="Point & Translate" navigation={navigation} />
       {console.log("entering translation screen:", translation)}
+
       <View style={styles.contentContainer}>
         <View>
           <Text style={styles.header}>Original Text:</Text>
         </View>
         <ScrollView>
-          <Text style={styles.text}>{orgText}</Text>
+          <Text style={styles.text}>{labels ? orgLabels.join(", ") : orgText}</Text>
         </ScrollView>
       </View>
       <View style={styles.translateContainer}>
@@ -66,6 +79,13 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
           <AudioButton text={translation} />
         </View>
       </View>
+      <TouchableOpacity
+        style={styles.languageButton}
+        onPress={() => setShowOtherModal(true)}
+      >
+        <Text style={styles.selectText}> Select another language</Text>
+      </TouchableOpacity>
+      <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
     </View>
   );
 };
@@ -73,7 +93,9 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
 const mapStateToProps = (state) => {
   return {
     orgText: state.source.detectedText,
+    orgLabels: state.labels.detectedLabels,
     target: state.target,
+    labels: state.toggle.labels
   };
 };
 
@@ -83,6 +105,21 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     backgroundColor: "#94B2BA",
+  },
+  languageButton: {
+    width: 230,
+    flexDirection: "row",
+    alignSelf: "center",
+    borderRadius: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fb7573",
+    alignContent: "center",
+  },
+  selectText: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 20,
   },
   contentContainer: {
     width: "90%",
