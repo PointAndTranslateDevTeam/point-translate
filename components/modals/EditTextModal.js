@@ -43,8 +43,9 @@ const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
       <DismissKeyboard>
         <View style={styles.screenContainer}>
           <View style={styles.screen}>
-            <TouchableOpacity onPress={() => setShowEdit(false)}>
+            <TouchableOpacity>
               <MaterialIcons
+                onPress={() => setShowEdit(false)}
                 name="clear"
                 size={30}
                 color="#006575"
