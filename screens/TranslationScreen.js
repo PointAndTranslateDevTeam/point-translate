@@ -5,13 +5,18 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { connect } from "react-redux";
 import AudioButton from "../components/audioButton";
 import Languages from "../languages";
-import TranslateHeader from '../components/headers/TranslateHeader'
+import TranslateHeader from "../components/headers/TranslateHeader";
+import LanguageModal from "../components/modals/LanguageModal";
+import { Ionicons } from "@expo/vector-icons";
+
 const TranslationScreen = ({ orgText, target, navigation }) => {
   const [translation, setTranslation] = useState(null);
+  const [showOtherModal, setShowOtherModal] = useState(false);
 
   const translate = async () => {
     console.log("heytranslate");
@@ -49,8 +54,9 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
 
   return (
     <View style={styles.screen}>
-      <TranslateHeader title="Point & Translate" navigation={navigation}/>
+      <TranslateHeader title="Point & Translate" navigation={navigation} />
       {console.log("entering translation screen:", translation)}
+
       <View style={styles.contentContainer}>
         <View>
           <Text style={styles.header}>Original Text:</Text>
@@ -71,6 +77,13 @@ const TranslationScreen = ({ orgText, target, navigation }) => {
           <AudioButton text={translation} />
         </View>
       </View>
+      <TouchableOpacity
+        style={styles.languageButton}
+        onPress={() => setShowOtherModal(true)}
+      >
+        <Text style={styles.selectText}> Select another language</Text>
+      </TouchableOpacity>
+      <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
     </View>
   );
 };
@@ -88,6 +101,21 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     backgroundColor: "#94B2BA",
+  },
+  languageButton: {
+    width: 230,
+    flexDirection: "row",
+    alignSelf: "center",
+    borderRadius: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fb7573",
+    alignContent: "center",
+  },
+  selectText: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 20,
   },
   contentContainer: {
     width: "90%",
@@ -119,25 +147,24 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.26,
     elevation: 5,
     backgroundColor: "#006575",
-
   },
   header: {
     fontSize: 25,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     padding: 8,
-    color: "white"
+    color: "white",
   },
   text: {
-    color: "white"
+    color: "white",
   },
   audioButtonContainer: {
     flexDirection: "row",
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
+
   },
   // audioText: {
   //   alignSelf: "center",
   // }
 });
-
 
 export default connect(mapStateToProps, null)(TranslationScreen);
