@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   StyleSheet,
   TextInput,
@@ -42,41 +43,41 @@ const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
       <DismissKeyboard>
         <View style={styles.screenContainer}>
           <View style={styles.screen}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Edit detected text:</Text>
-            <View style={styles.textInput}>
-            <TextInput
-              onChangeText={editTextInputHandler}
-              multiline={true}
-              value={newText}
-            ></TextInput>
-            </View>
-            <View style={styles.button}>
-              <TouchableOpacity
-                onPress={() => {
-                  inputEditText();
-                  navigation.navigate("Translation");
-                }}
+            <TouchableOpacity onPress={() => setShowEdit(false)}>
+              <MaterialIcons
+                name="clear"
+                size={30}
+                color="#006575"
                 style={{
-                  width: 100,
-                  borderRadius: 4,
-                  backgroundColor: "#fb7573",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 35,
-                  marginVertical: 5
+                  position: "absolute",
+                  left: 115,
+                  top: 0,
                 }}
-              >
-                <Text
-                  style={{
-                    color: "#fff",
-                    fontWeight: "bold",
-                    textAlign: "center",
+              />
+            </TouchableOpacity>
+            <View style={styles.editContainer}>
+              <View style={styles.topContainer}>
+                <Text style={styles.headerText}>Tap to edit:</Text>
+              </View>
+              <View style={styles.textInput}>
+                <TextInput
+                  onChangeText={editTextInputHandler}
+                  multiline={true}
+                  value={newText}
+                  style={styles.text}
+                ></TextInput>
+              </View>
+              <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    inputEditText();
+                    navigation.navigate("Translation");
                   }}
+                  style={styles.button}
                 >
-                  Translate
-                </Text>
-              </TouchableOpacity>
+                  <Text style={styles.buttonText}>Translate</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
@@ -100,43 +101,57 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
-    alignContent: 'center',
-    alignItems:'center',
+    alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.5)",
-
   },
   screen: {
-    color: "#fff",
-    alignItems: "center",
     backgroundColor: "#94B2BA",
+    alignItems: "center",
     margin: 50,
-    padding: 40,
     borderRadius: 10,
     height: "75%",
     width: "90%",
-    alignContent: "center",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 6,
-    shadowOpacity: 0.26,
-    elevation: 5,
+    justifyContent: "center",
   },
-  settingContainer: {
+  editContainer: {
     flexDirection: "column",
-    justifyContent: "space-between",
-    height: "100%",
+    justifyContent: "center",
+    height: "90%",
+    width: "75%",
     alignItems: "center",
-    alignContent: "center",
-  },
-  text: {
-    margin: 20,
   },
   textInput: {
-    height: "80%",
-    width: "90%"
-  }
+    height: "75%",
+    width: "100%",
+    paddingBottom: 10,
+  },
+  text: {
+    color: "white",
+    fontWeight: "600",
+    paddingBottom: 10,
+  },
+  button: {
+    width: 100,
+    height: 37,
+    borderRadius: 4,
+    backgroundColor: "#fb7573",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "white",
+    paddingBottom: 15,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  topContainer: {
+    flexDirection: "row",
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchtoProps)(EditText);
