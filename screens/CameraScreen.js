@@ -31,7 +31,7 @@ const CameraScreen = ({
   handwriting,
   labels,
   target,
-  clearText
+  clearText,
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -45,6 +45,7 @@ const CameraScreen = ({
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null)
 
   useEffect(() => {
     (async () => {
@@ -54,13 +55,14 @@ const CameraScreen = ({
   }, []);
 
   const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
- // const ocrType = "LABEL_DETECTION";
+  // const ocrType = "LABEL_DETECTION";
   const takePicture = async () => {
     try {
       const option = { base64: true };
       if (camera) {
         const data = await camera.takePictureAsync(option);
         setPicture(data.base64);
+        setImage(data.uri)
       }
     } catch (err) {
       console.log(err);
@@ -74,7 +76,7 @@ const CameraScreen = ({
         try {
           console.log("before", error, orgText, orgLabels);
           if (!labels) {
-          await getText(picture, ocrType);  
+            await getText(picture, ocrType);
           }
           if (labels) {
             await clearText();
@@ -95,15 +97,14 @@ const CameraScreen = ({
     if (confLoaded.current) {
       console.log("after", error, orgText, id, orgLabels);
       try {
-        
         if (orgText !== "") {
           setShowConfirmation(true);
-        } 
-        if (orgLabels.length>0) {
+        }
+        if (orgLabels.length > 0) {
           setShowConfirmation(true);
-        } else if (error !== null || labelsError !== null) { 
+        } else if (error !== null || labelsError !== null) {
           console.log("error", error);
-          console.log("this is the error", showError); 
+          console.log("this is the error", showError);
           setShowError(true);
         }
       } catch (err) {
@@ -186,6 +187,7 @@ const CameraScreen = ({
             navigation={navigation}
           />
           <Confirmation
+            image={image}
             showEdit={showEdit}
             setShowEdit={setShowEdit}
             showConfirmation={showConfirmation}
@@ -218,7 +220,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getText: (pic, ocrType) => dispatch(getText(pic, ocrType)),
     getLabels: (pic) => dispatch(getLabels(pic)),
-    clearText: () => dispatch(clearText())
+    clearText: () => dispatch(clearText()),
   };
 };
 

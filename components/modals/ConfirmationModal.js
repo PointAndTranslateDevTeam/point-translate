@@ -8,10 +8,12 @@ import {
   Modal,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
 
 const Confirmation = (props) => {
   console.log("got to confirmation modal");
+  console.log("PROPS", props);
   return (
     <Modal
       visible={props.showConfirmation}
@@ -22,13 +24,25 @@ const Confirmation = (props) => {
         <View style={styles.screen}>
           <View style={styles.settingContainer}>
             <View style={styles.confContainer}>
+              {props.image && (
+                <Image
+                  source={{ uri: props.image }}
+                  style={{ width: 200, height: 200, resizeMode: "contain" }}
+                />
+              )}
+
               <Text style={styles.headerText}>Text Detected:</Text>
               <ScrollView style={styles.scrollView}>
-                { props.orgText !== ""
-                  ? <Text style={styles.text}>{props.orgText}</Text> 
-                  : props.orgLabels.map ((x, i) => <Text key={i}>{x}{"\n"}</Text> )
-                  }
-                
+                {props.orgText !== "" ? (
+                  <Text style={styles.text}>{props.orgText}</Text>
+                ) : (
+                  props.orgLabels.map((x, i) => (
+                    <Text key={i}>
+                      {x}
+                      {"\n"}
+                    </Text>
+                  ))
+                )}
               </ScrollView>
             </View>
 
@@ -67,7 +81,7 @@ const Confirmation = (props) => {
 const mapStateToProps = (state) => {
   return {
     orgText: state.source.detectedText,
-    orgLabels: state.labels.detectedLabels
+    orgLabels: state.labels.detectedLabels,
   };
 };
 
@@ -128,7 +142,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontWeight: "500"
-  }
+    fontWeight: "500",
+  },
 });
 export default connect(mapStateToProps)(Confirmation);
