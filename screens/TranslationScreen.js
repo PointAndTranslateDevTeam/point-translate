@@ -8,16 +8,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { connect } from "react-redux";
-import AudioButton from "../components/audioButton";
+import { AudioButton, TranslateHeader, LanguageModal } from "../components";
 import Languages from "../languages";
-import TranslateHeader from '../components/headers/TranslateHeader'
-import LanguageModal from "../components/modals/LanguageModal";
 import { Ionicons } from "@expo/vector-icons";
 
-import TranslateHeader from '../components/headers/TranslateHeader'
-import LanguageModal from "../components/modals/LanguageModal";
-import { Ionicons } from "@expo/vector-icons";
 const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) => {
+
   const [translation, setTranslation] = useState(null);
   const [showOtherModal, setShowOtherModal] = useState(false);
 
@@ -168,7 +164,6 @@ const styles = StyleSheet.create({
   audioButtonContainer: {
     flexDirection: "row",
     alignSelf: "flex-end",
-
   },
   // audioText: {
   //   alignSelf: "center",

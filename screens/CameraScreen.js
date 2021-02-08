@@ -2,29 +2,22 @@ import { Camera } from "expo-camera";
 import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
-import { getText, clearText } from "../store/source";
-import Settings from "../components/modals/SettingsModal";
-import LanguageModal from "../components/modals/LanguageModal";
-import Error from "../components/modals/ErrorModal";
-import Confirmation from "../components/modals/ConfirmationModal";
-import EditText from "../components/modals/EditTextModal";
-import LoadingWheel from "../components/LoadingWheel";
-import FlipButton from "../components/FlipButton";
-import FlashButton from "../components/FlashButton";
+import {
+  Settings,
+  LanguageModal,
+  Error,
+  Confirmation,
+  EditText,
+  LoadingWheel,
+  FlipButton,
+  FlashButton,
+  Header,
+} from "../components";
 import { Ionicons } from "@expo/vector-icons";
 import Languages from "../languages";
+import { getText, clearText } from "../store/source";
 import { getLabels } from "../store/label";
 
-//A few 
-//So 1. coopt ocrType with a ternary-- if handwriting, then document_text_detection, but if not handwriting, then, if labels, then label_detection, and otherwise, text_detection
-// { handwriting ? doccument_text_detection: {labels? label_detection : text_detection}}
-//2. run the getLabels function only if no text is found in the photo-- i like this option
-//3. just put another labels variable on state. least elegant option,
-//and what is implemented below.
-
-import Header from "../components/headers/Header";
-
-//Choosing a functional component gives us access to useState hook
 const CameraScreen = ({
   getText,
   orgText,
@@ -129,7 +122,7 @@ const CameraScreen = ({
   }
   return (
     <View style={styles.screen}>
-      <Header title="Point & Translate" navigation={navigation}/>
+      <Header title="Point & Translate" navigation={navigation} />
       <Camera
         ref={(ref) => setCamera(ref)}
         style={styles.camera}
