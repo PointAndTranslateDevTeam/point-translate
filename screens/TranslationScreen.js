@@ -17,11 +17,7 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
   const [translation, setTranslation] = useState(null);
   const [showOtherModal, setShowOtherModal] = useState(false);
 
-  
-
   const translate = async () => {
-    console.log("heytranslate");
-    console.log("text", orgLabels, "org", orgLabels.join(", "));
     let textToTranslate = labels ? orgLabels.join(", ") : orgText;
     try {
       let response = await fetch(
@@ -57,7 +53,6 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
   return (
     <View style={styles.screen}>
       <TranslateHeader title="Point & Translate" navigation={navigation} />
-      {console.log("entering translation screen:", translation)}
 
       <View style={styles.contentContainer}>
         <View>
@@ -75,8 +70,7 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
           <Text style={styles.text}>{translation}</Text>
         </ScrollView>
         <View style={styles.audioButtonContainer}>
-          {/* <Text style={[styles.text, styles.audioText]}>Listen: </Text> */}
-          <AudioButton text={translation} />
+          <AudioButton text={translation} lang={target}/>
         </View>
       </View>
       <TouchableOpacity
