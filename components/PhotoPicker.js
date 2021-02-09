@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from "react";
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { Platform, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+
 // import Constants from "expo-constants";
 
-export default function PhotoPicker() {
-  const [image, setImage] = useState(null);
-
+const PhotoPicker = (props) => {
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -26,29 +19,33 @@ export default function PhotoPicker() {
   }, []);
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+        base64: true,
+      });
 
-    console.log(result);
+      console.log("RESULT OF PICKIMAGE CALL>>>>>", result);
 
-    if (!result.cancelled) {
-      setImage(result.uri);
+      if (!result.cancelled) {
+        console.log("PROPS>>>>>>>>", props);
+        props.setPicture(result.base64);
+        props.setImage(result.uri);
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
   return (
     <TouchableOpacity onPress={pickImage}>
       <Text style={styles.selectText}>Upload Photo</Text>
-      {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-      )}
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   selectText: {
@@ -61,3 +58,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 });
+
+export default PhotoPicker;

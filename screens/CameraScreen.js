@@ -57,13 +57,16 @@ const CameraScreen = ({
 
   const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
 
-  const takePicture = async () => {
+  const takePicture = async (uploaded) => {
     try {
       const option = { base64: true };
       if (camera) {
         const data = await camera.takePictureAsync(option);
         setPicture(data.base64);
         setImage(data.uri);
+      } else {
+        setPicture(uploaded.base64);
+        setImage(uploaded.uri);
       }
     } catch (err) {
       console.log(err);
@@ -149,7 +152,7 @@ const CameraScreen = ({
               <Text style={styles.selectText}>{Languages[target]}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.languageButton}>
-              <PhotoPicker />
+              <PhotoPicker setPicture={setPicture} setImage={setImage} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setShowModal(true)}>
               <MaterialIcons name={"settings"} size={30} color={"white"} />
