@@ -37,11 +37,12 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: "white",
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: "bold",
     height: 50,
     width: "100%",
     marginTop: "25%",
+    fontFamily: "Staatliches",
   },
   button: {
     flex: 0.5,
