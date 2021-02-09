@@ -107,5 +107,6 @@ const styles = StyleSheet.create({
   confirmText: {
     fontWeight: "bold",
     color: "white",
+    fontSize: 16
   },
 });

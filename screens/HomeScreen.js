@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   headlineText: {
     color: "#032D38",
     textAlign: "center",
-    fontSize: 12.5,
+    fontSize: 16,
   },
   tapForCameraButton: {
     width: 130,

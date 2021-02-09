@@ -128,8 +128,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontWeight: "600",
+    fontWeight: "500",
     paddingBottom: 10,
+    fontSize: 16
   },
   button: {
     width: 100,
@@ -149,6 +150,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
+    fontSize: 16
   },
   topContainer: {
     flexDirection: "row",
