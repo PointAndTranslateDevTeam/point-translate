@@ -21,8 +21,7 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
     let textToTranslate = labels ? orgLabels.join(", ") : orgText;
     try {
       let response = await fetch(
-        "https://translation.googleapis.com/language/translate/v2?key=" +
-          API_KEY,
+        "http://192.168.42.175:5001/point-translate-303720/us-central1/getTranslate",
         {
           method: "POST",
           headers: {
@@ -31,17 +30,11 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
           },
           body: JSON.stringify({
             q: `${textToTranslate}`,
-            //"source": "en",
             target: `${target}`,
-            //"format": "text"
           }),
         }
       );
       const jsonResponse = await response.json();
-      console.log(
-        "translated response",
-        jsonResponse.data.translations[0].translatedText
-      );
       setTranslation(jsonResponse.data.translations[0].translatedText);
     } catch (err) {
       console.log(err);

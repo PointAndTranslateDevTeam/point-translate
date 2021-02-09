@@ -41,7 +41,7 @@ export const getText = (picture, ocrType) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
+        "http://192.168.42.175:5001/point-translate-303720/us-central1/getText",
         {
           method: "POST",
           headers: {
@@ -110,7 +110,7 @@ const sourceReducer = (state = initialState, action) => {
         ...state,
         detectedText: "",
         error: null,
-        }; 
+        };
     default:
       return state;
   }
