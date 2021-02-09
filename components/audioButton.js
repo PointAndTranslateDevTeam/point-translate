@@ -1,10 +1,9 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import * as Speech from 'expo-speech';
 
-const AudioButton = (text, lang) => {
-  //console.log("type", typeof text);
+const AudioButton = (text) => {
   return (
     <TouchableOpacity
       onPress={() => {
@@ -15,10 +14,10 @@ const AudioButton = (text, lang) => {
       }
       style={styles.audioContainer}
     >
-      <MaterialIcons
-        name="play-circle-filled"
+      <Feather
+        name="volume-2"
         size={34}
-        color="#FB7573"
+        color="#FC9E9C"
         style={styles.outerCircle}
       />
     </TouchableOpacity>
@@ -30,11 +29,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 20,
     width: 40,
     height: 40,
-    borderColor: "#FC9E9C",
-    borderWidth: 3,
+    //borderColor: "#FC9E9C"
   },
   audioContainer: {
     alignSelf: "center",
