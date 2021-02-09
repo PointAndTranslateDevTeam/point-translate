@@ -7,7 +7,7 @@ import {
   Text,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import Constants from "expo-constants";
+// import Constants from "expo-constants";
 
 export default function PhotoPicker() {
   const [image, setImage] = useState(null);

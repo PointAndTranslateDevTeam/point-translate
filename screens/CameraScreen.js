@@ -46,7 +46,7 @@ const CameraScreen = ({
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -56,14 +56,14 @@ const CameraScreen = ({
   }, []);
 
   const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
-  // const ocrType = "LABEL_DETECTION";
+
   const takePicture = async () => {
     try {
       const option = { base64: true };
       if (camera) {
         const data = await camera.takePictureAsync(option);
         setPicture(data.base64);
-        setImage(data.uri)
+        setImage(data.uri);
       }
     } catch (err) {
       console.log(err);
