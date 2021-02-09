@@ -3,12 +3,12 @@ import { TouchableOpacity, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import * as Speech from 'expo-speech';
 
-const AudioButton = (text) => {
+const AudioButton = (props) => {
   return (
     <TouchableOpacity
       onPress={() => {
-          Speech.speak(JSON.stringify(text.text), {
-            language: text.lang
+          Speech.speak(props.text, {
+            language: props.lang
           })
         } 
       }
@@ -30,8 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: 40,
-    height: 40,
-    //borderColor: "#FC9E9C"
+    height: 40
   },
   audioContainer: {
     alignSelf: "center",
