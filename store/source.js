@@ -1,4 +1,6 @@
 import { API_KEY } from "../secrets.js";
+import {PURPLE_SOCKS_KEY} from "@env";
+
 
 const initialState = {
   id: 0,
@@ -41,9 +43,8 @@ export const getText = (picture, ocrType) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        //we somehow need to change this vvv add token that's hidden?
-        "http://192.168.42.175:5001/point-translate-303720/us-central1/getText",
-        //we think: if (there's a token in client side code, living in the environment) { go ahead and use google functions} else {error}
+        //change URL once functions is deployed
+        "http://192.168.42.175:5001/point-translate-303720/us-central1/getText?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
         {
           method: "POST",
           headers: {
