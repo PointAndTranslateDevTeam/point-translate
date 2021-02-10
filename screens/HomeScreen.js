@@ -15,9 +15,9 @@ function HomeScreen({ navigation }) {
             Capture an image of text & translate it to another language
           </Text>
         </View>
-        <Image style={styles.image} source={require("../CamAnimation.gif")} />
+        <Image style={styles.image} source={require("../assets/CamAnimation.gif")} />
         <View></View>
-        <View>
+        <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => navigation.navigate("Camera")}
             style={styles.tapForCameraButton}
@@ -60,11 +60,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 53,
     fontFamily: "Staatliches",
+    paddingTop: 15
   },
   headlineText: {
     color: "#032D38",
     textAlign: "center",
-    fontSize: 12.5,
+    fontSize: 16,
+    paddingHorizontal: 30,
+    paddingBottom: 15
+  },
+  buttonContainer: {
+    paddingTop: 25
   },
   tapForCameraButton: {
     width: 130,
@@ -82,7 +88,9 @@ const styles = StyleSheet.create({
     fontFamily: "Staatliches",
     fontSize: 20,
   },
-
+  // title:{
+  //   height: "25%"
+  // },
   image: {
     width: 375,
     height: 275,

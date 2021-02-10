@@ -8,7 +8,7 @@ class TargetPicker extends React.Component {
   render() {
     const { target, setTarget } = this.props;
     return (
-      <View style={{ marginTop: 0, marginBottom: 75,
+      <View style={{ marginTop: 0, marginBottom: 100,
       marginHorizontal: 10,
       }}>
         <Picker

@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 50,
     borderRadius: 10,
-    height: "75%",
+    height: "80%",
     width: "90%",
     justifyContent: "center",
   },
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
+    marginBottom: 8
   },
   button: {
     width: 75,
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontWeight: "500",
+    fontSize: 16
   },
 });
 export default connect(mapStateToProps)(Confirmation);
