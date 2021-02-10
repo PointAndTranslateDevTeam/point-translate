@@ -19,12 +19,17 @@ const TranslationScreen = ({
   target,
   navigation,
 }) => {
+  //source variable is set to the detected source language in the translate function
+  const [source, setSource] = useState(null);
+
   const [translation, setTranslation] = useState(null);
   const [showOtherModal, setShowOtherModal] = useState(false);
-  const [orgLang, setOrgLang] = useState(null);
 
+  //by moving textToTranslate outside of the scope of the translate function, 
+  //we can recycle it as a prop for the original text's audio button.
+  let textToTranslate = labels ? orgLabels.join(", ") : orgText;
   const translate = async () => {
-    let textToTranslate = labels ? orgLabels.join(", ") : orgText;
+    
     try {
       let response = await fetch(
         "https://translation.googleapis.com/language/translate/v2?key=" +
@@ -44,8 +49,14 @@ const TranslationScreen = ({
         }
       );
       const jsonResponse = await response.json();
+
+
+      console.log(
+        "translated response", jsonResponse,
+        jsonResponse.data.translations[0].translatedText
+      );
+      setSource(jsonResponse.data.translations[0].detectedSourceLanguage);
       setTranslation(jsonResponse.data.translations[0].translatedText);
-      setOrgLang(jsonResponse.data.translations[0].detectedSourceLanguage);
     } catch (err) {
       console.log(err);
     }
@@ -66,9 +77,13 @@ const TranslationScreen = ({
             {labels ? orgLabels.join(", ") : orgText}
           </Text>
         </ScrollView>
+
         <Text style={styles.langDetected}>
-          Language detected: {Languages[orgLang]}
+          Language detected: {Languages[source]}
         </Text>
+        <View style={styles.audioButtonContainer}>
+          <AudioButton text={textToTranslate} lang={source}/>
+        </View>
       </View>
       <View style={styles.translateContainer}>
         <View>
