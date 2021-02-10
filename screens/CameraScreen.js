@@ -152,7 +152,11 @@ const CameraScreen = ({
               <Text style={styles.selectText}>{Languages[target]}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.languageButton}>
-              <PhotoPicker setPicture={setPicture} setImage={setImage} />
+              <PhotoPicker
+                setPicture={setPicture}
+                setImage={setImage}
+                setLoading={setLoading}
+              />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setShowModal(true)}>
               <MaterialIcons name={"settings"} size={30} color={"white"} />

@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Platform, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-
-// import Constants from "expo-constants";
 
 const PhotoPicker = (props) => {
   useEffect(() => {
@@ -28,10 +26,8 @@ const PhotoPicker = (props) => {
         base64: true,
       });
 
-      // console.log("RESULT OF PICKIMAGE CALL>>>>>", result.uri);
-
       if (!result.cancelled) {
-        console.log("PROPS>>>>>>>>", props);
+        props.setLoading(true);
         props.setPicture(result.base64);
         props.setImage(result.uri);
       }
