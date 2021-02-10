@@ -12,13 +12,24 @@ import { AudioButton, TranslateHeader, LanguageModal } from "../components";
 import Languages from "../languages";
 import { Ionicons } from "@expo/vector-icons";
 
-const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) => {
+const TranslationScreen = ({
+  orgText,
+  orgLabels,
+  labels,
+  target,
+  navigation,
+}) => {
+  //source variable is set to the detected source language in the translate function
+  const [source, setSource] = useState(null);
 
   const [translation, setTranslation] = useState(null);
   const [showOtherModal, setShowOtherModal] = useState(false);
 
+  //by moving textToTranslate outside of the scope of the translate function, 
+  //we can recycle it as a prop for the original text's audio button.
+  let textToTranslate = labels ? orgLabels.join(", ") : orgText;
   const translate = async () => {
-    let textToTranslate = labels ? orgLabels.join(", ") : orgText;
+    
     try {
       let response = await fetch(
         "https://translation.googleapis.com/language/translate/v2?key=" +
@@ -38,10 +49,13 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
         }
       );
       const jsonResponse = await response.json();
+
+
       console.log(
-        "translated response",
+        "translated response", jsonResponse,
         jsonResponse.data.translations[0].translatedText
       );
+      setSource(jsonResponse.data.translations[0].detectedSourceLanguage);
       setTranslation(jsonResponse.data.translations[0].translatedText);
     } catch (err) {
       console.log(err);
@@ -55,12 +69,21 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
       <TranslateHeader title="Point & Translate" navigation={navigation} />
 
       <View style={styles.contentContainer}>
-        <View>
+        <View style={styles.orgText}>
           <Text style={styles.header}>Original Text:</Text>
         </View>
         <ScrollView>
-          <Text style={styles.text}>{labels ? orgLabels.join(", ") : orgText}</Text>
+          <Text style={styles.text}>
+            {labels ? orgLabels.join(", ") : orgText}
+          </Text>
         </ScrollView>
+
+        <Text style={styles.langDetected}>
+          Language detected: {Languages[source]}
+        </Text>
+        <View style={styles.audioButtonContainer}>
+          <AudioButton text={textToTranslate} lang={source}/>
+        </View>
       </View>
       <View style={styles.translateContainer}>
         <View>
@@ -69,8 +92,9 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
         <ScrollView>
           <Text style={styles.text}>{translation}</Text>
         </ScrollView>
+
         <View style={styles.audioButtonContainer}>
-          <AudioButton text={translation} lang={target}/>
+          <AudioButton text={translation} lang={target} />
         </View>
       </View>
       <TouchableOpacity
@@ -89,7 +113,7 @@ const mapStateToProps = (state) => {
     orgText: state.source.detectedText,
     orgLabels: state.labels.detectedLabels,
     target: state.target,
-    labels: state.toggle.labels
+    labels: state.toggle.labels,
   };
 };
 
@@ -99,6 +123,16 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     backgroundColor: "#94B2BA",
+  },
+  orgText: {
+    justifyContent: "center",
+    textAlign: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  langDetected: {
+    fontSize: 16,
+    color: "white",
   },
   languageButton: {
     width: 230,
