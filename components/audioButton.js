@@ -25,31 +25,15 @@ const AudioButton = (props) => {
   return (
     <TouchableOpacity
       onPress={async () => playSound()}
-      style={styles.audioContainer}
     >
       <Feather
         name={speaking ? "volume-x" : "volume-2"}
         size={34}
         color="#FC9E9C"
-        style={styles.outerCircle}
       />
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
-  outerCircle: {
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    width: 40,
-    height: 40
-  },
-  audioContainer: {
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default AudioButton;

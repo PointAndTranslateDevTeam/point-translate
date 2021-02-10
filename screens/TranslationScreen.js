@@ -78,10 +78,11 @@ const TranslationScreen = ({
           </Text>
         </ScrollView>
 
+        
+        <View style={styles.audioButtonContainer}>
         <Text style={styles.langDetected}>
           Language detected: {Languages[source]}
         </Text>
-        <View style={styles.audioButtonContainer}>
           <AudioButton text={textToTranslate} lang={source}/>
         </View>
       </View>
@@ -132,6 +133,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   langDetected: {
+    flex: 1,
+    alignSelf: "center",
     fontSize: 16,
     color: "white",
   },
@@ -197,10 +200,7 @@ const styles = StyleSheet.create({
   audioButtonContainer: {
     flexDirection: "row",
     alignSelf: "flex-end",
-  },
-  // audioText: {
-  //   alignSelf: "center",
-  // }
+  }
 });
 
 export default connect(mapStateToProps, null)(TranslationScreen);
