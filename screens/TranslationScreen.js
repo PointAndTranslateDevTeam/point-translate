@@ -12,10 +12,16 @@ import { AudioButton, TranslateHeader, LanguageModal } from "../components";
 import Languages from "../languages";
 import { Ionicons } from "@expo/vector-icons";
 
-const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) => {
-
+const TranslationScreen = ({
+  orgText,
+  orgLabels,
+  labels,
+  target,
+  navigation,
+}) => {
   //source variable is set to the detected source language in the translate function
   const [source, setSource] = useState(null);
+
   const [translation, setTranslation] = useState(null);
   const [showOtherModal, setShowOtherModal] = useState(false);
 
@@ -43,6 +49,8 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
         }
       );
       const jsonResponse = await response.json();
+
+
       console.log(
         "translated response", jsonResponse,
         jsonResponse.data.translations[0].translatedText
@@ -61,12 +69,18 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
       <TranslateHeader title="Point & Translate" navigation={navigation} />
 
       <View style={styles.contentContainer}>
-        <View>
+        <View style={styles.orgText}>
           <Text style={styles.header}>Original Text:</Text>
         </View>
         <ScrollView>
-          <Text style={styles.text}>{labels ? orgLabels.join(", ") : orgText}</Text>
+          <Text style={styles.text}>
+            {labels ? orgLabels.join(", ") : orgText}
+          </Text>
         </ScrollView>
+
+        <Text style={styles.langDetected}>
+          Language detected: {Languages[source]}
+        </Text>
         <View style={styles.audioButtonContainer}>
           <AudioButton text={textToTranslate} lang={source}/>
         </View>
@@ -78,8 +92,9 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
         <ScrollView>
           <Text style={styles.text}>{translation}</Text>
         </ScrollView>
+
         <View style={styles.audioButtonContainer}>
-          <AudioButton text={translation} lang={target}/>
+          <AudioButton text={translation} lang={target} />
         </View>
       </View>
       <TouchableOpacity
@@ -98,7 +113,7 @@ const mapStateToProps = (state) => {
     orgText: state.source.detectedText,
     orgLabels: state.labels.detectedLabels,
     target: state.target,
-    labels: state.toggle.labels
+    labels: state.toggle.labels,
   };
 };
 
@@ -108,6 +123,16 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     backgroundColor: "#94B2BA",
+  },
+  orgText: {
+    justifyContent: "center",
+    textAlign: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  langDetected: {
+    fontSize: 16,
+    color: "white",
   },
   languageButton: {
     width: 230,
