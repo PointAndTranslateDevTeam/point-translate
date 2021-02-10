@@ -53,7 +53,7 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
   return (
     <View style={styles.screen}>
       <TranslateHeader title="Point & Translate" navigation={navigation} />
-
+      <View>
       <View style={styles.contentContainer}>
         <View>
           <Text style={styles.header}>Original Text:</Text>
@@ -80,6 +80,7 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
         <Text style={styles.selectText}> Select another language</Text>
       </TouchableOpacity>
       <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
+      </View>
     </View>
   );
 };
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#94B2BA",
   },
   languageButton: {
-    width: 230,
+    width: 280,
     flexDirection: "row",
     alignSelf: "center",
     borderRadius: 4,
@@ -109,18 +110,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#fb7573",
     alignContent: "center",
+    padding: 5,
+    paddingVertical: 8,
   },
   selectText: {
     textAlign: "center",
     color: "white",
     fontSize: 20,
+    fontWeight: "600"
   },
   contentContainer: {
-    width: "90%",
     height: "35%",
     alignItems: "center",
     margin: 10,
-    marginTop: 30,
+    marginTop: 20,
     padding: 20,
     paddingTop: 5,
     borderRadius: 10,
@@ -154,6 +157,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
+    fontSize: 16,
+    fontWeight: "500"
   },
   audioButtonContainer: {
     flexDirection: "row",
