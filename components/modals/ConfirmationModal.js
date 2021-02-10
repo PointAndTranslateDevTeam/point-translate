@@ -13,7 +13,6 @@ import {
 
 const Confirmation = (props) => {
   console.log("got to confirmation modal");
-  console.log("PROPS", props);
   return (
     <Modal
       visible={props.showConfirmation}
