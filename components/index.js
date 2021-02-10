@@ -11,3 +11,4 @@ export { default as FlashButton } from "./FlashButton";
 export { default as FlipButton } from "./FlipButton";
 export { default as LoadingWheel } from "./LoadingWheel";
 export { default as TargetPicker } from "./TargetPicker";
+export { default as PhotoPicker } from "./PhotoPicker";

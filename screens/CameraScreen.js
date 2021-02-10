@@ -12,8 +12,9 @@ import {
   FlipButton,
   FlashButton,
   Header,
+  PhotoPicker,
 } from "../components";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Languages from "../languages";
 import { getText, clearText } from "../store/source";
 import { getLabels } from "../store/label";
@@ -45,7 +46,7 @@ const CameraScreen = ({
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -55,14 +56,17 @@ const CameraScreen = ({
   }, []);
 
   const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
-  // const ocrType = "LABEL_DETECTION";
-  const takePicture = async () => {
+
+  const takePicture = async (uploaded) => {
     try {
       const option = { base64: true };
       if (camera) {
         const data = await camera.takePictureAsync(option);
         setPicture(data.base64);
-        setImage(data.uri)
+        setImage(data.uri);
+      } else {
+        setPicture(uploaded);
+        setImage(uploaded);
       }
     } catch (err) {
       console.log(err);
@@ -147,17 +151,15 @@ const CameraScreen = ({
               </Text>
               <Text style={styles.selectText}>{Languages[target]}</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.langButton}
-              onPress={() => setShowModal(true)}
-            >
-              <Ionicons
-                name={handwriting ? "pencil-outline" : "text-outline"}
-                size={30}
-                color={"white"}
-                style={styles.selectText}
+            <TouchableOpacity style={styles.languageButton}>
+              <PhotoPicker
+                setPicture={setPicture}
+                setImage={setImage}
+                setLoading={setLoading}
               />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setShowModal(true)}>
+              <MaterialIcons name={"settings"} size={30} color={"white"} />
             </TouchableOpacity>
           </View>
           <View style={styles.cameraControlContainer}>
@@ -233,10 +235,10 @@ const styles = StyleSheet.create({
   },
   topButtons: {
     flex: 1,
-    padding: 20,
+    padding: 10,
     height: 500,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   buttonContainer: {
     flex: 1,
@@ -261,13 +263,13 @@ const styles = StyleSheet.create({
     marginTop: 1,
     marginBottom: 3,
     color: "white",
-    fontSize: 20,
+    fontSize: 15,
   },
   languageButton: {
     flexDirection: "row",
-    flex: 0.6,
+    flex: 0.45,
     alignSelf: "flex-start",
-    fontSize: 18,
+    fontSize: 15,
     height: 40,
     width: 150,
     backgroundColor: "rgba(0,0,0,0.5)",
