@@ -110,7 +110,7 @@ const sourceReducer = (state = initialState, action) => {
         ...state,
         detectedText: "",
         error: null,
-        }; 
+        };
     default:
       return state;
   }
