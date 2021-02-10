@@ -28,7 +28,7 @@ const PhotoPicker = (props) => {
         base64: true,
       });
 
-      console.log("RESULT OF PICKIMAGE CALL>>>>>", result);
+      // console.log("RESULT OF PICKIMAGE CALL>>>>>", result.uri);
 
       if (!result.cancelled) {
         console.log("PROPS>>>>>>>>", props);

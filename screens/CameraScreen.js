@@ -65,8 +65,8 @@ const CameraScreen = ({
         setPicture(data.base64);
         setImage(data.uri);
       } else {
-        setPicture(uploaded.base64);
-        setImage(uploaded.uri);
+        setPicture(uploaded);
+        setImage(uploaded);
       }
     } catch (err) {
       console.log(err);
