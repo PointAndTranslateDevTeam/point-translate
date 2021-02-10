@@ -78,7 +78,7 @@ const CameraScreen = ({
     (async () => {
       if (textLoaded.current) {
         try {
-          console.log("before", error, orgText, orgLabels);
+          // console.log("before", error, orgText, orgLabels);
           if (!labels) {
             await getText(picture, ocrType);
           }
@@ -99,7 +99,7 @@ const CameraScreen = ({
   useEffect(() => {
     setLoading(false);
     if (confLoaded.current) {
-      console.log("after", error, orgText, id, orgLabels);
+      // console.log("after", error, orgText, id, orgLabels);
       try {
         if (orgText !== "") {
           setShowConfirmation(true);
@@ -195,7 +195,7 @@ const CameraScreen = ({
 };
 
 const mapStateToProps = (state) => {
-  console.log("state", state);
+  // console.log("state", state);
   return {
     orgText: state.source.detectedText,
     orgLabels: state.labels.detectedLabels,
