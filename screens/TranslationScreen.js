@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { API_KEY } from "../secrets.js";
+import {PURPLE_SOCKS_KEY} from "@env";
 import {
   View,
   Text,
@@ -21,7 +21,7 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
     let textToTranslate = labels ? orgLabels.join(", ") : orgText;
     try {
       let response = await fetch(
-        "http://192.168.42.175:5001/point-translate-303720/us-central1/getTranslate",
+        "http://192.168.42.175:5001/point-translate-303720/us-central1/getTranslate?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
         {
           method: "POST",
           headers: {

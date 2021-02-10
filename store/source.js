@@ -1,4 +1,3 @@
-import { API_KEY } from "../secrets.js";
 import {PURPLE_SOCKS_KEY} from "@env";
 
 
