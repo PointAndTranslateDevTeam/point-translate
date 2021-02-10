@@ -140,16 +140,7 @@ const CameraScreen = ({
               style={styles.languageButton}
               onPress={() => setShowOtherModal(true)}
             >
-              <Text style={styles.selectText}>
-                {/* <Text style={styles.selectText}>Select Language</Text> */}
-                <Ionicons
-                  name="globe-outline"
-                  size={30}
-                  color={"white"}
-                  style={styles.selectText}
-                />
-              </Text>
-              <Text style={styles.selectText}>{Languages[target]}</Text>
+              <Text style={styles.selectText}>Select Language</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.languageButton}>
               <PhotoPicker
@@ -263,7 +254,7 @@ const styles = StyleSheet.create({
     marginTop: 1,
     marginBottom: 3,
     color: "white",
-    fontSize: 15,
+    fontSize: 18,
   },
   languageButton: {
     flexDirection: "row",
