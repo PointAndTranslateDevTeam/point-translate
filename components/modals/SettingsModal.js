@@ -28,9 +28,7 @@ const Settings = (props) => {
                 value={props.handwriting}
               />
             </View>
-            <Text style={styles.optionText}>
-              Get labels? (beta)
-            </Text>
+            <Text style={styles.optionText}>Get labels? (beta)</Text>
             <View>
               <Switch
                 trackColor={{ false: "#006575", true: "#006575" }}
@@ -54,14 +52,14 @@ const Settings = (props) => {
 const mapStateToProps = (state) => {
   return {
     handwriting: state.toggle.handwriting,
-    labels: state.toggle.labels
+    labels: state.toggle.labels,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleOCR: () => dispatch(toggleOCR()),
-    toggleLabels: () => dispatch(toggleLabels())
+    toggleLabels: () => dispatch(toggleLabels()),
   };
 };
 
@@ -79,7 +77,7 @@ const styles = StyleSheet.create({
     margin: 50,
     padding: 10,
     borderRadius: 10,
-    height: "43%",
+    height: "45%",
     justifyContent: "center",
   },
   settingContainer: {
@@ -107,5 +105,6 @@ const styles = StyleSheet.create({
   confirmText: {
     fontWeight: "bold",
     color: "white",
+    fontSize: 16,
   },
 });

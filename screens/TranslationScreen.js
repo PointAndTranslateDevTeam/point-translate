@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 import { AudioButton, TranslateHeader, LanguageModal } from "../components";
 import Languages from "../languages";
 
+import { Ionicons } from "@expo/vector-icons";
+
 const TranslationScreen = ({
   orgText,
   orgLabels,
@@ -18,11 +20,13 @@ const TranslationScreen = ({
   target,
   navigation,
 }) => {
+  const [source, setSource] = useState(null);
   const [translation, setTranslation] = useState(null);
   const [showOtherModal, setShowOtherModal] = useState(false);
 
+  let textToTranslate = labels ? orgLabels.join(", ") : orgText;
   const translate = async () => {
-    let textToTranslate = labels ? orgLabels.join(", ") : orgText;
+    
     try {
       let response = await fetch(
         CLOUD_BASE_FUNCTION +
@@ -41,6 +45,7 @@ const TranslationScreen = ({
         }
       );
       const jsonResponse = await response.json();
+      setSource(jsonResponse.data.translations[0].detectedSourceLanguage);
       setTranslation(jsonResponse.data.translations[0].translatedText);
     } catch (err) {
       console.log(err);
@@ -52,9 +57,9 @@ const TranslationScreen = ({
   return (
     <View style={styles.screen}>
       <TranslateHeader title="Point & Translate" navigation={navigation} />
-
+      <View>
       <View style={styles.contentContainer}>
-        <View>
+        <View style={styles.orgText}>
           <Text style={styles.header}>Original Text:</Text>
         </View>
         <ScrollView>
@@ -62,6 +67,14 @@ const TranslationScreen = ({
             {labels ? orgLabels.join(", ") : orgText}
           </Text>
         </ScrollView>
+
+        
+        <View style={styles.audioButtonContainer}>
+        <Text style={styles.langDetected}>
+          Language detected: {Languages[source]}
+        </Text>
+          <AudioButton text={textToTranslate} lang={source}/>
+        </View>
       </View>
       <View style={styles.translateContainer}>
         <View>
@@ -70,6 +83,7 @@ const TranslationScreen = ({
         <ScrollView>
           <Text style={styles.text}>{translation}</Text>
         </ScrollView>
+
         <View style={styles.audioButtonContainer}>
           <AudioButton text={translation} lang={target} />
         </View>
@@ -81,6 +95,7 @@ const TranslationScreen = ({
         <Text style={styles.selectText}> Select another language</Text>
       </TouchableOpacity>
       <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
+      </View>
     </View>
   );
 };
@@ -101,8 +116,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#94B2BA",
   },
+  orgText: {
+    justifyContent: "center",
+    textAlign: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  langDetected: {
+    flex: 1,
+    alignSelf: "center",
+    fontSize: 16,
+    color: "white",
+  },
   languageButton: {
-    width: 230,
+    width: 280,
     flexDirection: "row",
     alignSelf: "center",
     borderRadius: 4,
@@ -110,18 +137,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#fb7573",
     alignContent: "center",
+    padding: 5,
+    paddingVertical: 8,
   },
   selectText: {
     textAlign: "center",
     color: "white",
     fontSize: 20,
+    fontWeight: "600"
   },
   contentContainer: {
-    width: "90%",
     height: "35%",
     alignItems: "center",
     margin: 10,
-    marginTop: 30,
+    marginTop: 20,
     padding: 20,
     paddingTop: 5,
     borderRadius: 10,
@@ -155,14 +184,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
+    fontSize: 16,
+    fontWeight: "500"
   },
   audioButtonContainer: {
     flexDirection: "row",
     alignSelf: "flex-end",
-  },
-  // audioText: {
-  //   alignSelf: "center",
-  // }
+  }
 });
 
 export default connect(mapStateToProps, null)(TranslationScreen);

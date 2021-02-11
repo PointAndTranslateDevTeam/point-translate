@@ -25,7 +25,7 @@ const TranslateHeader = (props) => {
 const styles = StyleSheet.create({
   header: {
     height: 90,
-    paddingTop: 36,
+    paddingTop: 40,
     backgroundColor: "#FB7573",
     alignItems: "center",
     justifyContent: "center",
@@ -37,20 +37,22 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: "white",
-    fontSize: 18,
+    fontSize: 30,
     fontWeight: "bold",
-    height: 50,
     width: "100%",
-    marginTop: "25%",
+    // marginTop: "25%",
+    fontFamily: "Staatliches",
   },
   button: {
     flex: 0.5,
     alignSelf: "flex-start",
     width: "100%",
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
     height: 50,
-    marginTop: 10,
+    marginTop: 5,
+    paddingTop: 5,
+    marginBottom: 3
   },
 });
 export default TranslateHeader;

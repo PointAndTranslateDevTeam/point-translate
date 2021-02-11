@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   confirmText: {
     color: "#fff",
     fontWeight: "700",
-    fontSize: 15,
+    fontSize: 16,
     textAlign: "center",
   }
 });

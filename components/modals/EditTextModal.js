@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { editText } from "../../store/source";
+import { editLabels } from "../../store/label";
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -19,20 +20,33 @@ const DismissKeyboard = ({ children }) => (
   </TouchableWithoutFeedback>
 );
 
-const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
-  const [newText, setNewText] = useState("");
+const EditText = ({
+  navigation,
+  orgText,
+  editText,
+  showEdit,
+  setShowEdit,
+  editLabels,
+  labels,
+  orgLabels,
+}) => {
+  const [newText, setNewText] = useState(null);
 
   const editTextInputHandler = (edittedText) => {
     setNewText(edittedText);
   };
   const inputEditText = async () => {
     try {
-      await editText(newText);
+      labels ? await editLabels(newText) : await editText(newText);
       setShowEdit(false);
     } catch (err) {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    setNewText(orgLabels.join(", "));
+  }, [orgLabels]);
 
   useEffect(() => {
     setNewText(orgText);
@@ -64,7 +78,7 @@ const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
                 <TextInput
                   onChangeText={editTextInputHandler}
                   multiline={true}
-                  value={newText}
+                  value={labels ? newText : newText}
                   style={styles.text}
                 ></TextInput>
               </View>
@@ -90,11 +104,14 @@ const EditText = ({ navigation, orgText, editText, showEdit, setShowEdit }) => {
 const mapStateToProps = (state) => {
   return {
     orgText: state.source.detectedText,
+    labels: state.toggle.labels,
+    orgLabels: state.labels.detectedLabels,
   };
 };
 const mapDispatchtoProps = (dispatch) => {
   return {
     editText: (revText) => dispatch(editText(revText)),
+    editLabels: (revLabels) => dispatch(editLabels(revLabels)),
   };
 };
 
@@ -128,8 +145,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontWeight: "600",
+    fontWeight: "500",
     paddingBottom: 10,
+    fontSize: 16,
   },
   button: {
     width: 100,
@@ -149,6 +167,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
+    fontSize: 16,
   },
   topContainer: {
     flexDirection: "row",

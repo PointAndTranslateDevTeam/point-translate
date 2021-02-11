@@ -1,46 +1,39 @@
-import React from "react";
+import React, {useState} from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import * as Speech from 'expo-speech';
 
-const AudioButton = (text, lang) => {
-  //console.log("type", typeof text);
+const AudioButton = (props) => {
+
+  const [speaking, setSpeaking] = useState(false);
+
+  const playSound = async () => {
+    { 
+      if (await Speech.isSpeakingAsync()) {
+        Speech.stop();
+        setSpeaking(false);
+      } else {
+      Speech.speak(props.text, {
+          language: props.lang
+        })
+        setSpeaking(true);
+      }
+      
+    } 
+  }
+
   return (
     <TouchableOpacity
-      onPress={() => {
-          Speech.speak(JSON.stringify(text.text), {
-            language: text.lang
-          })
-        } 
-      }
-      style={styles.audioContainer}
+      onPress={async () => playSound()}
     >
-      <MaterialIcons
-        name="play-circle-filled"
+      <Feather
+        name={speaking ? "volume-x" : "volume-2"}
         size={34}
-        color="#FB7573"
-        style={styles.outerCircle}
+        color="#FC9E9C"
       />
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
-  outerCircle: {
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
-    width: 40,
-    height: 40,
-    borderColor: "#FC9E9C",
-    borderWidth: 3,
-  },
-  audioContainer: {
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default AudioButton;

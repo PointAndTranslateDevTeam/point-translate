@@ -1,4 +1,6 @@
+
 import { CLOUD_BASE_FUNCTION, PURPLE_SOCKS_KEY } from "@env";
+
 
 const initialState = {
   id: 0,
@@ -8,6 +10,7 @@ const initialState = {
 
 const DETECTED_LABELS = "DETECTED_LABELS";
 const ERROR = "ERROR";
+const EDIT_LABELS = "EDIT_LABELS";
 
 export const detectedLabels = (source) => {
   return {
@@ -23,11 +26,19 @@ export const error = (error) => {
   };
 };
 
+export const editLabels = (revLabels) => {
+  return {
+    type: EDIT_LABELS,
+    revLabels,
+  };
+};
+
 export const getLabels = (picture) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
         CLOUD_BASE_FUNCTION + "getLabels?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
+
         {
           method: "POST",
           headers: {
@@ -53,10 +64,11 @@ export const getLabels = (picture) => {
       );
 
       const responseJSON = await response.json();
+
       const labels = await responseJSON.responses[0].labelAnnotations.map(
         (x) => x.description
       );
-      console.log("did it map right?", labels);
+
       if (labels) {
         dispatch(detectedLabels(labels));
       }
@@ -67,7 +79,7 @@ export const getLabels = (picture) => {
 };
 
 const labelReducer = (state = initialState, action) => {
-  console.log("action", action);
+
   switch (action.type) {
     case DETECTED_LABELS:
       return {
@@ -82,6 +94,12 @@ const labelReducer = (state = initialState, action) => {
         id: (state.id += 1),
         detectedLabels: [],
         error: action.error,
+      };
+    case EDIT_LABELS:
+      return {
+        ...state,
+        detectedLabels: [action.revLabels],
+        error: null,
       };
     default:
       return state;
