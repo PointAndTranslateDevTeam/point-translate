@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   infoText: {
-    // color: '#405C64',
     color: "white",
     fontWeight: "500",
   },
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
   okayText: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 15,
+    fontSize: 16,
   },
 });
 

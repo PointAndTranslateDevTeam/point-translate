@@ -4,12 +4,10 @@ import React from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 
 const FlashButton = (props) => {
-  console.log(props.flash);
   return (
     <TouchableOpacity
       style={styles.flashButton}
       onPress={() => {
-        console.log("flash pressed");
         props.setFlash(
           props.flash === Camera.Constants.FlashMode.torch
             ? Camera.Constants.FlashMode.off
