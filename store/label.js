@@ -1,4 +1,4 @@
-import { PURPLE_SOCKS_KEY } from "@env";
+import { CLOUD_BASE_FUNCTION, PURPLE_SOCKS_KEY } from "@env";
 
 const initialState = {
   id: 0,
@@ -27,8 +27,7 @@ export const getLabels = (picture) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        "http://192.168.42.175:5001/point-translate-303720/us-central1/getLabels?PURPLE_SOCKS_KEY=" +
-          PURPLE_SOCKS_KEY,
+        CLOUD_BASE_FUNCTION + "getLabels?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
         {
           method: "POST",
           headers: {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {PURPLE_SOCKS_KEY} from "@env";
+import { CLOUD_BASE_FUNCTION, PURPLE_SOCKS_KEY } from "@env";
 import {
   View,
   Text,
@@ -10,10 +10,14 @@ import {
 import { connect } from "react-redux";
 import { AudioButton, TranslateHeader, LanguageModal } from "../components";
 import Languages from "../languages";
-import { Ionicons } from "@expo/vector-icons";
 
-const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) => {
-
+const TranslationScreen = ({
+  orgText,
+  orgLabels,
+  labels,
+  target,
+  navigation,
+}) => {
   const [translation, setTranslation] = useState(null);
   const [showOtherModal, setShowOtherModal] = useState(false);
 
@@ -21,7 +25,9 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
     let textToTranslate = labels ? orgLabels.join(", ") : orgText;
     try {
       let response = await fetch(
-        "http://192.168.42.175:5001/point-translate-303720/us-central1/getTranslate?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
+        CLOUD_BASE_FUNCTION +
+          "getTranslate?PURPLE_SOCKS_KEY=" +
+          PURPLE_SOCKS_KEY,
         {
           method: "POST",
           headers: {
@@ -52,7 +58,9 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
           <Text style={styles.header}>Original Text:</Text>
         </View>
         <ScrollView>
-          <Text style={styles.text}>{labels ? orgLabels.join(", ") : orgText}</Text>
+          <Text style={styles.text}>
+            {labels ? orgLabels.join(", ") : orgText}
+          </Text>
         </ScrollView>
       </View>
       <View style={styles.translateContainer}>
@@ -63,7 +71,7 @@ const TranslationScreen = ({ orgText, orgLabels, labels, target, navigation }) =
           <Text style={styles.text}>{translation}</Text>
         </ScrollView>
         <View style={styles.audioButtonContainer}>
-          <AudioButton text={translation} lang={target}/>
+          <AudioButton text={translation} lang={target} />
         </View>
       </View>
       <TouchableOpacity
@@ -82,7 +90,7 @@ const mapStateToProps = (state) => {
     orgText: state.source.detectedText,
     orgLabels: state.labels.detectedLabels,
     target: state.target,
-    labels: state.toggle.labels
+    labels: state.toggle.labels,
   };
 };
 

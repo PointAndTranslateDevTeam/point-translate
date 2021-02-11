@@ -1,5 +1,4 @@
-import {PURPLE_SOCKS_KEY} from "@env";
-
+import { CLOUD_BASE_FUNCTION, PURPLE_SOCKS_KEY } from "@env";
 
 const initialState = {
   id: 0,
@@ -34,16 +33,15 @@ export const editText = (revText) => {
 
 export const clear = () => {
   return {
-    type: CLEAR_TEXT
+    type: CLEAR_TEXT,
   };
-}
+};
 
 export const getText = (picture, ocrType) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        //change URL once functions is deployed
-        "http://192.168.42.175:5001/point-translate-303720/us-central1/getText?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
+        CLOUD_BASE_FUNCTION + "getText?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
         {
           method: "POST",
           headers: {
@@ -82,7 +80,7 @@ export const clearText = () => {
   return (dispatch) => {
     dispatch(clear());
   };
-}
+};
 
 const sourceReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -107,12 +105,12 @@ const sourceReducer = (state = initialState, action) => {
         error: null,
       };
 
-      case CLEAR_TEXT:
-        return {
+    case CLEAR_TEXT:
+      return {
         ...state,
         detectedText: "",
         error: null,
-        };
+      };
     default:
       return state;
   }
