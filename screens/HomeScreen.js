@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { HelpfulText } from "../components";
+import Tooltip from "react-native-walkthrough-tooltip"
 
 function HomeScreen({ navigation }) {
   const [showModal, setShowModal] = useState(false);
+  const [showTip, setShowTip] = useState(false);
+
   return (
     <View style={styles.screen}>
       <View style={styles.contentContainer}>
@@ -18,22 +21,38 @@ function HomeScreen({ navigation }) {
         <Image style={styles.image} source={require("../assets/CamAnimation.gif")} />
         <View></View>
         <View style={styles.buttonContainer}>
+        <Tooltip
+        isVisible={showTip}
+        content={
+          <View>
+            <Text>Welcome to Point and Translate! Find some text you'd like to translate, or an object you'd like to learn the vocabulary word for, and let's get started!</Text>
+          </View>
+        }
+        onClose={()=> setShowTip(false)}
+        placement="top"
+        topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}
+        >
           <TouchableOpacity
             onPress={() => navigation.navigate("Camera")}
             style={styles.tapForCameraButton}
           >
             <Text style={styles.tapForCameraText}>Tap To Start</Text>
-          </TouchableOpacity>
+          </TouchableOpacity></Tooltip>
         </View>
         <StatusBar style="auto" />
       </View>
       <View style={styles.helpButtonContainer}>
+        
         <TouchableOpacity
-          onPress={() => setShowModal(true)}
+          onPress={() => {
+            setShowTip(true)
+            //setShowModal(true)
+          }}
           style={{ margin: 10 }}
         >
           <MaterialIcons name="help" size={35} color="#032D38" />
-        </TouchableOpacity>
+        </TouchableOpacity> 
+       
       </View>
       <HelpfulText showModal={showModal} setModal={setShowModal} />
     </View>
