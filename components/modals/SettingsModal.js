@@ -26,6 +26,7 @@ const Settings = (props) => {
                 thumbColor={props.handwriting ? "white" : "#f4f3f4"}
                 onValueChange={props.toggleOCR}
                 value={props.handwriting}
+                disabled={props.labels}
               />
             </View>
             <Text style={styles.optionText}>Get labels? (beta)</Text>
