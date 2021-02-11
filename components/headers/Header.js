@@ -1,8 +1,12 @@
-import React from 'react'
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
-import { AntDesign } from '@expo/vector-icons';
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import
+  Settings
+ from "../modals/SettingsModal";
 
-const Header = props => {
+const Header = (props) => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <View style={styles.header}>
       <View style={styles.container}>
@@ -17,15 +21,21 @@ const Header = props => {
         <View styles={styles.title}>
           <Text style={styles.headerTitle}>{props.title}</Text>
         </View>
+        <View style={styles.button}>
+        <TouchableOpacity onPress={() => setShowModal(true)}>
+          <MaterialIcons name={"settings"} size={28} color={"white"} />
+        </TouchableOpacity>
+        </View>
+        <Settings showModal={showModal} setModal={setShowModal} />
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   header: {
     height: 90,
-    paddingTop: 36,
+    paddingTop: 40,
     backgroundColor: "#FB7573",
     alignItems: "center",
     justifyContent: "center",
@@ -34,25 +44,24 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     flex: 1,
+    justifyContent: 'space-around',
   },
   headerTitle: {
     color: "white",
     fontSize: 30,
     fontWeight: "bold",
-    height: 50,
     width: "100%",
-    // marginTop: ,
     fontFamily: "Staatliches",
   },
   button: {
     flex: 0.5,
-    alignSelf: "flex-start",
     width: "100%",
-    // justifyContent: "center",
     alignItems: "center",
     height: 50,
     marginTop: 5,
-    marginBottom: 3
+    marginBottom: 3,
+    alignContent: 'center',
+    paddingTop: 5
   },
 });
 export default Header;

@@ -37,7 +37,6 @@ const EditText = ({
   };
   const inputEditText = async () => {
     try {
-      console.log("NEWTEXT, ", newText);
       labels ? await editLabels(newText) : await editText(newText);
       setShowEdit(false);
     } catch (err) {
@@ -46,7 +45,6 @@ const EditText = ({
   };
 
   useEffect(() => {
-    console.log("here");
     setNewText(orgLabels.join(", "));
   }, [orgLabels]);
 
@@ -58,7 +56,6 @@ const EditText = ({
     <Modal transparent={true} visible={showEdit} animationType="slide">
       <DismissKeyboard>
         <View style={styles.screenContainer}>
-          {console.log('NEWWWW',newText)}
           <View style={styles.screen}>
             <TouchableOpacity>
               <MaterialIcons
