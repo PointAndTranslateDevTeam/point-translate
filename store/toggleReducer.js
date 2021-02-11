@@ -14,9 +14,10 @@ export const toggleLabels = () => {
   }
 }
 
-export const toggleTooltip = () => {
+export const toggleTooltip = (bool) => {
   return {
-    type: TOGGLE_TOOLTIP
+    type: TOGGLE_TOOLTIP,
+    payload: bool
   }
 }
 
@@ -41,7 +42,7 @@ const toggleReducer = (state = initialState, action) => {
     case TOGGLE_TOOLTIP: 
       return {
         ...state,
-        tooltip: !state.tooltip
+        tooltip: action.payload
       }
     default:
       return state;

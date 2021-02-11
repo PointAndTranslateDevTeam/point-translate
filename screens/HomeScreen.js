@@ -9,7 +9,8 @@ import {toggleTooltip} from "../store/toggleReducer"
 
 function HomeScreen({ navigation, tooltip, toggleTooltip }) {
   const [showModal, setShowModal] = useState(false);
-  
+  const [screenTooltip, setScreenTooltip] = useState(false);
+
   console.log();
   return (
     <View style={styles.screen}>
@@ -24,13 +25,17 @@ function HomeScreen({ navigation, tooltip, toggleTooltip }) {
         <View></View>
         <View style={styles.buttonContainer}>
         <Tooltip
-        isVisible={tooltip}
+        isVisible={screenTooltip}
         content={
           <View>
             <Text>Welcome to Point and Translate! Find some text you'd like to translate, or an object you'd like to learn the vocabulary word for, and let's get started!</Text>
           </View>
         }
-        onClose={()=> toggleTooltip(false)}
+        onClose={()=> {
+          toggleTooltip(true);
+          console.log("the tooltip is closed but the toggle is still on", tooltip);
+          setScreenTooltip(false);
+        }}
         placement="top"
         topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}
         >
@@ -47,9 +52,9 @@ function HomeScreen({ navigation, tooltip, toggleTooltip }) {
         
         <TouchableOpacity
           onPress={() => {
-            console.log(tooltip);
-            toggleTooltip();
-            console.log(tooltip);
+            setScreenTooltip(true);
+            {tooltip ? toggleTooltip(false) : toggleTooltip(true)};
+            console.log("tooltip mode engaged", tooltip);
             //setShowModal(true)
           }}
           style={{ margin: 10 }}
@@ -71,7 +76,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleTooltip: () => dispatch(toggleTooltip())
+    toggleTooltip: (bool) => dispatch(toggleTooltip(bool))
   }
 }
 const styles = StyleSheet.create({

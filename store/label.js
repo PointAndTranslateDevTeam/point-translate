@@ -34,11 +34,11 @@ export const editLabels = (revLabels) => {
 };
 
 export const getLabels = (picture) => {
+  
   return async (dispatch) => {
     try {
       let response = await fetch(
         CLOUD_BASE_FUNCTION + "getLabels?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
-
         {
           method: "POST",
           headers: {

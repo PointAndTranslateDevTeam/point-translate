@@ -33,6 +33,7 @@ const CameraScreen = ({
   labels,
   target,
   clearText,
+  tooltip
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -47,6 +48,8 @@ const CameraScreen = ({
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
+
+  console.log("this is definitely still true", tooltip);
 
   useEffect(() => {
     (async () => {
@@ -204,6 +207,7 @@ const mapStateToProps = (state) => {
     handwriting: state.toggle.handwriting,
     labels: state.toggle.labels,
     target: state.target,
+    tooltip: state.toggle.tooltip
   };
 };
 

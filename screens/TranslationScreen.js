@@ -26,7 +26,6 @@ const TranslationScreen = ({
 
   let textToTranslate = labels ? orgLabels.join(", ") : orgText;
   const translate = async () => {
-    
     try {
       let response = await fetch(
         CLOUD_BASE_FUNCTION +
