@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { API_KEY } from "../secrets.js";
+import { CLOUD_BASE_FUNCTION, PURPLE_SOCKS_KEY } from "@env";
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
 import { connect } from "react-redux";
 import { AudioButton, TranslateHeader, LanguageModal } from "../components";
 import Languages from "../languages";
+
 import { Ionicons } from "@expo/vector-icons";
 
 const TranslationScreen = ({
@@ -19,21 +20,18 @@ const TranslationScreen = ({
   target,
   navigation,
 }) => {
-  //source variable is set to the detected source language in the translate function
   const [source, setSource] = useState(null);
-
   const [translation, setTranslation] = useState(null);
   const [showOtherModal, setShowOtherModal] = useState(false);
 
-  //by moving textToTranslate outside of the scope of the translate function, 
-  //we can recycle it as a prop for the original text's audio button.
   let textToTranslate = labels ? orgLabels.join(", ") : orgText;
   const translate = async () => {
     
     try {
       let response = await fetch(
-        "https://translation.googleapis.com/language/translate/v2?key=" +
-          API_KEY,
+        CLOUD_BASE_FUNCTION +
+          "getTranslate?PURPLE_SOCKS_KEY=" +
+          PURPLE_SOCKS_KEY,
         {
           method: "POST",
           headers: {
@@ -42,19 +40,11 @@ const TranslationScreen = ({
           },
           body: JSON.stringify({
             q: `${textToTranslate}`,
-            //"source": "en",
             target: `${target}`,
-            //"format": "text"
           }),
         }
       );
       const jsonResponse = await response.json();
-
-
-      console.log(
-        "translated response", jsonResponse,
-        jsonResponse.data.translations[0].translatedText
-      );
       setSource(jsonResponse.data.translations[0].detectedSourceLanguage);
       setTranslation(jsonResponse.data.translations[0].translatedText);
     } catch (err) {

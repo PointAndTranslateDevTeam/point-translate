@@ -12,6 +12,8 @@ secrets.js
 yarn.lock
 .env
 
+.babelrc
+
 
 
 # macOS

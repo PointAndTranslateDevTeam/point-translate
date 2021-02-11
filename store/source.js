@@ -1,4 +1,4 @@
-import { API_KEY } from "../secrets.js";
+import { CLOUD_BASE_FUNCTION, PURPLE_SOCKS_KEY } from "@env";
 
 const initialState = {
   id: 0,
@@ -33,15 +33,15 @@ export const editText = (revText) => {
 
 export const clear = () => {
   return {
-    type: CLEAR_TEXT
+    type: CLEAR_TEXT,
   };
-}
+};
 
 export const getText = (picture, ocrType) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
+        CLOUD_BASE_FUNCTION + "getText?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
         {
           method: "POST",
           headers: {
@@ -80,7 +80,7 @@ export const clearText = () => {
   return (dispatch) => {
     dispatch(clear());
   };
-}
+};
 
 const sourceReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -105,11 +105,12 @@ const sourceReducer = (state = initialState, action) => {
         error: null,
       };
 
-      case CLEAR_TEXT:
-        return {
+    case CLEAR_TEXT:
+      return {
         ...state,
         detectedText: "",
         error: null,
+
         };
     default:
       return state;

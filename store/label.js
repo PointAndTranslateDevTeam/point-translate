@@ -1,4 +1,6 @@
-import { API_KEY } from "../secrets.js";
+
+import { CLOUD_BASE_FUNCTION, PURPLE_SOCKS_KEY } from "@env";
+
 
 const initialState = {
   id: 0,
@@ -35,7 +37,8 @@ export const getLabels = (picture) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
+        CLOUD_BASE_FUNCTION + "getLabels?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
+
         {
           method: "POST",
           headers: {
@@ -61,10 +64,11 @@ export const getLabels = (picture) => {
       );
 
       const responseJSON = await response.json();
-      //console.log("response json", responseJSON);
+
       const labels = await responseJSON.responses[0].labelAnnotations.map(
         (x) => x.description
       );
+
       if (labels) {
         dispatch(detectedLabels(labels));
       }
@@ -75,6 +79,7 @@ export const getLabels = (picture) => {
 };
 
 const labelReducer = (state = initialState, action) => {
+
   switch (action.type) {
     case DETECTED_LABELS:
       return {
