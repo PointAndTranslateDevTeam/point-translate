@@ -1,6 +1,6 @@
 import React from "react";
 import { Picker } from "@react-native-picker/picker";
-import { setTarget } from "../store/target";
+import { setTarget } from "../store/targetReducer";
 import { connect } from "react-redux";
 import { View } from "react-native";
 import Languages from "../languages";
