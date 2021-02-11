@@ -4,11 +4,13 @@ import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { HelpfulText } from "../components";
 import Tooltip from "react-native-walkthrough-tooltip"
+import { connect } from "react-redux";
+import {toggleTooltip} from "../store/toggleReducer"
 
-function HomeScreen({ navigation }) {
+function HomeScreen({ navigation, tooltip, toggleTooltip }) {
   const [showModal, setShowModal] = useState(false);
-  const [showTip, setShowTip] = useState(false);
-
+  
+  console.log();
   return (
     <View style={styles.screen}>
       <View style={styles.contentContainer}>
@@ -22,13 +24,13 @@ function HomeScreen({ navigation }) {
         <View></View>
         <View style={styles.buttonContainer}>
         <Tooltip
-        isVisible={showTip}
+        isVisible={tooltip}
         content={
           <View>
             <Text>Welcome to Point and Translate! Find some text you'd like to translate, or an object you'd like to learn the vocabulary word for, and let's get started!</Text>
           </View>
         }
-        onClose={()=> setShowTip(false)}
+        onClose={()=> toggleTooltip(false)}
         placement="top"
         topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}
         >
@@ -45,7 +47,9 @@ function HomeScreen({ navigation }) {
         
         <TouchableOpacity
           onPress={() => {
-            setShowTip(true)
+            console.log(tooltip);
+            toggleTooltip();
+            console.log(tooltip);
             //setShowModal(true)
           }}
           style={{ margin: 10 }}
@@ -59,6 +63,17 @@ function HomeScreen({ navigation }) {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    tooltip: state.toggle.tooltip
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleTooltip: () => dispatch(toggleTooltip())
+  }
+}
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
@@ -124,4 +139,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
