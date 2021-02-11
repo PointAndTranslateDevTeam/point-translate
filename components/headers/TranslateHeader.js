@@ -40,19 +40,17 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     width: "100%",
-    // marginTop: "25%",
     fontFamily: "Staatliches",
   },
   button: {
     flex: 0.5,
     alignSelf: "flex-start",
     width: "100%",
-    // justifyContent: "center",
     alignItems: "center",
     height: 50,
     marginTop: 5,
     paddingTop: 5,
-    marginBottom: 3
+    marginBottom: 3,
   },
 });
 export default TranslateHeader;

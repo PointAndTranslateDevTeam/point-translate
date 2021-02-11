@@ -10,7 +10,9 @@ const Error = (props) => {
         <View style={styles.screen}>
           <View style={styles.errorContainer}>
             <View>
-              <Text style={styles.errorText} >Sorry, we did not detect any text in your image.</Text>
+              <Text style={styles.errorText}>
+                Sorry, we did not detect any text in your image.
+              </Text>
             </View>
             <TouchableOpacity
               style={styles.button}

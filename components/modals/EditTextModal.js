@@ -11,8 +11,8 @@ import {
   Keyboard,
 } from "react-native";
 import { connect } from "react-redux";
-import { editText } from "../../store/source";
-import { editLabels } from "../../store/label";
+import { editText } from "../../store/sourceReducer";
+import { editLabels } from "../../store/labelsReducer";
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
