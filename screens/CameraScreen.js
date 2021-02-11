@@ -16,8 +16,8 @@ import {
 } from "../components";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Languages from "../languages";
-import { getText, clearText } from "../store/source";
-import { getLabels } from "../store/label";
+import { getText, clearText } from "../store/sourceReducer";
+import { getLabels } from "../store/labelsReducer";
 
 const CameraScreen = ({
   getText,
