@@ -57,9 +57,8 @@ const EditText = ({
       <DismissKeyboard>
         <View style={styles.screenContainer}>
           <View style={styles.screen}>
-            <TouchableOpacity>
+            <View>
               <MaterialIcons
-                onPress={() => setShowEdit(false)}
                 name="clear"
                 size={30}
                 color="#006575"
@@ -68,8 +67,9 @@ const EditText = ({
                   left: 115,
                   top: 0,
                 }}
+                onPress={() => setShowEdit(false)}
               />
-            </TouchableOpacity>
+              </View>
             <View style={styles.editContainer}>
               <View style={styles.topContainer}>
                 <Text style={styles.headerText}>Tap text to edit:</Text>
