@@ -16,8 +16,8 @@ import {
 } from "../components";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Languages from "../languages";
-import { getText, clearText } from "../store/source";
-import { getLabels } from "../store/label";
+import { getText, clearText } from "../store/sourceReducer";
+import { getLabels } from "../store/labelsReducer";
 
 const CameraScreen = ({
   getText,
@@ -72,7 +72,7 @@ const CameraScreen = ({
         setImage(uploaded);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -81,7 +81,6 @@ const CameraScreen = ({
     (async () => {
       if (textLoaded.current) {
         try {
-          // console.log("before", error, orgText, orgLabels);
           if (!labels) {
             await getText(picture, ocrType);
           }
@@ -102,7 +101,6 @@ const CameraScreen = ({
   useEffect(() => {
     setLoading(false);
     if (confLoaded.current) {
-      // console.log("after", error, orgText, id, orgLabels);
       try {
         if (orgText !== "") {
           setShowConfirmation(true);
@@ -110,8 +108,6 @@ const CameraScreen = ({
         if (orgLabels.length > 0) {
           setShowConfirmation(true);
         } else if (error !== null || labelsError !== null) {
-          console.log("error", error);
-          console.log("this is the error", showError);
           setShowError(true);
         }
       } catch (err) {
@@ -152,7 +148,6 @@ const CameraScreen = ({
                 setLoading={setLoading}
               />
             </TouchableOpacity>
-
           </View>
           <View style={styles.cameraControlContainer}>
             <FlipButton type={type} setType={setType} />
@@ -196,7 +191,6 @@ const CameraScreen = ({
 };
 
 const mapStateToProps = (state) => {
-  // console.log("state", state);
   return {
     orgText: state.source.detectedText,
     orgLabels: state.labels.detectedLabels,
@@ -283,10 +277,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     padding: 40,
     alignSelf: "center",
-    // backgroundColor: "#D90E18",
-    // backgroundColor: "#009FB8",
     backgroundColor: "#FC9E9C",
-    // borderColor: "#006575",
     borderColor: "#FB7573",
     borderRadius: 50,
     borderWidth: 8,

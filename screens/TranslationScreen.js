@@ -47,7 +47,7 @@ const TranslationScreen = ({
       setSource(jsonResponse.data.translations[0].detectedSourceLanguage);
       setTranslation(jsonResponse.data.translations[0].translatedText);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -57,43 +57,44 @@ const TranslationScreen = ({
     <View style={styles.screen}>
       <TranslateHeader title="Point & Translate" navigation={navigation} />
       <View>
-      <View style={styles.contentContainer}>
-        <View style={styles.orgText}>
-          <Text style={styles.header}>Original Text:</Text>
+        <View style={styles.contentContainer}>
+          <View style={styles.orgText}>
+            <Text style={styles.header}>Original Text:</Text>
+          </View>
+          <ScrollView>
+            <Text style={styles.text}>
+              {labels ? orgLabels.join(", ") : orgText}
+            </Text>
+          </ScrollView>
+          <View style={styles.audioButtonContainer}>
+            <Text style={styles.langDetected}>
+              Language detected: {Languages[source]}
+            </Text>
+            <AudioButton text={textToTranslate} lang={source} />
+          </View>
         </View>
-        <ScrollView>
-          <Text style={styles.text}>
-            {labels ? orgLabels.join(", ") : orgText}
-          </Text>
-        </ScrollView>
+        <View style={styles.translateContainer}>
+          <View>
+            <Text style={styles.header}>{Languages[target]} Translation:</Text>
+          </View>
+          <ScrollView>
+            <Text style={styles.text}>{translation}</Text>
+          </ScrollView>
 
-        
-        <View style={styles.audioButtonContainer}>
-        <Text style={styles.langDetected}>
-          Language detected: {Languages[source]}
-        </Text>
-          <AudioButton text={textToTranslate} lang={source}/>
+          <View style={styles.audioButtonContainer}>
+            <AudioButton text={translation} lang={target} />
+          </View>
         </View>
-      </View>
-      <View style={styles.translateContainer}>
-        <View>
-          <Text style={styles.header}>{Languages[target]} Translation:</Text>
-        </View>
-        <ScrollView>
-          <Text style={styles.text}>{translation}</Text>
-        </ScrollView>
-
-        <View style={styles.audioButtonContainer}>
-          <AudioButton text={translation} lang={target} />
-        </View>
-      </View>
-      <TouchableOpacity
-        style={styles.languageButton}
-        onPress={() => setShowOtherModal(true)}
-      >
-        <Text style={styles.selectText}> Select another language</Text>
-      </TouchableOpacity>
-      <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
+        <TouchableOpacity
+          style={styles.languageButton}
+          onPress={() => setShowOtherModal(true)}
+        >
+          <Text style={styles.selectText}> Select another language</Text>
+        </TouchableOpacity>
+        <LanguageModal
+          showModal={showOtherModal}
+          setModal={setShowOtherModal}
+        />
       </View>
     </View>
   );
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     fontSize: 20,
-    fontWeight: "600"
+    fontWeight: "600",
   },
   contentContainer: {
     height: "35%",
@@ -161,8 +162,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#006575",
   },
   translateContainer: {
-    width: "90%",
-    height: "40%",
+    height: "35%",
     alignItems: "center",
     margin: 10,
     padding: 20,
@@ -184,12 +184,12 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 16,
-    fontWeight: "500"
+    fontWeight: "500",
   },
   audioButtonContainer: {
     flexDirection: "row",
     alignSelf: "flex-end",
-  }
+  },
 });
 
 export default connect(mapStateToProps, null)(TranslationScreen);

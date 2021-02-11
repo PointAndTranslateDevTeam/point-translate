@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
   button: {
     width: 130,
     borderRadius: 4,
-    backgroundColor: "#14274e",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -76,6 +75,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
     textAlign: "center",
-  }
+  },
 });
 export default LanguageModal;
