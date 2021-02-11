@@ -12,7 +12,6 @@ import {
 } from "react-native";
 
 const Confirmation = (props) => {
-  console.log("got to confirmation modal");
   return (
     <Modal
       visible={props.showConfirmation}

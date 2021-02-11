@@ -149,9 +149,7 @@ const CameraScreen = ({
                 setLoading={setLoading}
               />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setShowModal(true)}>
-              <MaterialIcons name={"settings"} size={30} color={"white"} />
-            </TouchableOpacity>
+
           </View>
           <View style={styles.cameraControlContainer}>
             <FlipButton type={type} setType={setType} />
@@ -168,7 +166,7 @@ const CameraScreen = ({
             showModal={showOtherModal}
             setModal={setShowOtherModal}
           />
-          <Settings showModal={showModal} setModal={setShowModal} />
+
           <EditText
             showEdit={showEdit}
             setShowEdit={setShowEdit}

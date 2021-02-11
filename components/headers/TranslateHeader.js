@@ -25,7 +25,7 @@ const TranslateHeader = (props) => {
 const styles = StyleSheet.create({
   header: {
     height: 90,
-    paddingTop: 36,
+    paddingTop: 40,
     backgroundColor: "#FB7573",
     alignItems: "center",
     justifyContent: "center",
@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 30,
     fontWeight: "bold",
-    height: 50,
     width: "100%",
     // marginTop: "25%",
     fontFamily: "Staatliches",
@@ -52,6 +51,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 50,
     marginTop: 5,
+    paddingTop: 5,
+    marginBottom: 3
   },
 });
 export default TranslateHeader;
