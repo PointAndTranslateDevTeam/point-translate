@@ -18,6 +18,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Languages from "../languages";
 import { getText, clearText } from "../store/sourceReducer";
 import { getLabels } from "../store/labelsReducer";
+import Tooltip from "react-native-walkthrough-tooltip"
 
 const CameraScreen = ({
   getText,
@@ -135,12 +136,32 @@ const CameraScreen = ({
       >
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
+            
             <TouchableOpacity
               style={styles.languageButton}
               onPress={() => setShowOtherModal(true)}
             >
+              <Tooltip
+              isVisible={tooltip}
+              content={
+                <View>
+                  <Text>Welcome to Point and Translate! Find some text you'd like to translate, or an object you'd like to learn the vocabulary word for, and let's get started!</Text>
+                </View>
+              }
+              onClose={()=> {
+                toggleTooltip(true);
+                console.log("the tooltip is closed but the toggle is still on", tooltip);
+                setScreenTooltip(false);
+              }}
+              placement="bottom"
+              topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}
+              
+              >
               <Text style={styles.selectText}>Select Language</Text>
+              </Tooltip>
             </TouchableOpacity>
+
+
             <TouchableOpacity style={styles.languageButton}>
               <PhotoPicker
                 setPicture={setPicture}

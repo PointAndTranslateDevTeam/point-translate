@@ -18,7 +18,6 @@ const AudioButton = (props) => {
         })
         setSpeaking(true);
       }
-      
     } 
   }
 
