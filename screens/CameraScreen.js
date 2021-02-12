@@ -1,9 +1,14 @@
 import { Camera } from "expo-camera";
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 import { connect } from "react-redux";
 import {
-  Settings,
   LanguageModal,
   Error,
   Confirmation,
@@ -158,9 +163,9 @@ const CameraScreen = ({
                   setSettingsTooltip(true);
                 }}
                 placement="bottom"
-                // topAdjustment={
-                //   Platform.OS === "android" ? -StatusBar.currentHeight : 0
-                // }
+                topAdjustment={
+                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
+                }
               >
                 <Text style={styles.selectText}>Select Language</Text>
               </Tooltip>
@@ -178,9 +183,9 @@ const CameraScreen = ({
                   setUploadTooltip(false);
                 }}
                 placement="bottom"
-                // topAdjustment={
-                //   Platform.OS === "android" ? -StatusBar.currentHeight : 0
-                // }
+                topAdjustment={
+                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
+                }
               >
                 <PhotoPicker
                   setPicture={setPicture}
@@ -200,30 +205,33 @@ const CameraScreen = ({
           </View>
           <View style={styles.cameraControlContainer}>
             <FlipButton type={type} setType={setType} />
-            <Tooltip
-              isVisible={cameraTooltip}
-              content={
-                <View>
-                  <Text>Labels! Handwriting! YEAH!</Text>
-                </View>
-              }
-              onClose={() => {
-                setCameraTooltip(false);
-                setUploadTooltip(true);
+
+            <TouchableOpacity
+              style={styles.shutterButton}
+              onPress={() => {
+                setLoading(true);
+                takePicture();
               }}
-              placement="top"
-              // topAdjustment={
-              //   Platform.OS === "android" ? -StatusBar.currentHeight : 0
-              // }
             >
-              <TouchableOpacity
-                style={styles.shutterButton}
-                onPress={() => {
-                  setLoading(true);
-                  takePicture();
+              <Tooltip
+                isVisible={cameraTooltip}
+                content={
+                  <View>
+                    <Text>Take a picture!</Text>
+                  </View>
+                }
+                onClose={() => {
+                  setCameraTooltip(false);
+                  setUploadTooltip(true);
                 }}
-              ></TouchableOpacity>
-            </Tooltip>
+                placement="top"
+                topAdjustment={
+                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
+                }
+              >
+                <Text style={{ color: "#FC9E9C" }}>A</Text>
+              </Tooltip>
+            </TouchableOpacity>
             <FlashButton flash={flash} setFlash={setFlash} />
           </View>
           <LanguageModal

@@ -10,12 +10,10 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Tooltip from "react-native-walkthrough-tooltip";
-import { connect } from "react-redux";
 
 function HomeScreen({ navigation }) {
   const [screenTooltip, setScreenTooltip] = useState(false);
 
-  console.log();
   return (
     <View style={styles.screen}>
       <View style={styles.contentContainer}>
@@ -73,18 +71,6 @@ function HomeScreen({ navigation }) {
     </View>
   );
 }
-
-// const mapStateToProps = (state) => {
-//   return {
-//     tooltip: state.toggle.tooltip,
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     toggleTooltip: (bool) => dispatch(toggleTooltip(bool)),
-//   };
-// };
 
 const styles = StyleSheet.create({
   screen: {
