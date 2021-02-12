@@ -1,5 +1,6 @@
 import React from "react";
-import { MaterialIcons } from "@expo/vector-icons";
+// import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import Languages from "../languages";
 
@@ -10,15 +11,18 @@ const SelectedLangButton = ({ setShowOtherModal, target }) => {
       onPress={() => setShowOtherModal(true)}
     >
       {target ? (
-        <Text>
-          <MaterialIcons
-            style={styles.selectText}
-            name="language"
-            size={30}
-            color={"white"}
-          />
-          <Text>{Languages[target]}</Text>
-        </Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.selectText}>
+            {/* <Text style={styles.selectText}>Select Language</Text> */}
+            <Ionicons
+              name="globe-outline"
+              size={30}
+              color={"white"}
+              style={styles.selectText}
+            />
+          </Text>
+          <Text style={styles.selectText}>{Languages[target]}</Text>
+        </View>
       ) : (
         <Text style={styles.selectText}>Select Language</Text>
       )}
@@ -38,7 +42,7 @@ const styles = StyleSheet.create({
   },
   languageButton: {
     flexDirection: "row",
-    flex: 0.45,
+    flex: 0.5,
     alignSelf: "flex-start",
     fontSize: 15,
     height: 40,
