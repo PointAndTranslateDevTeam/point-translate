@@ -17,7 +17,7 @@ import {
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Languages from "../languages";
 import { getText, clearText } from "../store/sourceReducer";
-import { getLabels } from "../store/labelsReducer";
+import { getLabels, clearLabels } from "../store/labelsReducer";
 
 const CameraScreen = ({
   getText,
@@ -33,6 +33,7 @@ const CameraScreen = ({
   labels,
   target,
   clearText,
+  clearLabels,
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -79,6 +80,7 @@ const CameraScreen = ({
       if (textLoaded.current) {
         try {
           if (!labels) {
+            await clearLabels();
             await getText(picture, ocrType);
           }
           if (labels) {
@@ -92,7 +94,7 @@ const CameraScreen = ({
         textLoaded.current = true;
       }
     })();
-  }, [picture]);
+  }, [image]);
 
   const confLoaded = useRef(false);
   useEffect(() => {
@@ -206,6 +208,7 @@ const mapDispatchToProps = (dispatch) => {
     getText: (pic, ocrType) => dispatch(getText(pic, ocrType)),
     getLabels: (pic) => dispatch(getLabels(pic)),
     clearText: () => dispatch(clearText()),
+    clearLabels: () => dispatch(clearLabels()),
   };
 };
 
