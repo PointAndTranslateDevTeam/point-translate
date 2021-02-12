@@ -1,8 +1,7 @@
 const TOGGLE_OCR = "TOGGLE_OCR";
 const TOGGLE_LABELS = "TOGGLE_LABELS";
 
-//toggleReducer has been modified to include labels.
-//This might not be necessary or even the best way to do it, feel free to modify.
+const TOGGLE_TOOLTIP = "TOGGLE_TOOLTIP";
 
 export const toggleOCR = () => {
   return {
@@ -16,9 +15,17 @@ export const toggleLabels = () => {
   };
 };
 
+export const toggleTooltip = (bool) => {
+  return {
+    type: TOGGLE_TOOLTIP,
+    payload: bool
+  }
+}
+
 const initialState = {
   handwriting: true,
   labels: false,
+  tooltip: false
 };
 
 const toggleReducer = (state = initialState, action) => {
@@ -31,8 +38,13 @@ const toggleReducer = (state = initialState, action) => {
     case TOGGLE_LABELS:
       return {
         ...state,
-        labels: !state.labels,
-      };
+        labels: !state.labels
+      }
+    case TOGGLE_TOOLTIP: 
+      return {
+        ...state,
+        tooltip: action.payload
+      }
     default:
       return state;
   }

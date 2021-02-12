@@ -1,9 +1,14 @@
 import { Camera } from "expo-camera";
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 import { connect } from "react-redux";
 import {
-  Settings,
   LanguageModal,
   Error,
   Confirmation,
@@ -16,10 +21,11 @@ import {
   SelectedLangButton,
   NoLanguageError,
 } from "../components";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import Languages from "../languages";
 import { getText, clearText } from "../store/sourceReducer";
+import { MaterialIcons } from "@expo/vector-icons";
+import Tooltip from "react-native-walkthrough-tooltip";
 import { getLabels, clearLabels } from "../store/labelsReducer";
+
 
 const CameraScreen = ({
   getText,
@@ -42,15 +48,20 @@ const CameraScreen = ({
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const [showOtherModal, setShowOtherModal] = useState(false);
   const [showError, setShowError] = useState(false);
+
   const [showNoLanguageError, setShowNoLanguageError] = useState(false);
   const [showLabelsError, setShowLabelsError] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
+  const [screenTooltip, setScreenTooltip] = useState(false);
+  const [settingsTooltip, setSettingsTooltip] = useState(false);
+  const [cameraTooltip, setCameraTooltip] = useState(false);
+  const [uploadTooltip, setUploadTooltip] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -125,7 +136,13 @@ const CameraScreen = ({
   }
   return (
     <View style={styles.screen}>
-      <Header title="Point & Translate" navigation={navigation} />
+      <Header
+        title="Point & Translate"
+        navigation={navigation}
+        settingsTooltip={settingsTooltip}
+        setSettingsTooltip={setSettingsTooltip}
+        setCameraTooltip={setCameraTooltip}
+      />
       <Camera
         ref={(ref) => setCamera(ref)}
         style={styles.camera}
@@ -134,10 +151,50 @@ const CameraScreen = ({
       >
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
-            <SelectedLangButton
+
+            <TouchableOpacity
+              style={styles.languageButton}
+              onPress={() => setShowOtherModal(true)}
+            >
+              <Tooltip
+                isVisible={screenTooltip}
+                content={
+                  <View>
+                    <Text>Select your favorite target</Text>
+                  </View>
+                }
+                onClose={() => {
+                  setScreenTooltip(false);
+                  setSettingsTooltip(true);
+                }}
+                placement="bottom"
+                topAdjustment={
+                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
+                }
+              >
+                            <SelectedLangButton
               setShowOtherModal={setShowOtherModal}
               target={target}
             />
+              </Tooltip>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.languageButton}>
+              <Tooltip
+                isVisible={uploadTooltip}
+                content={
+                  <View>
+                    <Text>Upload, homie!</Text>
+                  </View>
+                }
+                onClose={() => {
+                  setUploadTooltip(false);
+                }}
+                placement="bottom"
+                topAdjustment={
+                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
+                }
+              >
             <PhotoPicker
               target={target}
               setPicture={setPicture}
@@ -145,9 +202,21 @@ const CameraScreen = ({
               setLoading={setLoading}
               setShowNoLanguageError={setShowNoLanguageError}
             />
+              </Tooltip>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setScreenTooltip(true);
+              }}
+              style={{ margin: 10 }}
+            >
+              <MaterialIcons name="help" size={35} color="#032D38" />
+            </TouchableOpacity>
+
           </View>
           <View style={styles.cameraControlContainer}>
             <FlipButton type={type} setType={setType} />
+
             <TouchableOpacity
               style={styles.shutterButton}
               onPress={() => {
@@ -158,7 +227,26 @@ const CameraScreen = ({
                   takePicture();
                 }
               }}
-            ></TouchableOpacity>
+            >
+              <Tooltip
+                isVisible={cameraTooltip}
+                content={
+                  <View>
+                    <Text>Take a picture!</Text>
+                  </View>
+                }
+                onClose={() => {
+                  setCameraTooltip(false);
+                  setUploadTooltip(true);
+                }}
+                placement="top"
+                topAdjustment={
+                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
+                }
+              >
+                <Text style={{ color: "#FC9E9C" }}>A</Text>
+              </Tooltip>
+            </TouchableOpacity>
             <FlashButton flash={flash} setFlash={setFlash} />
           </View>
           <LanguageModal

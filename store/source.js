@@ -2,18 +2,18 @@ import { CLOUD_BASE_FUNCTION, PURPLE_SOCKS_KEY } from "@env";
 
 const initialState = {
   id: 0,
-  detectedLabels: [],
+  detectedText: "",
   error: null,
 };
 
-const DETECTED_LABELS = "DETECTED_LABELS";
+const DETECTED_TEXT = "DETECTED_TEXT";
+const EDIT_TEXT = "EDIT_TEXT";
 const ERROR = "ERROR";
-const EDIT_LABELS = "EDIT_LABELS";
-const CLEAR_LABELS = "CLEAR_LABELS";
+const CLEAR_TEXT = "CLEAR_TEXT";
 
-export const detectedLabels = (source) => {
+export const detectedText = (source) => {
   return {
-    type: DETECTED_LABELS,
+    type: DETECTED_TEXT,
     source,
   };
 };
@@ -24,26 +24,25 @@ export const error = (error) => {
     error,
   };
 };
-
-export const editLabels = (revLabels) => {
+export const editText = (revText) => {
   return {
-    type: EDIT_LABELS,
-    revLabels,
+    type: EDIT_TEXT,
+    revText,
   };
 };
 
 export const clear = () => {
   return {
-    type: CLEAR_LABELS,
+    type: CLEAR_TEXT,
   };
 };
 
-export const getLabels = (picture) => {
-  
+export const getText = (picture, ocrType) => {
+  console.log("ILLEGAL BAD NEWS", PURPLE_SOCKS_KEY)
   return async (dispatch) => {
     try {
       let response = await fetch(
-        CLOUD_BASE_FUNCTION + "getLabels?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
+        CLOUD_BASE_FUNCTION + "getText?PURPLE_SOCKS_KEY=" + PURPLE_SOCKS_KEY,
         {
           method: "POST",
           headers: {
@@ -58,8 +57,7 @@ export const getLabels = (picture) => {
                 },
                 features: [
                   {
-                    maxResults: 5,
-                    type: "LABEL_DETECTION",
+                    type: ocrType,
                   },
                 ],
               },
@@ -69,13 +67,9 @@ export const getLabels = (picture) => {
       );
 
       const responseJSON = await response.json();
-
-      const labels = await responseJSON.responses[0].labelAnnotations.map(
-        (x) => x.description
-      );
-
-      if (labels) {
-        dispatch(detectedLabels(labels));
+      const text = await responseJSON.responses[0].fullTextAnnotation.text;
+      if (text) {
+        dispatch(detectedText(text));
       }
     } catch (err) {
       dispatch(error(err));
@@ -83,42 +77,45 @@ export const getLabels = (picture) => {
   };
 };
 
-export const clearLabels = () => {
+export const clearText = () => {
   return (dispatch) => {
     dispatch(clear());
   };
 };
-const labelReducer = (state = initialState, action) => {
+
+const sourceReducer = (state = initialState, action) => {
   switch (action.type) {
-    case DETECTED_LABELS:
+    case DETECTED_TEXT:
       return {
         ...state,
         id: (state.id += 1),
-        detectedLabels: action.source,
+        detectedText: action.source,
         error: null,
       };
     case ERROR:
       return {
         ...state,
         id: (state.id += 1),
-        detectedLabels: [],
+        detectedText: "",
         error: action.error,
       };
-    case EDIT_LABELS:
+    case EDIT_TEXT:
       return {
         ...state,
-        detectedLabels: [action.revLabels],
+        detectedText: action.revText,
         error: null,
       };
-    case CLEAR_LABELS:
+
+    case CLEAR_TEXT:
       return {
         ...state,
-        detectedLabels: [],
+        detectedText: "",
         error: null,
-      };
+
+        };
     default:
       return state;
   }
 };
 
-export default labelReducer;
+export default sourceReducer;

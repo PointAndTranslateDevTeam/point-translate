@@ -1,11 +1,19 @@
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  StatusBar,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { HelpfulText } from "../components";
+import Tooltip from "react-native-walkthrough-tooltip";
 
 function HomeScreen({ navigation }) {
-  const [showModal, setShowModal] = useState(false);
+  const [screenTooltip, setScreenTooltip] = useState(false);
+
   return (
     <View style={styles.screen}>
       <View style={styles.contentContainer}>
@@ -25,20 +33,41 @@ function HomeScreen({ navigation }) {
             onPress={() => navigation.navigate("Camera")}
             style={styles.tapForCameraButton}
           >
-            <Text style={styles.tapForCameraText}>Tap To Start</Text>
+            <Tooltip
+              isVisible={screenTooltip}
+              content={
+                <View>
+                  <Text>
+                    Welcome to Point and Translate! Find some text you'd like to
+                    translate, or an object you'd like to learn the vocabulary
+                    word for, and let's get started!
+                  </Text>
+                </View>
+              }
+              onClose={() => {
+                setScreenTooltip(false);
+              }}
+              placement="top"
+              topAdjustment={
+                Platform.OS === "android" ? -StatusBar.currentHeight : 0
+              }
+            >
+              <Text style={styles.tapForCameraText}>Tap To Start</Text>
+            </Tooltip>
           </TouchableOpacity>
         </View>
-        <StatusBar style="auto" />
+        {/* <StatusBar style="auto" /> */}
       </View>
       <View style={styles.helpButtonContainer}>
         <TouchableOpacity
-          onPress={() => setShowModal(true)}
+          onPress={() => {
+            setScreenTooltip(true);
+          }}
           style={{ margin: 10 }}
         >
           <MaterialIcons name="help" size={35} color="#032D38" />
         </TouchableOpacity>
       </View>
-      <HelpfulText showModal={showModal} setModal={setShowModal} />
     </View>
   );
 }
@@ -105,4 +134,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default HomeScreen
+
