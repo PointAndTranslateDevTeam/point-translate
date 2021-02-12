@@ -41,14 +41,13 @@ const TranslateHeader = (props) => {
         <View styles={styles.title}>
           <Text style={styles.headerTitle}>{props.title}</Text>
         </View>
-        <View>
+        <View style={styles.button}>
           <TouchableOpacity
             onPress={() => {
               props.setScreenTooltip(true);
             }}
-            style={{ margin: 10 }}
           >
-            <MaterialIcons name="help" size={35} color="#032D38" />
+            <MaterialIcons name="help" size={30} color="white" />
           </TouchableOpacity>
         </View>
       </View>
