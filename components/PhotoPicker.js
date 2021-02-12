@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { Platform, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { Platform, StyleSheet, TouchableOpacity, Text, StatusBar, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import Tooltip from "react-native-walkthrough-tooltip";
 
 const PhotoPicker = (props) => {
   useEffect(() => {
@@ -42,7 +43,21 @@ const PhotoPicker = (props) => {
 
   return (
     <TouchableOpacity style={styles.languageButton} onPress={pickImage}>
-      <Text style={styles.selectText}>Upload Photo</Text>
+      <Tooltip
+        isVisible={props.uploadTooltip}
+        content={
+          <View>
+            <Text>Upload, homie!</Text>
+          </View>
+        }
+        onClose={() => {
+          props.setUploadTooltip(false);
+        }}
+        placement="bottom"
+        topAdjustment={Platform.OS === "android" ? -StatusBar.currentHeight : 0}
+      >
+        <Text style={styles.selectText}>Upload Photo</Text>
+      </Tooltip>
     </TouchableOpacity>
   );
 };

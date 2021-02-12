@@ -152,11 +152,11 @@ const CameraScreen = ({
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.languageButton}
               onPress={() => setShowOtherModal(true)}
-            >
-              <Tooltip
+            > */}
+              {/* <Tooltip
                 isVisible={screenTooltip}
                 content={
                   <View>
@@ -172,15 +172,19 @@ const CameraScreen = ({
                   Platform.OS === "android" ? -StatusBar.currentHeight : 0
                 }
               >
-                            <SelectedLangButton
+
+              </Tooltip> */}
+              <SelectedLangButton
+              setSettingsTooltip={setSettingsTooltip}
+              setScreenTooltip={setScreenTooltip}
+              screenTooltip={screenTooltip}
               setShowOtherModal={setShowOtherModal}
               target={target}
             />
-              </Tooltip>
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
 
-            <TouchableOpacity style={styles.languageButton}>
-              <Tooltip
+            {/* <TouchableOpacity style={styles.languageButton}> */}
+              {/* <Tooltip
                 isVisible={uploadTooltip}
                 content={
                   <View>
@@ -195,22 +199,24 @@ const CameraScreen = ({
                   Platform.OS === "android" ? -StatusBar.currentHeight : 0
                 }
               >
-            <PhotoPicker
+
+              </Tooltip> */}
+              <PhotoPicker
+              uploadTooltip={uploadTooltip}
+              setUploadTooltip={setUploadTooltip}
               target={target}
               setPicture={setPicture}
               setImage={setImage}
               setLoading={setLoading}
               setShowNoLanguageError={setShowNoLanguageError}
             />
-              </Tooltip>
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
             <TouchableOpacity
               onPress={() => {
                 setScreenTooltip(true);
               }}
-              style={{ margin: 10 }}
             >
-              <MaterialIcons name="help" size={35} color="#032D38" />
+              <MaterialIcons name="help" size={35} color="white" />
             </TouchableOpacity>
 
           </View>
