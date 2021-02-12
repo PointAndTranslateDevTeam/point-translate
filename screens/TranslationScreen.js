@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "white",
     fontWeight: "bold",
-    color: "white",
+    color: "#fb7573",
   },
   languageButton: {
     width: 250,
