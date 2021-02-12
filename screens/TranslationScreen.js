@@ -10,8 +10,7 @@ import {
 import { connect } from "react-redux";
 import { AudioButton, TranslateHeader, LanguageModal } from "../components";
 import Languages from "../languages";
-
-import { Ionicons } from "@expo/vector-icons";
+import Tooltip from "react-native-walkthrough-tooltip";
 
 const TranslationScreen = ({
   orgText,
@@ -23,6 +22,7 @@ const TranslationScreen = ({
   const [source, setSource] = useState(null);
   const [translation, setTranslation] = useState(null);
   const [showOtherModal, setShowOtherModal] = useState(false);
+  const [screenTooltip, setScreenTooltip] = useState(false);
 
   let textToTranslate = labels ? orgLabels.join(", ") : orgText;
   const translate = async () => {
@@ -55,7 +55,11 @@ const TranslationScreen = ({
 
   return (
     <View style={styles.screen}>
-      <TranslateHeader title="Point & Translate" navigation={navigation} />
+      <TranslateHeader
+        title="Point & Translate"
+        navigation={navigation}
+        setScreenTooltip={setScreenTooltip}
+      />
       <View>
         <View style={styles.contentContainer}>
           <View style={styles.orgText}>
@@ -82,7 +86,25 @@ const TranslationScreen = ({
           </ScrollView>
 
           <View style={styles.audioButtonContainer}>
-            <AudioButton text={translation} lang={target} />
+            <Tooltip
+              isVisible={screenTooltip}
+              content={
+                <View>
+                  <Text>
+                    Press it for sounds!! Press again to make the sounds stop!!
+                  </Text>
+                </View>
+              }
+              onClose={() => {
+                setScreenTooltip(false);
+              }}
+              placement="bottom"
+              topAdjustment={
+                Platform.OS === "android" ? -StatusBar.currentHeight : 0
+              }
+            >
+              <AudioButton text={translation} lang={target} />
+            </Tooltip>
           </View>
         </View>
         <TouchableOpacity

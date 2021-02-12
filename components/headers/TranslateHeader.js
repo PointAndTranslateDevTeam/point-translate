@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const TranslateHeader = (props) => {
   return (
@@ -16,6 +17,16 @@ const TranslateHeader = (props) => {
         </View>
         <View styles={styles.title}>
           <Text style={styles.headerTitle}>{props.title}</Text>
+        </View>
+        <View>
+        <TouchableOpacity
+          onPress={() => {
+            props.setScreenTooltip(true);
+          }}
+          style={{ margin: 10 }}
+        >
+          <MaterialIcons name="help" size={35} color="#032D38" />
+        </TouchableOpacity>
         </View>
       </View>
     </View>

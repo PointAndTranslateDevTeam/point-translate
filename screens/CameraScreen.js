@@ -14,11 +14,10 @@ import {
   Header,
   PhotoPicker,
 } from "../components";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import Languages from "../languages";
 import { getText, clearText } from "../store/sourceReducer";
 import { getLabels } from "../store/labelsReducer";
-import Tooltip from "react-native-walkthrough-tooltip"
+import { MaterialIcons } from "@expo/vector-icons";
+import Tooltip from "react-native-walkthrough-tooltip";
 
 const CameraScreen = ({
   getText,
@@ -34,7 +33,6 @@ const CameraScreen = ({
   labels,
   target,
   clearText,
-  tooltip
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -49,8 +47,7 @@ const CameraScreen = ({
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
-
-  console.log("this is definitely still true", tooltip);
+  const [screenTooltip, setScreenTooltip] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -136,31 +133,28 @@ const CameraScreen = ({
       >
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
-            
             <TouchableOpacity
               style={styles.languageButton}
               onPress={() => setShowOtherModal(true)}
             >
               <Tooltip
-              isVisible={tooltip}
-              content={
-                <View>
-                  <Text>Welcome to Point and Translate! Find some text you'd like to translate, or an object you'd like to learn the vocabulary word for, and let's get started!</Text>
-                </View>
-              }
-              onClose={()=> {
-                toggleTooltip(true);
-                console.log("the tooltip is closed but the toggle is still on", tooltip);
-                setScreenTooltip(false);
-              }}
-              placement="bottom"
-              topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}
-              
+                isVisible={screenTooltip}
+                content={
+                  <View>
+                    <Text>Select your favorite target</Text>
+                  </View>
+                }
+                onClose={() => {
+                  setScreenTooltip(false);
+                }}
+                placement="bottom"
+                topAdjustment={
+                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
+                }
               >
-              <Text style={styles.selectText}>Select Language</Text>
+                <Text style={styles.selectText}>Select Language</Text>
               </Tooltip>
             </TouchableOpacity>
-
 
             <TouchableOpacity style={styles.languageButton}>
               <PhotoPicker
@@ -168,6 +162,14 @@ const CameraScreen = ({
                 setImage={setImage}
                 setLoading={setLoading}
               />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setScreenTooltip(true);
+              }}
+              style={{ margin: 10 }}
+            >
+              <MaterialIcons name="help" size={35} color="#032D38" />
             </TouchableOpacity>
           </View>
           <View style={styles.cameraControlContainer}>
@@ -222,7 +224,6 @@ const mapStateToProps = (state) => {
     handwriting: state.toggle.handwriting,
     labels: state.toggle.labels,
     target: state.target,
-    tooltip: state.toggle.tooltip
   };
 };
 
