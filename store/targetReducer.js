@@ -1,7 +1,4 @@
-const initialState =
-  "ru"
-;
-
+const initialState = "";
 const SET_TARGET = "SET_TARGET";
 
 export const setTarget = (target) => {

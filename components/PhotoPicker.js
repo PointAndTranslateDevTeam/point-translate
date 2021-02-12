@@ -18,6 +18,9 @@ const PhotoPicker = (props) => {
 
   const pickImage = async () => {
     try {
+      if (!props.target) {
+        alert("Please select target language before proceeding");
+      }
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
@@ -37,7 +40,7 @@ const PhotoPicker = (props) => {
   };
 
   return (
-    <TouchableOpacity onPress={pickImage}>
+    <TouchableOpacity style={styles.languageButton} onPress={pickImage}>
       <Text style={styles.selectText}>Upload Photo</Text>
     </TouchableOpacity>
   );

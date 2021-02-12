@@ -13,6 +13,7 @@ import {
   FlashButton,
   Header,
   PhotoPicker,
+  SelectedLangButton,
 } from "../components";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Languages from "../languages";
@@ -61,6 +62,9 @@ const CameraScreen = ({
     try {
       const option = { base64: true };
       if (camera) {
+        if (!target) {
+          alert("Please select target language before proceeding");
+        }
         const data = await camera.takePictureAsync(option);
         setPicture(data.base64);
         setImage(data.uri);
@@ -132,19 +136,16 @@ const CameraScreen = ({
       >
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
-            <TouchableOpacity
-              style={styles.languageButton}
-              onPress={() => setShowOtherModal(true)}
-            >
-              <Text style={styles.selectText}>Select Language</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.languageButton}>
-              <PhotoPicker
-                setPicture={setPicture}
-                setImage={setImage}
-                setLoading={setLoading}
-              />
-            </TouchableOpacity>
+            <SelectLangButton
+              setShowOtherModal={setShowOtherModal}
+              target={target}
+            />
+            <PhotoPicker
+              target={target}
+              setPicture={setPicture}
+              setImage={setImage}
+              setLoading={setLoading}
+            />
           </View>
           <View style={styles.cameraControlContainer}>
             <FlipButton type={type} setType={setType} />
