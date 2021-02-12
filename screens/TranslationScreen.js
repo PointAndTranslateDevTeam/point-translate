@@ -66,7 +66,6 @@ const TranslationScreen = ({
               {labels ? orgLabels.join(", ") : orgText}
             </Text>
           </ScrollView>
-
           <View style={styles.audioButtonContainer}>
             <Text style={styles.langDetected}>
               Language detected: {Languages[source]}
@@ -163,8 +162,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#006575",
   },
   translateContainer: {
-    width: "90%",
-    height: "40%",
+    height: "35%",
     alignItems: "center",
     margin: 10,
     padding: 20,

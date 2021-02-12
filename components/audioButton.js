@@ -14,6 +14,12 @@ const AudioButton = (props) => {
       } else {
         Speech.speak(props.text, {
           language: props.lang,
+          onStart: () => {
+            setSpeaking(true);
+          },
+          onDone: () => {
+            setSpeaking(false);
+          },
         });
         setSpeaking(true);
       }

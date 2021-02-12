@@ -25,11 +25,19 @@ const Confirmation = (props) => {
               {props.image && (
                 <Image
                   source={{ uri: props.image }}
-                  style={{ width: 200, height: 225, resizeMode: "contain", marginBottom: 10 }}
+                  style={{
+                    width: 200,
+                    height: 225,
+                    resizeMode: "contain",
+                    marginBottom: 10,
+                  }}
                 />
               )}
-
-              <Text style={styles.headerText}>Text Detected:</Text>
+              {props.labels ? (
+                <Text style={styles.headerText}>Objects Detected:</Text>
+              ) : (
+                <Text style={styles.headerText}>Text Detected:</Text>
+              )}
               <ScrollView style={styles.scrollView}>
                 {props.orgText !== "" ? (
                   <Text style={styles.text}>{props.orgText}</Text>
@@ -79,6 +87,7 @@ const Confirmation = (props) => {
 const mapStateToProps = (state) => {
   return {
     orgText: state.source.detectedText,
+    labels: state.toggle.labels,
     orgLabels: state.labels.detectedLabels,
   };
 };
@@ -112,7 +121,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     borderRadius: 10,
     justifyContent: "space-between",
-    flex: 1
+    flex: 1,
   },
   headerText: {
     color: "white",
@@ -126,7 +135,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    marginBottom: 8
+    marginBottom: 8,
   },
   button: {
     width: 75,
@@ -144,7 +153,7 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontWeight: "500",
-    fontSize: 16
+    fontSize: 16,
   },
 });
 export default connect(mapStateToProps)(Confirmation);

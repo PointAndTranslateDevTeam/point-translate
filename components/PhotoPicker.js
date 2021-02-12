@@ -22,17 +22,17 @@ const PhotoPicker = (props) => {
         alert("Please select target language before proceeding");
       }
       let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [4, 3],
-        quality: 1,
+        quality: 0.5,
         base64: true,
       });
 
       if (!result.cancelled) {
         props.setLoading(true);
-        props.setPicture(result.base64);
-        props.setImage(result.uri);
+        await props.setPicture(result.base64);
+        await props.setImage(result.uri);
       }
     } catch (err) {
       console.error(err);
