@@ -31,7 +31,7 @@ const AudioButton = (props) => {
       <Feather
         name={speaking ? "volume-x" : "volume-2"}
         size={34}
-        color="#FC9E9C"
+        color="#fb7573"
       />
     </TouchableOpacity>
   );
