@@ -14,6 +14,7 @@ import {
   Header,
   PhotoPicker,
   SelectedLangButton,
+  NoLanguageError,
 } from "../components";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Languages from "../languages";
@@ -64,13 +65,9 @@ const CameraScreen = ({
     try {
       const option = { base64: true };
       if (camera) {
-        if (!target) {
-          setShowNoLanguageError(true);
-        } else {
-          const data = await camera.takePictureAsync(option);
-          setPicture(data.base64);
-          setImage(data.uri);
-        }
+        const data = await camera.takePictureAsync(option);
+        setPicture(data.base64);
+        setImage(data.uri);
       }
     } catch (err) {
       console.error(err);
@@ -83,12 +80,10 @@ const CameraScreen = ({
       if (textLoaded.current) {
         try {
           if (!labels) {
-            // console.log("in text");
             await clearLabels();
             await getText(picture, ocrType);
           }
           if (labels) {
-            // console.log("in labels");
             await clearText();
             await getLabels(picture);
           }
@@ -156,8 +151,12 @@ const CameraScreen = ({
             <TouchableOpacity
               style={styles.shutterButton}
               onPress={() => {
-                setLoading(true);
-                takePicture();
+                if (!target) {
+                  setShowNoLanguageError(true);
+                } else {
+                  setLoading(true);
+                  takePicture();
+                }
               }}
             ></TouchableOpacity>
             <FlashButton flash={flash} setFlash={setFlash} />
@@ -179,7 +178,7 @@ const CameraScreen = ({
           />
           <NoLanguageError
             showNoLanguageError={showNoLanguageError}
-            setShowError={setShowNoLanguageError}
+            setShowNoLanguageError={setShowNoLanguageError}
             navigation={navigation}
           />
           <Confirmation

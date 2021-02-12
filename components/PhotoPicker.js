@@ -17,7 +17,6 @@ const PhotoPicker = (props) => {
   }, []);
 
   const pickImage = async () => {
-    // console.log("in upload");
     try {
       if (!props.target) {
         props.setShowNoLanguageError(true);
