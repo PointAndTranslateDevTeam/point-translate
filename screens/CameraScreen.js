@@ -44,6 +44,7 @@ const CameraScreen = ({
   const [showModal, setShowModal] = useState(false);
   const [showOtherModal, setShowOtherModal] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [showNoLanguageError, setShowNoLanguageError] = useState(false);
   const [showLabelsError, setShowLabelsError] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -59,19 +60,17 @@ const CameraScreen = ({
 
   const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
 
-  const takePicture = async (uploaded) => {
+  const takePicture = async () => {
     try {
       const option = { base64: true };
       if (camera) {
         if (!target) {
-          alert("Please select target language before proceeding");
+          setShowNoLanguageError(true);
+        } else {
+          const data = await camera.takePictureAsync(option);
+          setPicture(data.base64);
+          setImage(data.uri);
         }
-        const data = await camera.takePictureAsync(option);
-        setPicture(data.base64);
-        setImage(data.uri);
-      } else {
-        setPicture(uploaded);
-        setImage(uploaded);
       }
     } catch (err) {
       console.error(err);
@@ -84,10 +83,12 @@ const CameraScreen = ({
       if (textLoaded.current) {
         try {
           if (!labels) {
+            // console.log("in text");
             await clearLabels();
             await getText(picture, ocrType);
           }
           if (labels) {
+            // console.log("in labels");
             await clearText();
             await getLabels(picture);
           }
@@ -147,6 +148,7 @@ const CameraScreen = ({
               setPicture={setPicture}
               setImage={setImage}
               setLoading={setLoading}
+              setShowNoLanguageError={setShowNoLanguageError}
             />
           </View>
           <View style={styles.cameraControlContainer}>
@@ -173,6 +175,11 @@ const CameraScreen = ({
           <Error
             showError={showError}
             setShowError={setShowError}
+            navigation={navigation}
+          />
+          <NoLanguageError
+            showNoLanguageError={showNoLanguageError}
+            setShowError={setShowNoLanguageError}
             navigation={navigation}
           />
           <Confirmation

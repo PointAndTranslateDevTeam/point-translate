@@ -13,3 +13,4 @@ export { default as LoadingWheel } from "./LoadingWheel";
 export { default as TargetPicker } from "./TargetPicker";
 export { default as PhotoPicker } from "./PhotoPicker";
 export { default as SelectedLangButton } from "./SelectedLangButton";
+export { default as NoLanguageError } from "./modals/NoLanguageErrorModal";
