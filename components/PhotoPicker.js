@@ -57,6 +57,18 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
   },
+  languageButton: {
+    flexDirection: "row",
+    flex: 0.45,
+    alignSelf: "flex-start",
+    fontSize: 15,
+    height: 40,
+    width: 150,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 export default PhotoPicker;

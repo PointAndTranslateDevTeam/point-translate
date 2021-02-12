@@ -1,6 +1,6 @@
 import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import { TouchableOpacity, StyleSheet, Text } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import Languages from "../languages";
 
 const SelectedLangButton = ({ setShowOtherModal, target }) => {
@@ -16,8 +16,8 @@ const SelectedLangButton = ({ setShowOtherModal, target }) => {
             name="language"
             size={30}
             color={"white"}
-          />{" "}
-          {Languages[target]}
+          />
+          <Text>{Languages[target]}</Text>
         </Text>
       ) : (
         <Text style={styles.selectText}>Select Language</Text>
