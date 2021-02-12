@@ -34,9 +34,9 @@ const Header = (props) => {
                props.setCameraTooltip(true);
               }}
               placement="bottom"
-              topAdjustment={
-                Platform.OS === "android" ? -StatusBar.currentHeight : 0
-              }
+              // topAdjustment={
+              //   Platform.OS === "android" ? -StatusBar.currentHeight : 0
+              // }
             >
               <MaterialIcons name={"settings"} size={28} color={"white"} />
             </Tooltip>

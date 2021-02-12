@@ -1,14 +1,18 @@
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  StatusBar,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { HelpfulText } from "../components";
-import Tooltip from "react-native-walkthrough-tooltip"
+import Tooltip from "react-native-walkthrough-tooltip";
 import { connect } from "react-redux";
-import {toggleTooltip} from "../store/toggleReducer"
 
-function HomeScreen({ navigation, tooltip, toggleTooltip }) {
-  const [showModal, setShowModal] = useState(false);
+function HomeScreen({ navigation }) {
   const [screenTooltip, setScreenTooltip] = useState(false);
 
   console.log();
@@ -27,61 +31,61 @@ function HomeScreen({ navigation, tooltip, toggleTooltip }) {
         />
         <View></View>
         <View style={styles.buttonContainer}>
-        <Tooltip
-        isVisible={screenTooltip}
-        content={
-          <View>
-            <Text>Welcome to Point and Translate! Find some text you'd like to translate, or an object you'd like to learn the vocabulary word for, and let's get started!</Text>
-          </View>
-        }
-        onClose={()=> {
-          toggleTooltip(true);
-          console.log("the tooltip is closed but the toggle is still on", tooltip);
-          setScreenTooltip(false);
-        }}
-        placement="top"
-        topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}
-        >
           <TouchableOpacity
             onPress={() => navigation.navigate("Camera")}
             style={styles.tapForCameraButton}
           >
-            <Text style={styles.tapForCameraText}>Tap To Start</Text>
-          </TouchableOpacity></Tooltip>
+            <Tooltip
+              isVisible={screenTooltip}
+              content={
+                <View>
+                  <Text>
+                    Welcome to Point and Translate! Find some text you'd like to
+                    translate, or an object you'd like to learn the vocabulary
+                    word for, and let's get started!
+                  </Text>
+                </View>
+              }
+              onClose={() => {
+                setScreenTooltip(false);
+              }}
+              placement="top"
+              topAdjustment={
+                Platform.OS === "android" ? -StatusBar.currentHeight : 0
+              }
+            >
+              <Text style={styles.tapForCameraText}>Tap To Start</Text>
+            </Tooltip>
+          </TouchableOpacity>
         </View>
-        <StatusBar style="auto" />
+        {/* <StatusBar style="auto" /> */}
       </View>
       <View style={styles.helpButtonContainer}>
-        
         <TouchableOpacity
           onPress={() => {
             setScreenTooltip(true);
-            {tooltip ? toggleTooltip(false) : toggleTooltip(true)};
-            console.log("tooltip mode engaged", tooltip);
-            //setShowModal(true)
           }}
           style={{ margin: 10 }}
         >
           <MaterialIcons name="help" size={35} color="#032D38" />
-        </TouchableOpacity> 
-       
+        </TouchableOpacity>
       </View>
-      <HelpfulText showModal={showModal} setModal={setShowModal} />
     </View>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    tooltip: state.toggle.tooltip
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     tooltip: state.toggle.tooltip,
+//   };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    toggleTooltip: (bool) => dispatch(toggleTooltip(bool))
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     toggleTooltip: (bool) => dispatch(toggleTooltip(bool)),
+//   };
+// };
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
@@ -144,4 +148,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default HomeScreen
+

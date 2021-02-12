@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import Tooltip from "react-native-walkthrough-tooltip";
@@ -21,28 +27,29 @@ const TranslateHeader = (props) => {
                 </View>
               }
               onClose={() => {
-               props.setBackTooltip(false);
+                props.setBackTooltip(false);
               }}
               placement="bottom"
               topAdjustment={
                 Platform.OS === "android" ? -StatusBar.currentHeight : 0
               }
             >
-            <AntDesign name="camerao" size={28} color="white" /></Tooltip>
+              <AntDesign name="camerao" size={28} color="white" />
+            </Tooltip>
           </TouchableOpacity>
         </View>
         <View styles={styles.title}>
           <Text style={styles.headerTitle}>{props.title}</Text>
         </View>
         <View>
-        <TouchableOpacity
-          onPress={() => {
-            props.setScreenTooltip(true);
-          }}
-          style={{ margin: 10 }}
-        >
-          <MaterialIcons name="help" size={35} color="#032D38" />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              props.setScreenTooltip(true);
+            }}
+            style={{ margin: 10 }}
+          >
+            <MaterialIcons name="help" size={35} color="#032D38" />
+          </TouchableOpacity>
         </View>
       </View>
     </View>

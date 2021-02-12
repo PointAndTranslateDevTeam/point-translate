@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  StatusBar
 } from "react-native";
 import { connect } from "react-redux";
 import { AudioButton, TranslateHeader, LanguageModal } from "../components";
@@ -117,24 +118,25 @@ const TranslationScreen = ({
           onPress={() => setShowOtherModal(true)}
         >
           <Tooltip
-              isVisible={languageTooltip}
-              content={
-                <View>
-                  <Text>
-                    Press it for sounds!! Press again to make the sounds stop!!
-                  </Text>
-                </View>
-              }
-              onClose={() => {
-                setLanguageTooltip(false);
-                setBackTooltip(true);
-              }}
-              placement="bottom"
-              topAdjustment={
-                Platform.OS === "android" ? -StatusBar.currentHeight : 0
-              }
-            >
-          <Text style={styles.selectText}> Select another language</Text></Tooltip>
+            isVisible={languageTooltip}
+            content={
+              <View>
+                <Text>
+                  Press it for sounds!! Press again to make the sounds stop!!
+                </Text>
+              </View>
+            }
+            onClose={() => {
+              setLanguageTooltip(false);
+              setBackTooltip(true);
+            }}
+            placement="top"
+            topAdjustment={
+              Platform.OS === "android" ? -StatusBar.currentHeight : 0
+            }
+          >
+            <Text style={styles.selectText}> Select another language</Text>
+          </Tooltip>
         </TouchableOpacity>
         <LanguageModal
           showModal={showOtherModal}

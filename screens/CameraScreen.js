@@ -158,9 +158,9 @@ const CameraScreen = ({
                   setSettingsTooltip(true);
                 }}
                 placement="bottom"
-                topAdjustment={
-                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
-                }
+                // topAdjustment={
+                //   Platform.OS === "android" ? -StatusBar.currentHeight : 0
+                // }
               >
                 <Text style={styles.selectText}>Select Language</Text>
               </Tooltip>
@@ -178,9 +178,9 @@ const CameraScreen = ({
                   setUploadTooltip(false);
                 }}
                 placement="bottom"
-                topAdjustment={
-                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
-                }
+                // topAdjustment={
+                //   Platform.OS === "android" ? -StatusBar.currentHeight : 0
+                // }
               >
                 <PhotoPicker
                   setPicture={setPicture}
@@ -212,9 +212,9 @@ const CameraScreen = ({
                 setUploadTooltip(true);
               }}
               placement="top"
-              topAdjustment={
-                Platform.OS === "android" ? -StatusBar.currentHeight : 0
-              }
+              // topAdjustment={
+              //   Platform.OS === "android" ? -StatusBar.currentHeight : 0
+              // }
             >
               <TouchableOpacity
                 style={styles.shutterButton}
