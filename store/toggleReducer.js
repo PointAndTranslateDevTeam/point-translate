@@ -1,5 +1,6 @@
 const TOGGLE_OCR = "TOGGLE_OCR";
 const TOGGLE_LABELS = "TOGGLE_LABELS";
+
 const TOGGLE_TOOLTIP = "TOGGLE_TOOLTIP";
 
 export const toggleOCR = () => {
@@ -10,9 +11,9 @@ export const toggleOCR = () => {
 
 export const toggleLabels = () => {
   return {
-    type: TOGGLE_LABELS
-  }
-}
+    type: TOGGLE_LABELS,
+  };
+};
 
 export const toggleTooltip = (bool) => {
   return {
@@ -34,7 +35,7 @@ const toggleReducer = (state = initialState, action) => {
         ...state,
         handwriting: !state.handwriting,
       };
-    case TOGGLE_LABELS: 
+    case TOGGLE_LABELS:
       return {
         ...state,
         labels: !state.labels

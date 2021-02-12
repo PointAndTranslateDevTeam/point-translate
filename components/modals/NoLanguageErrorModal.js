@@ -3,26 +3,24 @@ import { connect } from "react-redux";
 
 import { View, Text, StyleSheet, Modal, TouchableOpacity } from "react-native";
 
-const Error = (props) => {
+const NoLanguageError = (props) => {
   return (
-    <Modal visible={props.showError} animationType="slide" transparent={true}>
+    <Modal
+      visible={props.showNoLanguageError}
+      animationType="slide"
+      transparent={true}
+    >
       <View style={styles.screenContainer}>
         <View style={styles.screen}>
           <View style={styles.errorContainer}>
             <View>
-              {props.labels ? (
-                <Text style={styles.errorText}>
-                  Sorry, we did not detect any objects in your image.
-                </Text>
-              ) : (
-                <Text style={styles.errorText}>
-                  Sorry, we did not detect any text in your image.
-                </Text>
-              )}
+              <Text style={styles.errorText}>
+                Please select target language before proceeding.
+              </Text>
             </View>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => props.setShowError(false)}
+              onPress={() => props.setShowNoLanguageError(false)}
             >
               <Text style={styles.backText}>Back to camera</Text>
             </TouchableOpacity>
@@ -31,14 +29,6 @@ const Error = (props) => {
       </View>
     </Modal>
   );
-};
-
-const mapStateToProps = (state) => {
-  return {
-    orgText: state.source.detectedText,
-    error: state.source.error,
-    labels: state.toggle.labels,
-  };
 };
 
 const styles = StyleSheet.create({
@@ -80,4 +70,4 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-export default connect(mapStateToProps)(Error);
+export default NoLanguageError;

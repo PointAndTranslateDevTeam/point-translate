@@ -1,6 +1,4 @@
-
 import { CLOUD_BASE_FUNCTION, PURPLE_SOCKS_KEY } from "@env";
-
 
 const initialState = {
   id: 0,
@@ -11,6 +9,7 @@ const initialState = {
 const DETECTED_LABELS = "DETECTED_LABELS";
 const ERROR = "ERROR";
 const EDIT_LABELS = "EDIT_LABELS";
+const CLEAR_LABELS = "CLEAR_LABELS";
 
 export const detectedLabels = (source) => {
   return {
@@ -30,6 +29,12 @@ export const editLabels = (revLabels) => {
   return {
     type: EDIT_LABELS,
     revLabels,
+  };
+};
+
+export const clear = () => {
+  return {
+    type: CLEAR_LABELS,
   };
 };
 
@@ -78,8 +83,12 @@ export const getLabels = (picture) => {
   };
 };
 
+export const clearLabels = () => {
+  return (dispatch) => {
+    dispatch(clear());
+  };
+};
 const labelReducer = (state = initialState, action) => {
-
   switch (action.type) {
     case DETECTED_LABELS:
       return {
@@ -99,6 +108,12 @@ const labelReducer = (state = initialState, action) => {
       return {
         ...state,
         detectedLabels: [action.revLabels],
+        error: null,
+      };
+    case CLEAR_LABELS:
+      return {
+        ...state,
+        detectedLabels: [],
         error: null,
       };
     default:

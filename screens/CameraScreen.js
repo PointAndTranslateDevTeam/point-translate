@@ -18,11 +18,14 @@ import {
   FlashButton,
   Header,
   PhotoPicker,
+  SelectedLangButton,
+  NoLanguageError,
 } from "../components";
 import { getText, clearText } from "../store/sourceReducer";
-import { getLabels } from "../store/labelsReducer";
 import { MaterialIcons } from "@expo/vector-icons";
 import Tooltip from "react-native-walkthrough-tooltip";
+import { getLabels, clearLabels } from "../store/labelsReducer";
+
 
 const CameraScreen = ({
   getText,
@@ -38,6 +41,7 @@ const CameraScreen = ({
   labels,
   target,
   clearText,
+  clearLabels,
 }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -47,7 +51,9 @@ const CameraScreen = ({
   // const [showModal, setShowModal] = useState(false);
   const [showOtherModal, setShowOtherModal] = useState(false);
   const [showError, setShowError] = useState(false);
-  // const [showLabelsError, setShowLabelsError] = useState(false);
+
+  const [showNoLanguageError, setShowNoLanguageError] = useState(false);
+  const [showLabelsError, setShowLabelsError] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -66,16 +72,13 @@ const CameraScreen = ({
 
   const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
 
-  const takePicture = async (uploaded) => {
+  const takePicture = async () => {
     try {
       const option = { base64: true };
       if (camera) {
         const data = await camera.takePictureAsync(option);
         setPicture(data.base64);
         setImage(data.uri);
-      } else {
-        setPicture(uploaded);
-        setImage(uploaded);
       }
     } catch (err) {
       console.error(err);
@@ -88,6 +91,7 @@ const CameraScreen = ({
       if (textLoaded.current) {
         try {
           if (!labels) {
+            await clearLabels();
             await getText(picture, ocrType);
           }
           if (labels) {
@@ -101,7 +105,7 @@ const CameraScreen = ({
         textLoaded.current = true;
       }
     })();
-  }, [picture]);
+  }, [image]);
 
   const confLoaded = useRef(false);
   useEffect(() => {
@@ -147,6 +151,7 @@ const CameraScreen = ({
       >
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
+
             <TouchableOpacity
               style={styles.languageButton}
               onPress={() => setShowOtherModal(true)}
@@ -167,7 +172,10 @@ const CameraScreen = ({
                   Platform.OS === "android" ? -StatusBar.currentHeight : 0
                 }
               >
-                <Text style={styles.selectText}>Select Language</Text>
+                            <SelectedLangButton
+              setShowOtherModal={setShowOtherModal}
+              target={target}
+            />
               </Tooltip>
             </TouchableOpacity>
 
@@ -187,11 +195,13 @@ const CameraScreen = ({
                   Platform.OS === "android" ? -StatusBar.currentHeight : 0
                 }
               >
-                <PhotoPicker
-                  setPicture={setPicture}
-                  setImage={setImage}
-                  setLoading={setLoading}
-                />
+            <PhotoPicker
+              target={target}
+              setPicture={setPicture}
+              setImage={setImage}
+              setLoading={setLoading}
+              setShowNoLanguageError={setShowNoLanguageError}
+            />
               </Tooltip>
             </TouchableOpacity>
             <TouchableOpacity
@@ -202,6 +212,7 @@ const CameraScreen = ({
             >
               <MaterialIcons name="help" size={35} color="#032D38" />
             </TouchableOpacity>
+
           </View>
           <View style={styles.cameraControlContainer}>
             <FlipButton type={type} setType={setType} />
@@ -209,8 +220,12 @@ const CameraScreen = ({
             <TouchableOpacity
               style={styles.shutterButton}
               onPress={() => {
-                setLoading(true);
-                takePicture();
+                if (!target) {
+                  setShowNoLanguageError(true);
+                } else {
+                  setLoading(true);
+                  takePicture();
+                }
               }}
             >
               <Tooltip
@@ -249,6 +264,11 @@ const CameraScreen = ({
             setShowError={setShowError}
             navigation={navigation}
           />
+          <NoLanguageError
+            showNoLanguageError={showNoLanguageError}
+            setShowNoLanguageError={setShowNoLanguageError}
+            navigation={navigation}
+          />
           <Confirmation
             image={image}
             showEdit={showEdit}
@@ -283,6 +303,7 @@ const mapDispatchToProps = (dispatch) => {
     getText: (pic, ocrType) => dispatch(getText(pic, ocrType)),
     getLabels: (pic) => dispatch(getLabels(pic)),
     clearText: () => dispatch(clearText()),
+    clearLabels: () => dispatch(clearLabels()),
   };
 };
 

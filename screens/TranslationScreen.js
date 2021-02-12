@@ -82,7 +82,7 @@ const TranslationScreen = ({
             <AudioButton text={textToTranslate} lang={source} />
           </View>
         </View>
-        <View style={styles.translateContainer}>
+        <View style={styles.contentContainer}>
           <View>
             <Text style={styles.header}>{Languages[target]} Translation:</Text>
           </View>
@@ -138,11 +138,8 @@ const TranslationScreen = ({
             <Text style={styles.selectText}> Select another language</Text>
           </Tooltip>
         </TouchableOpacity>
-        <LanguageModal
-          showModal={showOtherModal}
-          setModal={setShowOtherModal}
-        />
       </View>
+      <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
     </View>
   );
 };
@@ -172,11 +169,13 @@ const styles = StyleSheet.create({
   langDetected: {
     flex: 1,
     alignSelf: "center",
-    fontSize: 16,
+    fontSize: 18,
     color: "white",
+    fontWeight: "bold",
+    color: "#fb7573",
   },
   languageButton: {
-    width: 280,
+    width: 250,
     flexDirection: "row",
     alignSelf: "center",
     borderRadius: 4,
@@ -185,33 +184,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#fb7573",
     alignContent: "center",
     padding: 5,
-    paddingVertical: 8,
   },
   selectText: {
     textAlign: "center",
     color: "white",
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "600",
   },
   contentContainer: {
-    height: "35%",
+    height: "40%",
     alignItems: "center",
     margin: 10,
     marginTop: 20,
-    padding: 20,
-    paddingTop: 5,
-    borderRadius: 10,
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.26,
-    elevation: 5,
-    backgroundColor: "#006575",
-  },
-  translateContainer: {
-    height: "35%",
-    alignItems: "center",
-    margin: 10,
     padding: 20,
     paddingTop: 5,
     borderRadius: 10,
@@ -227,6 +211,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 8,
     color: "white",
+    textAlign: "center",
   },
   text: {
     color: "white",

@@ -18,18 +18,22 @@ const PhotoPicker = (props) => {
 
   const pickImage = async () => {
     try {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-        base64: true,
-      });
+      if (!props.target) {
+        props.setShowNoLanguageError(true);
+      } else {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 0.5,
+          base64: true,
+        });
 
-      if (!result.cancelled) {
-        props.setLoading(true);
-        props.setPicture(result.base64);
-        props.setImage(result.uri);
+        if (!result.cancelled) {
+          props.setLoading(true);
+          await props.setPicture(result.base64);
+          await props.setImage(result.uri);
+        }
       }
     } catch (err) {
       console.error(err);
@@ -37,7 +41,7 @@ const PhotoPicker = (props) => {
   };
 
   return (
-    <TouchableOpacity onPress={pickImage}>
+    <TouchableOpacity style={styles.languageButton} onPress={pickImage}>
       <Text style={styles.selectText}>Upload Photo</Text>
     </TouchableOpacity>
   );
@@ -52,6 +56,18 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     color: "white",
     fontSize: 18,
+  },
+  languageButton: {
+    flexDirection: "row",
+    flex: 0.45,
+    alignSelf: "flex-start",
+    fontSize: 15,
+    height: 40,
+    width: 500,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
