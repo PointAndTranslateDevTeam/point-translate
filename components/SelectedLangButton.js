@@ -10,8 +10,13 @@ const SelectedLangButton = ({ setShowOtherModal, target }) => {
       onPress={() => setShowOtherModal(true)}
     >
       {target ? (
-        <Text style={styles.selectText}>
-          <MaterialIcons name="language" size={30} color={"white"} />{" "}
+        <Text>
+          <MaterialIcons
+            style={styles.selectText}
+            name="language"
+            size={30}
+            color={"white"}
+          />{" "}
           {Languages[target]}
         </Text>
       ) : (

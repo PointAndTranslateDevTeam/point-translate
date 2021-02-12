@@ -136,7 +136,7 @@ const CameraScreen = ({
       >
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
-            <SelectLangButton
+            <SelectedLangButton
               setShowOtherModal={setShowOtherModal}
               target={target}
             />
