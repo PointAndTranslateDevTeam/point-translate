@@ -12,7 +12,7 @@ const Error = (props) => {
             <View>
               {props.labels ? (
                 <Text style={styles.errorText}>
-                  Sorry, we did not detect any labels in your image.
+                  Sorry, we did not detect any objects in your image.
                 </Text>
               ) : (
                 <Text style={styles.errorText}>
