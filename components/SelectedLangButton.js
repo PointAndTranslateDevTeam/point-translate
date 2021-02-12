@@ -1,31 +1,47 @@
 import React from "react";
 // import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, StatusBar } from "react-native";
 import Languages from "../languages";
+import Tooltip from "react-native-walkthrough-tooltip";
 
-const SelectedLangButton = ({ setShowOtherModal, target }) => {
+const SelectedLangButton = ({ setShowOtherModal, target, setScreenTooltip, setSettingsTooltip, screenTooltip }) => {
   return (
     <TouchableOpacity
       style={styles.languageButton}
       onPress={() => setShowOtherModal(true)}
     >
-      {target ? (
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.selectText}>
-            {/* <Text style={styles.selectText}>Select Language</Text> */}
-            <Ionicons
-              name="globe-outline"
-              size={30}
-              color={"white"}
-              style={styles.selectText}
-            />
-          </Text>
-          <Text style={styles.selectText}>{Languages[target]}</Text>
-        </View>
-      ) : (
-        <Text style={styles.selectText}>Select Language</Text>
-      )}
+      <Tooltip
+        isVisible={screenTooltip}
+        content={
+          <View>
+            <Text>Select your favorite target</Text>
+          </View>
+        }
+        onClose={() => {
+          setScreenTooltip(false);
+          setSettingsTooltip(true);
+        }}
+        placement="bottom"
+        topAdjustment={Platform.OS === "android" ? -StatusBar.currentHeight : 0}
+      >
+        {target ? (
+          <View style={{ flexDirection: "row" }}>
+            <Text style={styles.selectText}>
+              {/* <Text style={styles.selectText}>Select Language</Text> */}
+              <Ionicons
+                name="globe-outline"
+                size={30}
+                color={"white"}
+                style={styles.selectText}
+              />
+            </Text>
+            <Text style={styles.selectText}>{Languages[target]}</Text>
+          </View>
+        ) : (
+          <Text style={styles.selectText}>Select Language</Text>
+        )}
+      </Tooltip>
     </TouchableOpacity>
   );
 };
