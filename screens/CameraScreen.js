@@ -39,15 +39,18 @@ const CameraScreen = ({
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const [showOtherModal, setShowOtherModal] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [showLabelsError, setShowLabelsError] = useState(false);
+  // const [showLabelsError, setShowLabelsError] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
   const [screenTooltip, setScreenTooltip] = useState(false);
+  const [settingsTooltip, setSettingsTooltip] = useState(false);
+  const [cameraTooltip, setCameraTooltip] = useState(false);
+  const [uploadTooltip, setUploadTooltip] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -124,7 +127,13 @@ const CameraScreen = ({
   }
   return (
     <View style={styles.screen}>
-      <Header title="Point & Translate" navigation={navigation} />
+      <Header
+        title="Point & Translate"
+        navigation={navigation}
+        settingsTooltip={settingsTooltip}
+        setSettingsTooltip={setSettingsTooltip}
+        setCameraTooltip={setCameraTooltip}
+      />
       <Camera
         ref={(ref) => setCamera(ref)}
         style={styles.camera}
@@ -146,6 +155,7 @@ const CameraScreen = ({
                 }
                 onClose={() => {
                   setScreenTooltip(false);
+                  setSettingsTooltip(true);
                 }}
                 placement="bottom"
                 topAdjustment={
@@ -157,11 +167,27 @@ const CameraScreen = ({
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.languageButton}>
-              <PhotoPicker
-                setPicture={setPicture}
-                setImage={setImage}
-                setLoading={setLoading}
-              />
+              <Tooltip
+                isVisible={uploadTooltip}
+                content={
+                  <View>
+                    <Text>Upload, homie!</Text>
+                  </View>
+                }
+                onClose={() => {
+                  setUploadTooltip(false);
+                }}
+                placement="bottom"
+                topAdjustment={
+                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
+                }
+              >
+                <PhotoPicker
+                  setPicture={setPicture}
+                  setImage={setImage}
+                  setLoading={setLoading}
+                />
+              </Tooltip>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
@@ -174,13 +200,30 @@ const CameraScreen = ({
           </View>
           <View style={styles.cameraControlContainer}>
             <FlipButton type={type} setType={setType} />
-            <TouchableOpacity
-              style={styles.shutterButton}
-              onPress={() => {
-                setLoading(true);
-                takePicture();
+            <Tooltip
+              isVisible={cameraTooltip}
+              content={
+                <View>
+                  <Text>Labels! Handwriting! YEAH!</Text>
+                </View>
+              }
+              onClose={() => {
+                setCameraTooltip(false);
+                setUploadTooltip(true);
               }}
-            ></TouchableOpacity>
+              placement="top"
+              topAdjustment={
+                Platform.OS === "android" ? -StatusBar.currentHeight : 0
+              }
+            >
+              <TouchableOpacity
+                style={styles.shutterButton}
+                onPress={() => {
+                  setLoading(true);
+                  takePicture();
+                }}
+              ></TouchableOpacity>
+            </Tooltip>
             <FlashButton flash={flash} setFlash={setFlash} />
           </View>
           <LanguageModal
