@@ -23,6 +23,8 @@ const TranslationScreen = ({
   const [translation, setTranslation] = useState(null);
   const [showOtherModal, setShowOtherModal] = useState(false);
   const [screenTooltip, setScreenTooltip] = useState(false);
+  const [languageTooltip, setLanguageTooltip] = useState(false);
+  const [backTooltip, setBackTooltip] = useState(false);
 
   let textToTranslate = labels ? orgLabels.join(", ") : orgText;
   const translate = async () => {
@@ -59,6 +61,8 @@ const TranslationScreen = ({
         title="Point & Translate"
         navigation={navigation}
         setScreenTooltip={setScreenTooltip}
+        setBackTooltip={setBackTooltip}
+        backTooltip={backTooltip}
       />
       <View>
         <View style={styles.contentContainer}>
@@ -97,8 +101,9 @@ const TranslationScreen = ({
               }
               onClose={() => {
                 setScreenTooltip(false);
+                setLanguageTooltip(true);
               }}
-              placement="bottom"
+              placement="top"
               topAdjustment={
                 Platform.OS === "android" ? -StatusBar.currentHeight : 0
               }
@@ -111,7 +116,25 @@ const TranslationScreen = ({
           style={styles.languageButton}
           onPress={() => setShowOtherModal(true)}
         >
-          <Text style={styles.selectText}> Select another language</Text>
+          <Tooltip
+              isVisible={languageTooltip}
+              content={
+                <View>
+                  <Text>
+                    Press it for sounds!! Press again to make the sounds stop!!
+                  </Text>
+                </View>
+              }
+              onClose={() => {
+                setLanguageTooltip(false);
+                setBackTooltip(true);
+              }}
+              placement="bottom"
+              topAdjustment={
+                Platform.OS === "android" ? -StatusBar.currentHeight : 0
+              }
+            >
+          <Text style={styles.selectText}> Select another language</Text></Tooltip>
         </TouchableOpacity>
         <LanguageModal
           showModal={showOtherModal}
