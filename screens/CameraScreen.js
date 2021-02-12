@@ -13,6 +13,8 @@ import {
   FlashButton,
   Header,
   PhotoPicker,
+  SelectedLangButton,
+  NoLanguageError,
 } from "../components";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Languages from "../languages";
@@ -43,6 +45,7 @@ const CameraScreen = ({
   const [showModal, setShowModal] = useState(false);
   const [showOtherModal, setShowOtherModal] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [showNoLanguageError, setShowNoLanguageError] = useState(false);
   const [showLabelsError, setShowLabelsError] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -58,16 +61,13 @@ const CameraScreen = ({
 
   const ocrType = handwriting ? "DOCUMENT_TEXT_DETECTION" : "TEXT_DETECTION";
 
-  const takePicture = async (uploaded) => {
+  const takePicture = async () => {
     try {
       const option = { base64: true };
       if (camera) {
         const data = await camera.takePictureAsync(option);
         setPicture(data.base64);
         setImage(data.uri);
-      } else {
-        setPicture(uploaded);
-        setImage(uploaded);
       }
     } catch (err) {
       console.error(err);
@@ -134,27 +134,29 @@ const CameraScreen = ({
       >
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
-            <TouchableOpacity
-              style={styles.languageButton}
-              onPress={() => setShowOtherModal(true)}
-            >
-              <Text style={styles.selectText}>Select Language</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.languageButton}>
-              <PhotoPicker
-                setPicture={setPicture}
-                setImage={setImage}
-                setLoading={setLoading}
-              />
-            </TouchableOpacity>
+            <SelectedLangButton
+              setShowOtherModal={setShowOtherModal}
+              target={target}
+            />
+            <PhotoPicker
+              target={target}
+              setPicture={setPicture}
+              setImage={setImage}
+              setLoading={setLoading}
+              setShowNoLanguageError={setShowNoLanguageError}
+            />
           </View>
           <View style={styles.cameraControlContainer}>
             <FlipButton type={type} setType={setType} />
             <TouchableOpacity
               style={styles.shutterButton}
               onPress={() => {
-                setLoading(true);
-                takePicture();
+                if (!target) {
+                  setShowNoLanguageError(true);
+                } else {
+                  setLoading(true);
+                  takePicture();
+                }
               }}
             ></TouchableOpacity>
             <FlashButton flash={flash} setFlash={setFlash} />
@@ -172,6 +174,11 @@ const CameraScreen = ({
           <Error
             showError={showError}
             setShowError={setShowError}
+            navigation={navigation}
+          />
+          <NoLanguageError
+            showNoLanguageError={showNoLanguageError}
+            setShowNoLanguageError={setShowNoLanguageError}
             navigation={navigation}
           />
           <Confirmation
