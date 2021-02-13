@@ -174,8 +174,14 @@ const CameraScreen = ({
                 isVisible={settingsTooltip}
                 content={
                   <View>
-                    <Text>Labels! Handwriting! YEAH!</Text>
-                  </View>
+                  <Text style={styles.walkthrough}>
+                    If you'd like to translate an image instead of text, tap
+                    here to select "Object Detection". If it's text you'd like
+                    to translate, Point & Translate is optimized for
+                    handwriting, and dense texts like books. Turn this setting
+                    off to translate street signs or other separated texts.{" "}
+                  </Text>
+                </View>
                 }
                 onClose={() => {
                   setSettingsTooltip(false);
@@ -366,6 +372,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignContent: "center",
   },
+  walkthrough: {
+    fontSize: 16
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);
