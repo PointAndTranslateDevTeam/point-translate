@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   headerTitle: {
-    color: "white",
+    color: "#FED8D7",
     fontSize: 30,
     fontWeight: "bold",
     width: "100%",

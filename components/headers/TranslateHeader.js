@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerTitle: {
-    color: "white",
+    color: "#FED8D7",
     fontSize: 30,
     fontWeight: "bold",
     width: "100%",
