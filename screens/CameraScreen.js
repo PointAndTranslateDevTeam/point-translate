@@ -214,7 +214,7 @@ const CameraScreen = ({
                 isVisible={cameraTooltip}
                 content={
                   <View>
-                    <Text>Take a picture!</Text>
+                    <Text style={styles.walkthrough}>Tap here to take a picture...</Text>
                   </View>
                 }
                 onClose={() => {
@@ -226,7 +226,7 @@ const CameraScreen = ({
                   Platform.OS === "android" ? -StatusBar.currentHeight : 0
                 }
               >
-                <Text style={{ color: "#FC9E9C" }}>A</Text>
+                <View></View>
               </Tooltip>
             </TouchableOpacity>
             <FlashButton flash={flash} setFlash={setFlash} />

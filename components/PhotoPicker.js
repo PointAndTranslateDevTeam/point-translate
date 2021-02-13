@@ -47,7 +47,7 @@ const PhotoPicker = (props) => {
         isVisible={props.uploadTooltip}
         content={
           <View>
-            <Text>Upload, homie!</Text>
+            <Text style={styles.walkthrough}>...or upload a photo from your camera roll! (Don't forget to choose between text detection and object detection).</Text>
           </View>
         }
         onClose={() => {
@@ -84,6 +84,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  walkthrough: {
+    fontSize: 16
+  }
 });
 
 export default PhotoPicker;

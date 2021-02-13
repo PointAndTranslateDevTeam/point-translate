@@ -34,6 +34,7 @@ const Header = (props) => {
             }}
           >
             <MaterialIcons name="help" size={30} color="white" />
+
           </TouchableOpacity>
         </View>
         <Settings showModal={showModal} setModal={setShowModal} />
@@ -72,6 +73,9 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     alignContent: "center",
     paddingTop: 5,
+  },
+  walkthrough: {
+    fontSize: 16,
   },
 });
 export default Header;
