@@ -12,6 +12,7 @@ import Tooltip from "react-native-walkthrough-tooltip";
 
 const Header = (props) => {
   const [showModal, setShowModal] = useState(false);
+  // const [screenTooltip, setScreenTooltip] = useState(false);
   return (
     <View style={styles.header}>
       <View style={styles.container}>
@@ -27,31 +28,13 @@ const Header = (props) => {
           <Text style={styles.headerTitle}>{props.title}</Text>
         </View>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => setShowModal(true)}>
-            <Tooltip
-              isVisible={props.settingsTooltip}
-              content={
-                <View>
-                  <Text style={styles.walkthrough}>
-                    If you'd like to translate an image instead of text, tap
-                    here to select "Object Detection". If it's text you'd like
-                    to translate, Point & Translate is optimized for
-                    handwriting, and dense texts like books. Turn this setting
-                    off to translate street signs or other separated texts.{" "}
-                  </Text>
-                </View>
-              }
-              onClose={() => {
-                props.setSettingsTooltip(false);
-                props.setCameraTooltip(true);
-              }}
-              placement="bottom"
-              topAdjustment={
-                Platform.OS === "android" ? -StatusBar.currentHeight : 0
-              }
-            >
-              <MaterialIcons name={"settings"} size={28} color={"white"} />
-            </Tooltip>
+          <TouchableOpacity
+            onPress={() => {
+              props.setScreenTooltip(true);
+            }}
+          >
+            <MaterialIcons name="help" size={30} color="white" />
+
           </TouchableOpacity>
         </View>
         <Settings showModal={showModal} setModal={setShowModal} />

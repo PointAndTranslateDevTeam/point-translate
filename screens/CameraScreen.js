@@ -20,12 +20,12 @@ import {
   PhotoPicker,
   SelectedLangButton,
   NoLanguageError,
+  Settings,
 } from "../components";
 import { getText, clearText } from "../store/sourceReducer";
 import { MaterialIcons } from "@expo/vector-icons";
 import Tooltip from "react-native-walkthrough-tooltip";
 import { getLabels, clearLabels } from "../store/labelsReducer";
-
 
 const CameraScreen = ({
   getText,
@@ -62,6 +62,7 @@ const CameraScreen = ({
   const [settingsTooltip, setSettingsTooltip] = useState(false);
   const [cameraTooltip, setCameraTooltip] = useState(false);
   const [uploadTooltip, setUploadTooltip] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -139,6 +140,7 @@ const CameraScreen = ({
       <Header
         title="Point & Translate"
         navigation={navigation}
+        setScreenTooltip={setScreenTooltip}
         settingsTooltip={settingsTooltip}
         setSettingsTooltip={setSettingsTooltip}
         setCameraTooltip={setCameraTooltip}
@@ -151,57 +153,14 @@ const CameraScreen = ({
       >
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
-
-            {/* <TouchableOpacity
-              style={styles.languageButton}
-              onPress={() => setShowOtherModal(true)}
-            > */}
-              {/* <Tooltip
-                isVisible={screenTooltip}
-                content={
-                  <View>
-                    <Text>Select your favorite target</Text>
-                  </View>
-                }
-                onClose={() => {
-                  setScreenTooltip(false);
-                  setSettingsTooltip(true);
-                }}
-                placement="bottom"
-                topAdjustment={
-                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
-                }
-              >
-
-              </Tooltip> */}
-              <SelectedLangButton
+            <SelectedLangButton
               setSettingsTooltip={setSettingsTooltip}
               setScreenTooltip={setScreenTooltip}
               screenTooltip={screenTooltip}
               setShowOtherModal={setShowOtherModal}
               target={target}
             />
-            {/* </TouchableOpacity> */}
-
-            {/* <TouchableOpacity style={styles.languageButton}> */}
-              {/* <Tooltip
-                isVisible={uploadTooltip}
-                content={
-                  <View>
-                    <Text>Upload, homie!</Text>
-                  </View>
-                }
-                onClose={() => {
-                  setUploadTooltip(false);
-                }}
-                placement="bottom"
-                topAdjustment={
-                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
-                }
-              >
-
-              </Tooltip> */}
-              <PhotoPicker
+            <PhotoPicker
               uploadTooltip={uploadTooltip}
               setUploadTooltip={setUploadTooltip}
               target={target}
@@ -210,15 +169,32 @@ const CameraScreen = ({
               setLoading={setLoading}
               setShowNoLanguageError={setShowNoLanguageError}
             />
-            {/* </TouchableOpacity> */}
-            <TouchableOpacity
-              onPress={() => {
-                setScreenTooltip(true);
-              }}
-            >
-              <MaterialIcons name="help" size={35} color="white" />
+            <TouchableOpacity onPress={() => setShowModal(true)}>
+              <Tooltip
+                isVisible={settingsTooltip}
+                content={
+                  <View>
+                  <Text style={styles.walkthrough}>
+                    If you'd like to translate an image instead of text, tap
+                    here to select "Object Detection". If it's text you'd like
+                    to translate, Point & Translate is optimized for
+                    handwriting, and dense texts like books. Turn this setting
+                    off to translate street signs or other separated texts.{" "}
+                  </Text>
+                </View>
+                }
+                onClose={() => {
+                  setSettingsTooltip(false);
+                  setCameraTooltip(true);
+                }}
+                placement="bottom"
+                topAdjustment={
+                  Platform.OS === "android" ? -StatusBar.currentHeight : 0
+                }
+              >
+                <MaterialIcons name={"settings"} size={35} color={"white"} style={{marginTop: 3}}/>
+              </Tooltip>
             </TouchableOpacity>
-
           </View>
           <View style={styles.cameraControlContainer}>
             <FlipButton type={type} setType={setType} />
@@ -286,6 +262,7 @@ const CameraScreen = ({
           <LoadingWheel loading={loading} />
         </View>
       </Camera>
+      <Settings showModal={showModal} setModal={setShowModal} />
     </View>
   );
 };
