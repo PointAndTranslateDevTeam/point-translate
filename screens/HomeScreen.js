@@ -37,10 +37,10 @@ function HomeScreen({ navigation }) {
               isVisible={screenTooltip}
               content={
                 <View>
-                  <Text>
+                  <Text style={styles.walkthrough}>
                     Welcome to Point and Translate! Find some text you'd like to
                     translate, or an object you'd like to learn the vocabulary
-                    word for, and let's get started!
+                    word for, and let's get started! Look for the question mark ( ? )  icon on the next screen for more help.
                   </Text>
                 </View>
               }
@@ -132,6 +132,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     padding: 10,
   },
+  walkthrough: {
+    fontSize: 16
+  }
 });
 
 export default HomeScreen

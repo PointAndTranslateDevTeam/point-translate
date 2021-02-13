@@ -95,8 +95,8 @@ const TranslationScreen = ({
               isVisible={screenTooltip}
               content={
                 <View>
-                  <Text>
-                    Press it for sounds!! Press again to make the sounds stop!!
+                  <Text style={styles.walkthrough}>
+                  Tap here to listen to your translation. Tap again to stop.
                   </Text>
                 </View>
               }
@@ -121,8 +121,8 @@ const TranslationScreen = ({
             isVisible={languageTooltip}
             content={
               <View>
-                <Text>
-                  Press it for sounds!! Press again to make the sounds stop!!
+                <Text style={styles.walkthrough}>
+                Translate into another language...
                 </Text>
               </View>
             }
@@ -244,6 +244,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "flex-end",
   },
+  walkthrough: {
+    fontSize: 16
+  }
 });
 
 export default connect(mapStateToProps, null)(TranslationScreen);
