@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import Settings from "../modals/SettingsModal";
 import Tooltip from "react-native-walkthrough-tooltip";
@@ -26,12 +32,18 @@ const Header = (props) => {
               isVisible={props.settingsTooltip}
               content={
                 <View>
-                  <Text>Labels! Handwriting! YEAH!</Text>
+                  <Text style={styles.walkthrough}>
+                    If you'd like to translate an image instead of text, tap
+                    here to select "Object Detection". If it's text you'd like
+                    to translate, Point & Translate is optimized for
+                    handwriting, and dense texts like books. Turn this setting
+                    off to translate street signs or other separated texts.{" "}
+                  </Text>
                 </View>
               }
               onClose={() => {
-               props.setSettingsTooltip(false);
-               props.setCameraTooltip(true);
+                props.setSettingsTooltip(false);
+                props.setCameraTooltip(true);
               }}
               placement="bottom"
               topAdjustment={
@@ -78,6 +90,9 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     alignContent: "center",
     paddingTop: 5,
+  },
+  walkthrough: {
+    fontSize: 16,
   },
 });
 export default Header;

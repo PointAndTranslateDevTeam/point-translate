@@ -15,7 +15,7 @@ const SelectedLangButton = ({ setShowOtherModal, target, setScreenTooltip, setSe
         isVisible={screenTooltip}
         content={
           <View>
-            <Text>Select your favorite target</Text>
+            <Text style={styles.walkthrough}>Select a target language. Don't worry about your source language. If you take a picture of text, our app will detect what language it's in!</Text>
           </View>
         }
         onClose={() => {
@@ -68,6 +68,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  walkthrough: {
+    fontSize: 16
+  }
 });
 
 export default SelectedLangButton;

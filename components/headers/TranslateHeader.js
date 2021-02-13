@@ -23,7 +23,7 @@ const TranslateHeader = (props) => {
               isVisible={props.backTooltip}
               content={
                 <View>
-                  <Text>Labels! Handwriting! YEAH!</Text>
+                  <Text style={styles.walkthrough}>Or go back to the camera screen to translate another image!</Text>
                 </View>
               }
               onClose={() => {
@@ -85,5 +85,8 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     marginBottom: 3,
   },
+  walkthrough: {
+    fontSize: 16
+  }
 });
 export default TranslateHeader;
