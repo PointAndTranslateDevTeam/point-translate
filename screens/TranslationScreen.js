@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import { connect } from "react-redux";
 import { AudioButton, TranslateHeader, LanguageModal } from "../components";
@@ -65,8 +65,8 @@ const TranslationScreen = ({
         setBackTooltip={setBackTooltip}
         backTooltip={backTooltip}
       />
-      <View>
-        <View style={styles.contentContainer}>
+      <View style={styles.bigContainer}>
+        <View style={styles.originContainer}>
           <View style={styles.orgText}>
             <Text style={styles.header}>Original Text:</Text>
           </View>
@@ -82,7 +82,7 @@ const TranslationScreen = ({
             <AudioButton text={textToTranslate} lang={source} />
           </View>
         </View>
-        <View style={styles.contentContainer}>
+        <View style={styles.translateContainer}>
           <View>
             <Text style={styles.header}>{Languages[target]} Translation:</Text>
           </View>
@@ -138,8 +138,11 @@ const TranslationScreen = ({
             <Text style={styles.selectText}> Select another language</Text>
           </Tooltip>
         </TouchableOpacity>
+        <LanguageModal
+          showModal={showOtherModal}
+          setModal={setShowOtherModal}
+        />
       </View>
-      <LanguageModal showModal={showOtherModal} setModal={setShowOtherModal} />
     </View>
   );
 };
@@ -159,6 +162,9 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     backgroundColor: "#94B2BA",
+  },
+  bigContainer: {
+    flex:1,
   },
   orgText: {
     justifyContent: "center",
@@ -183,7 +189,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#fb7573",
     alignContent: "center",
-    padding: 5,
+    padding: 8,
   },
   selectText: {
     textAlign: "center",
@@ -191,13 +197,29 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
   },
-  contentContainer: {
+  originContainer: {
     height: "40%",
     alignItems: "center",
     margin: 10,
-    marginTop: 20,
-    padding: 20,
-    paddingTop: 5,
+    paddingHorizontal: 20,
+    paddingTop: 1,
+    paddingBottom: 8,
+    borderRadius: 10,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    shadowOpacity: 0.26,
+    elevation: 5,
+    backgroundColor: "#006575",
+  },
+  translateContainer: {
+    height: "45%",
+    alignItems: "center",
+    margin: 10,
+    marginTop: 1,
+    paddingHorizontal: 20,
+    paddingTop: 6,
+    paddingBottom: 10,
     borderRadius: 10,
     shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },
