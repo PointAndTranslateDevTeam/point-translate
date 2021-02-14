@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     padding: 40,
     paddingTop: 35,
     borderRadius: 10,
-    height: "25%",
+    height: "30%",
     justifyContent: "center",
   },
   errorContainer: {

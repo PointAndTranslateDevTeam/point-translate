@@ -20,7 +20,7 @@ function HomeScreen({ navigation }) {
         <View style={styles.title}>
           <Text style={styles.titleText}>Point & Translate</Text>
           <Text style={styles.headlineText}>
-            Capture an image of text & translate it to another language
+            Capture an image & translate it to another language
           </Text>
         </View>
         <Image

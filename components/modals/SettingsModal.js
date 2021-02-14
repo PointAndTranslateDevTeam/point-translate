@@ -17,8 +17,9 @@ const Settings = (props) => {
       <View style={styles.screenContainer}>
         <View style={styles.screen}>
           <View style={styles.settingContainer}>
-            <Text style={styles.optionText}>
-              Optimize for handwriting recognition?
+            <Text style={styles.optionText}>Handwriting Mode: </Text>
+            <Text style={styles.text}>
+              Optimize for handwriting and dense text like books.
             </Text>
             <View>
               <Switch
@@ -29,7 +30,11 @@ const Settings = (props) => {
                 disabled={props.labels}
               />
             </View>
-            <Text style={styles.optionText}>Get labels? (beta)</Text>
+            <Text style={styles.optionText}>Object Detection:</Text>
+            <Text style={styles.text}>
+              Take a picture of an object instead of text to learn vocabulary in
+              a new language.
+            </Text>
             <View>
               <Switch
                 trackColor={{ false: "#006575", true: "#006575" }}
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
     margin: 50,
     padding: 10,
     borderRadius: 10,
-    height: "45%",
+    height: "62%",
     justifyContent: "center",
   },
   settingContainer: {
@@ -90,9 +95,10 @@ const styles = StyleSheet.create({
   },
   optionText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 18,
     padding: 15,
-    fontWeight: "500",
+    paddingBottom: 1,
+    fontWeight: "700",
   },
   button: {
     width: 100,
@@ -107,5 +113,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     fontSize: 16,
+  },
+  text: {
+
+    fontWeight: "500",
+    color: "white",
+    fontSize: 16,
+    padding: 15,
+    paddingTop: 3,
   },
 });

@@ -5,7 +5,7 @@ import { TouchableOpacity, StyleSheet, Text, View, StatusBar } from "react-nativ
 import Languages from "../languages";
 import Tooltip from "react-native-walkthrough-tooltip";
 
-const SelectedLangButton = ({ setShowOtherModal, target, setScreenTooltip, setSettingsTooltip, screenTooltip }) => {
+const SelectedLangButton = ({ setShowOtherModal, target, setScreenTooltip, setCameraTooltip, screenTooltip }) => {
   return (
     <TouchableOpacity
       style={styles.languageButton}
@@ -20,7 +20,7 @@ const SelectedLangButton = ({ setShowOtherModal, target, setScreenTooltip, setSe
         }
         onClose={() => {
           setScreenTooltip(false);
-          setSettingsTooltip(true);
+          setCameraTooltip(true);
         }}
         placement="bottom"
         topAdjustment={Platform.OS === "android" ? -StatusBar.currentHeight : 0}
@@ -68,9 +68,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  walkthrough: {
-    fontSize: 16
-  }
+  walkthrough: {fontSize: 16}
 });
 
 export default SelectedLangButton;

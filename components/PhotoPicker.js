@@ -52,6 +52,7 @@ const PhotoPicker = (props) => {
         }
         onClose={() => {
           props.setUploadTooltip(false);
+          props.setSettingsTooltip(true);
         }}
         placement="bottom"
         topAdjustment={Platform.OS === "android" ? -StatusBar.currentHeight : 0}
