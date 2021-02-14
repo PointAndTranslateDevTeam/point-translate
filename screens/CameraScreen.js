@@ -154,7 +154,7 @@ const CameraScreen = ({
         <View style={styles.buttonContainer}>
           <View style={styles.topButtons}>
             <SelectedLangButton
-              setSettingsTooltip={setSettingsTooltip}
+              setCameraTooltip={setCameraTooltip}
               setScreenTooltip={setScreenTooltip}
               screenTooltip={screenTooltip}
               setShowOtherModal={setShowOtherModal}
@@ -174,14 +174,12 @@ const CameraScreen = ({
                 isVisible={settingsTooltip}
                 content={
                   <View>
-                  <Text style={styles.walkthrough}>
-                    If you'd like to translate an image instead of text, tap
-                    here to select "Object Detection". If it's text you'd like
-                    to translate, Point & Translate is optimized for
-                    handwriting, and dense texts like books. Turn this setting
-                    off to translate street signs or other separated texts.{" "}
-                  </Text>
-                </View>
+                    <Text style={styles.walkthrough}>
+                      Select "Object Detection" if you'd like to take a picture
+                      of an object instead of text. Choose "Handwriting Mode" to
+                      optimize for handwriting and dense text like books.
+                    </Text>
+                  </View>
                 }
                 onClose={() => {
                   setSettingsTooltip(false);
@@ -192,7 +190,12 @@ const CameraScreen = ({
                   Platform.OS === "android" ? -StatusBar.currentHeight : 0
                 }
               >
-                <MaterialIcons name={"settings"} size={35} color={"white"} style={{marginTop: 3}}/>
+                <MaterialIcons
+                  name={"settings"}
+                  size={35}
+                  color={"white"}
+                  style={{ marginTop: 3 }}
+                />
               </Tooltip>
             </TouchableOpacity>
           </View>
@@ -214,7 +217,9 @@ const CameraScreen = ({
                 isVisible={cameraTooltip}
                 content={
                   <View>
-                    <Text style={styles.walkthrough}>Tap here to take a picture...</Text>
+                    <Text style={styles.walkthrough}>
+                      Tap here to take a picture...
+                    </Text>
                   </View>
                 }
                 onClose={() => {
@@ -373,8 +378,8 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   walkthrough: {
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);
