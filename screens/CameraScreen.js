@@ -163,6 +163,7 @@ const CameraScreen = ({
             <PhotoPicker
               uploadTooltip={uploadTooltip}
               setUploadTooltip={setUploadTooltip}
+              setSettingsTooltip={setSettingsTooltip}
               target={target}
               setPicture={setPicture}
               setImage={setImage}
@@ -183,7 +184,6 @@ const CameraScreen = ({
                 }
                 onClose={() => {
                   setSettingsTooltip(false);
-                  setCameraTooltip(true);
                 }}
                 placement="bottom"
                 topAdjustment={
