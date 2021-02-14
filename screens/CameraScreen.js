@@ -176,9 +176,9 @@ const CameraScreen = ({
                 content={
                   <View>
                     <Text style={styles.walkthrough}>
-                      Select "Object Detection" if you'd like to take a picture
-                      of an object instead of text. Choose "Handwriting Mode" to
-                      optimize for handwriting and dense text like books.
+                      Choose "Handwriting Mode" to optimize for handwriting and
+                      dense text like books. Select "Object Detection" if you'd
+                      like to take a picture of an object instead of text.
                     </Text>
                   </View>
                 }
