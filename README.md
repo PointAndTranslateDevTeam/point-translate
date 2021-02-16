@@ -23,7 +23,7 @@ expo start
 ## Preview:
 
 Home-screen:
-![Image](github-screenshots/Homescreen.gif)
+<img src="/github-screenshots/Homescreen.gif" width=300 align=center>
 
 Tap to start:
 ![Image](github-screenshots/TaptoStart.gif)
