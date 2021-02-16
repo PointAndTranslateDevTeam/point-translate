@@ -1,17 +1,52 @@
-#Point and Translate 
+# Point & Translate
 
-##Introduction
+## Overview
 
-With Point and Translate, you can use your camera to scan text in a foreign language, and have it translated to another language of choice!
+Point & Translate is a React-Native application that allows users to capture or upload an image to translate objects or texts detected to another language of their choice.
 
-##Get it Up and Running 
 
-`npm install`
+## Technologies
+NodeJS, React-Native, Expo, Redux, Google Cloud Vision API, Google Cloud Translation API, Firebase Functions
 
-`expo start`
+## Development Mode Setup & Installation
+```
 
-Scan the QR code on your phone, then open up the Expo Go app to give Point and Translate a whirl!
+// Install all node.js dependencies:
+npm install
 
-##Tech Stack
+// Start the app on ExpoGo:
+expo start
 
-Point and Translate is built for iOS and Android in React Native, with Redux state management and using Google Cloud Vision and Translate APIs.
+// Scan the QR code on your phone, then open up the Expo Go app to give Point and Translate a whirl!
+
+
+```
+
+## Preview:
+
+Home-screen:
+<br>
+<img src="/github-screenshots/Homescreen.gif" width=200 align=center>
+
+Tap to start:
+<br>
+<img src="/github-screenshots/TaptoStart.gif" width=200 align=center>
+
+
+Language Selection:
+<br>
+<img src="/github-screenshots/LanguageSelection.gif" width=200 align=center>
+
+
+Translation:
+<br>
+<img src="/github-screenshots/Translation.gif" width=200 align=center>
+
+
+
+
+## Dev Team Group Members
+Abigail Stauffer <br>
+Frances Goodwin <br>
+Svetlana Leonova <br>
+Jenny Zeng <br>
