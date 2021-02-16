@@ -23,15 +23,19 @@ expo start
 ## Preview:
 
 Home-screen:
-<img src="/github-screenshots/Homescreen.gif" width=300 align=center>
+<br>
+<img src="/github-screenshots/Homescreen.gif" width=200 align=center>
 
 Tap to start:
+<br>
 ![Image](github-screenshots/TaptoStart.gif)
 
 Language Selection:
+<br>
 ![Image](github-screenshots/LanguageSelection.gif)
 
 Translation:
+<br>
 ![Image](github-screenshots/Translation.gif)
 
 
