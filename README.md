@@ -28,20 +28,23 @@ Home-screen:
 
 Tap to start:
 <br>
-![Image](github-screenshots/TaptoStart.gif)
+<img src="/github-screenshots/TaptoStart.gif" width=200 align=center>
+
 
 Language Selection:
 <br>
-![Image](github-screenshots/LanguageSelection.gif)
+<img src="/github-screenshots/LanguageSelection.gif" width=200 align=center>
+
 
 Translation:
 <br>
-![Image](github-screenshots/Translation.gif)
+<img src="/github-screenshots/Translation.gif" width=200 align=center>
+
 
 
 
 ## Dev Team Group Members
-Abigail Stauffer
-Frances Goodwin
-Svetlana Leonova
-Jenny Zeng
+Abigail Stauffer <br>
+Frances Goodwin <br>
+Svetlana Leonova <br>
+Jenny Zeng <br>
