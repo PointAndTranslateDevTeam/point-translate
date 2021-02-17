@@ -2,6 +2,7 @@
   "expo": {
     "name": "Point-Translate",
     "slug": "Point-Translate",
+    "description": "Point & Translate is a mobile app that allows users to capture an image of text or an object, and translate it into a language of their choice. They can also upload photos from their camera roll, optimize for handwriting recognition, and hear an audio version of the translation. Our app was built with React-Native and Expo, and Redux for state management.We integrated the Google-Cloud-Vision API for Label Detection and Optical Character Recognition to get text from user’s images, as well as the Google-translate API for translation purposes. In the process we learned a bit about web security, and how to add a few layers of obfuscation to protect our API key. We used Firebase Functions to make our API calls on a cloud-based server.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
