@@ -18,7 +18,7 @@ NodeJS, React-Native, Expo, Redux, Google Cloud Vision API, Google Cloud Transla
 
 // Start the app on ExpoGo:
 
-expo start
+  expo start
 
 // Scan the QR code on your phone, then open up the Expo Go app to give Point and Translate a whirl!
 
