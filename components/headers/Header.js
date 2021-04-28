@@ -12,7 +12,6 @@ import Tooltip from "react-native-walkthrough-tooltip";
 
 const Header = (props) => {
   const [showModal, setShowModal] = useState(false);
-  // const [screenTooltip, setScreenTooltip] = useState(false);
   return (
     <View style={styles.header}>
       <View style={styles.container}>
